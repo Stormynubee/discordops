@@ -126,7 +126,7 @@ export function CommandDeck() {
                 variant="primary"
                 className="w-full sm:w-auto"
               >
-                {active === 'Full Send' ? 'Go Full Send for $447' : `Get ${active} for $${tier.price}`}
+                {active === 'Full Send' ? `Go Full Send for $${tier.price}` : `Get ${active} for $${tier.price}`}
                 <ArrowUpRight size={16} />
               </Button>
             </div>
