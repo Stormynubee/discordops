@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Menu, X, ArrowUpRight } from 'lucide-react'
 import { Button } from './ui'
+import { JakeStretchRide } from './JakeStretchRide'
 
 type NavLink = {
   label: string
@@ -367,18 +368,24 @@ export function Navbar() {
           </span>
         </a>
 
-        <ul className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-sm border-[3px] border-black bg-elevated/90 px-3 shadow-[3px_3px_0_#000] backdrop-blur-sm lg:flex xl:gap-2 xl:px-4">
-          {links.map((link) => (
-            <DesktopNavItem
-              key={link.href}
-              link={link}
-              active={activeSection === link.sectionId}
-              showPreview={hovered === link.href}
-              onHover={() => handleHover(link.href)}
-              onLeave={handleLeave}
-            />
-          ))}
-        </ul>
+        <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 lg:block">
+          <JakeStretchRide
+            stretched={hovered === '#pricing'}
+            className="left-[52%] top-[calc(100%-2px)] z-0 -translate-x-1/2"
+          />
+          <ul className="relative z-10 flex items-center gap-1 rounded-sm border-[3px] border-black bg-elevated/90 px-3 shadow-[3px_3px_0_#000] backdrop-blur-sm xl:gap-2 xl:px-4">
+            {links.map((link) => (
+              <DesktopNavItem
+                key={link.href}
+                link={link}
+                active={activeSection === link.sectionId}
+                showPreview={hovered === link.href}
+                onHover={() => handleHover(link.href)}
+                onLeave={handleLeave}
+              />
+            ))}
+          </ul>
+        </div>
 
         <div className="hidden lg:block">
           <Button href="#order?plan=Full%20Send" variant="primary" className="!min-h-[40px] !px-5 !py-2 text-[13px]">
