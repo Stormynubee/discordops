@@ -440,6 +440,7 @@ export function DiscordMockup() {
             </div>
           </div>
           </div>
+          </div>
           {!reduceMotion ? (
             <img
               src="/stickers/emotes/peepo-jam.gif"
@@ -450,7 +451,6 @@ export function DiscordMockup() {
             />
           ) : null}
         </div>
-      </motion.div>
       <div className="mt-3.5 flex min-h-10 flex-col items-center gap-2.5 px-1">
         <div className="rule-y2k rule-y2k-thin w-full max-w-[220px] opacity-90" aria-hidden />
         <AnimatePresence mode="wait">
@@ -506,6 +506,7 @@ export function DiscordMockup() {
         </AnimatePresence>
         <div className="rule-y2k w-full max-w-[280px]" aria-hidden />
       </div>
+      </motion.div>
     </div>
   )
 }
