@@ -318,13 +318,16 @@ export function Navbar() {
   }
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-[80] overflow-visible pt-[env(safe-area-inset-top,0px)] transition-all duration-300 ${
-        open || scrolled
-          ? 'border-b-[3px] border-yellow bg-bg/95 shadow-[0_4px_0_#000] backdrop-blur-md'
-          : 'bg-transparent'
-      }`}
-    >
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 z-[80] overflow-visible pt-[env(safe-area-inset-top,0px)] transition-all duration-300 ${
+          open
+            ? 'border-b-[3px] border-yellow bg-bg shadow-[0_4px_0_#000]'
+            : scrolled
+              ? 'border-b-[3px] border-yellow bg-bg/95 shadow-[0_4px_0_#000] backdrop-blur-md'
+              : 'bg-transparent'
+        }`}
+      >
       <nav className="section-pad relative z-[81] mx-auto flex h-14 max-w-7xl items-center justify-between overflow-visible md:h-16">
         <a
           href="#top"
@@ -376,7 +379,9 @@ export function Navbar() {
           {open ? <X size={18} /> : <Menu size={18} />}
         </button>
       </nav>
+      </header>
 
+      {/* Sibling of header: backdrop-blur on header would clip fixed children to nav height */}
       <AnimatePresence>
         {open ? (
           <motion.div
@@ -385,38 +390,55 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
-            className="fixed inset-0 z-[79] bg-bg lg:hidden"
+            className="fixed inset-0 z-[79] flex flex-col bg-bg lg:hidden"
             style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}
           >
-            <div className="absolute inset-0 bg-bg" aria-hidden />
             <div aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.07] checker-bg" />
-            <ul className="section-pad relative z-10 flex h-full flex-col gap-3 overflow-y-auto border-t-[3px] border-yellow py-6 pb-10">
-              {links.map((link, i) => (
-                <motion.li
-                  key={link.href}
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.04 + i * 0.04, duration: 0.25 }}
-                >
-                  <a
-                    href={link.href}
-                    className="block overflow-hidden rounded-sm border-[3px] border-black bg-card shadow-[4px_4px_0_#000]"
-                    onClick={() => setOpen(false)}
-                  >
-                    <div className="flex items-center justify-between border-b-2 border-yellow/60 bg-cobalt px-3 py-2">
-                      <span className="font-display text-sm font-bold text-white">{link.label}</span>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-yellow">Peek</span>
-                    </div>
-                    <div className="max-h-[100px] overflow-hidden opacity-90">
-                      <PreviewArt kind={link.preview} />
-                    </div>
-                    <p className="border-t-2 border-black px-3 py-2 text-[12px] leading-snug text-pixel-pink">
-                      {link.blurb}
-                    </p>
-                  </a>
-                </motion.li>
-              ))}
-              <li className="pt-3">
+            <nav
+              aria-label="Mobile"
+              className="section-pad relative z-10 flex min-h-0 flex-1 flex-col border-t-[3px] border-yellow py-5 pb-[max(1.5rem,env(safe-area-inset-bottom))]"
+            >
+              <ul className="flex flex-1 flex-col gap-2.5 overflow-y-auto">
+                {links.map((link, i) => {
+                  const active = activeSection === link.sectionId
+                  return (
+                    <motion.li
+                      key={link.href}
+                      initial={{ opacity: 0, x: -12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.04 + i * 0.04, duration: 0.25 }}
+                    >
+                      <a
+                        href={link.href}
+                        className={`flex min-h-[52px] items-center justify-between gap-3 rounded-sm border-[3px] border-black px-3.5 py-3 shadow-[4px_4px_0_#000] transition active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0_#000] ${
+                          active ? 'bg-cobalt text-white' : 'bg-card text-text'
+                        }`}
+                        onClick={() => setOpen(false)}
+                      >
+                        <span className="min-w-0">
+                          <span className="font-display block text-[1.05rem] font-bold leading-none tracking-wide">
+                            {link.label}
+                          </span>
+                          <span
+                            className={`mt-1 block truncate text-[12px] leading-snug ${
+                              active ? 'text-pixel-pink' : 'text-muted'
+                            }`}
+                          >
+                            {link.blurb}
+                          </span>
+                        </span>
+                        <ArrowUpRight
+                          size={18}
+                          strokeWidth={2.5}
+                          className={active ? 'shrink-0 text-lime' : 'shrink-0 text-yellow'}
+                          aria-hidden
+                        />
+                      </a>
+                    </motion.li>
+                  )
+                })}
+              </ul>
+              <div className="mt-4 shrink-0">
                 <Button
                   href="#order?plan=Full%20Send"
                   variant="primary"
@@ -424,12 +446,13 @@ export function Navbar() {
                   onClick={() => setOpen(false)}
                 >
                   Go Full Send
+                  <ArrowUpRight size={16} strokeWidth={2.5} />
                 </Button>
-              </li>
-            </ul>
+              </div>
+            </nav>
           </motion.div>
         ) : null}
       </AnimatePresence>
-    </header>
+    </>
   )
 }
