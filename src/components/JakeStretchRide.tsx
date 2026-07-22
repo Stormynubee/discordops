@@ -62,7 +62,7 @@ export function JakeStretchRide({ active, playSound = true, className = '' }: Ja
           src="/stickers/adventure/jake-feet.png"
           alt=""
           draggable={false}
-          className="relative z-20 mb-[2px] mr-[-3px] h-11 w-11 shrink-0 object-contain drop-shadow-[2px_2px_0_rgba(0,0,0,0.4)]"
+          className="relative z-20 mb-[2px] mr-[-3px] h-11 w-11 shrink-0 scale-x-[-1] object-contain drop-shadow-[2px_2px_0_rgba(0,0,0,0.4)]"
         />
 
         <motion.div
