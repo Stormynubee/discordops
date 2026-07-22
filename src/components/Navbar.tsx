@@ -2,6 +2,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Menu, X, ArrowUpRight } from 'lucide-react'
 import { Button } from './ui'
+import { BrandLockup } from './BrandMark'
 import { FinnPricingPop, JakeStretchRide } from './JakeStretchRide'
 
 type NavLink = {
@@ -331,10 +332,8 @@ export function Navbar() {
           aria-label="DeezOps home"
           onClick={() => setOpen(false)}
         >
-          <span className="inline-flex items-center rounded-sm border-[3px] border-black bg-elevated px-2.5 py-1 shadow-[3px_3px_0_#000] transition group-hover:-translate-x-px group-hover:-translate-y-px group-hover:shadow-[4px_4px_0_#000]">
-            <span className="text-brand text-base text-text sm:text-lg">
-              Deez<span className="text-accent">Ops</span>
-            </span>
+          <span className="inline-flex items-center rounded-sm border-[3px] border-black bg-elevated px-2 py-1 shadow-[3px_3px_0_#000] transition group-hover:-translate-x-px group-hover:-translate-y-px group-hover:shadow-[4px_4px_0_#000]">
+            <BrandLockup markSize={26} />
           </span>
         </a>
 

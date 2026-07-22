@@ -6,6 +6,7 @@ import { getPlan, PLANS, PRICING_ORDER, type PlanId } from '../data/plans'
 import { sendFormSubmit } from '../lib/formsubmit'
 import { getLockedPlanFromHash, orderHref } from '../lib/order'
 import { PlanMascot } from './PlanMascot'
+import { BrandLockup } from './BrandMark'
 import { Button } from './ui'
 
 const fieldClass =
@@ -104,7 +105,9 @@ export function OrderPage() {
           <span className="hidden sm:inline">Back to DeezOps</span>
           <span className="sm:hidden">Back</span>
         </a>
-        <p className="text-brand text-sm text-accent/90">DeezOps</p>
+        <p className="inline-flex">
+          <BrandLockup markSize={22} textClassName="text-brand text-sm text-text" />
+        </p>
       </header>
 
       <main className="section-pad relative z-10 mx-auto grid max-w-6xl gap-8 pb-16 pt-2 sm:gap-10 sm:pb-20 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-12 lg:pt-6 xl:gap-14">
