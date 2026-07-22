@@ -376,12 +376,14 @@ export function Navbar() {
 
         <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 overflow-visible lg:block">
           <ul className="relative z-[82] flex items-center gap-1 overflow-visible rounded-sm border-[3px] border-black bg-elevated/90 px-3 shadow-[3px_3px_0_#000] backdrop-blur-sm xl:gap-2 xl:px-4">
-            {/* Jake rides under transparent stroked labels */}
-            <JakeStretchRide
-              href={hovered}
-              playSound={hovered !== null}
-              className="left-1 top-1/2 z-0 -translate-y-1/2"
-            />
+            {/* Clip Jake to the pill; previews still use overflow-visible on the ul */}
+            <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-[1px]">
+              <JakeStretchRide
+                href={hovered}
+                playSound={hovered !== null}
+                className="left-1.5 top-1/2 -translate-y-1/2"
+              />
+            </div>
             {links.map((link) => (
               <DesktopNavItem
                 key={link.href}

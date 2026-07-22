@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion'
 
 /** Kept for preload / export tooling — runtime uses the max frame only. */
@@ -12,13 +12,15 @@ export const JAKE_FRAMES = [
   '/stickers/adventure/frames/07.png',
 ] as const
 
-/** Native widths at 48px height — used as spring targets per link. */
-const WIDTH_BY_HREF: Record<string, number> = {
-  '#services': 113,
-  '#command-deck': 155,
-  '#portfolio': 210,
-  '#pricing': 290,
-  '#faq': 362,
+/**
+ * Stretch progress per link (0 → 1). FAQ = full pill width, never past it.
+ */
+const PROGRESS_BY_HREF: Record<string, number> = {
+  '#services': 0.3,
+  '#command-deck': 0.46,
+  '#portfolio': 0.62,
+  '#pricing': 0.8,
+  '#faq': 1,
 }
 
 export const JAKE_FRAME_BY_HREF: Record<string, number> = {
@@ -29,16 +31,9 @@ export const JAKE_FRAME_BY_HREF: Record<string, number> = {
   '#faq': 6,
 }
 
-export const JAKE_PROGRESS_BY_HREF: Record<string, number> = {
-  '#services': 0,
-  '#command-deck': 0.25,
-  '#portfolio': 0.5,
-  '#pricing': 0.75,
-  '#faq': 1,
-}
+export const JAKE_PROGRESS_BY_HREF = PROGRESS_BY_HREF
 
 const JAKE_SRC = JAKE_FRAMES[6]
-const JAKE_FULL_W = 362
 
 type JakeStretchRideProps = {
   href: string | null
@@ -48,13 +43,34 @@ type JakeStretchRideProps = {
 
 /**
  * Jake inside the nav pill, behind link text.
- * Single PNG only — anchored at Services (left), spring grows toward FAQ (right).
- * Image is right-aligned in the clip so the head leads the stretch.
+ * Scales to the pill width — FAQ stretch fills the bar, never overgrows it.
  */
 export function JakeStretchRide({ href, playSound = true, className = '' }: JakeStretchRideProps) {
   const reduceMotion = useReducedMotion()
+  const rootRef = useRef<HTMLDivElement>(null)
+  const [fitW, setFitW] = useState(260)
+
+  useEffect(() => {
+    const root = rootRef.current
+    if (!root) return
+    const pill = root.closest('ul')
+    if (!pill) return
+
+    const measure = () => {
+      // Stay inside the pill: leave a couple px so the head never kisses the border
+      const next = Math.max(180, Math.floor(pill.clientWidth - 14))
+      setFitW(next)
+    }
+
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(pill)
+    return () => ro.disconnect()
+  }, [])
+
   const show = !reduceMotion && href !== null
-  const targetWidth = show ? (WIDTH_BY_HREF[href!] ?? 155) : 113
+  const progress = show ? (PROGRESS_BY_HREF[href!] ?? 0.46) : 0.3
+  const targetWidth = Math.round(fitW * progress)
 
   const widthTarget = useMotionValue(targetWidth)
   const visibleTarget = useMotionValue(show ? 1 : 0)
@@ -118,7 +134,11 @@ export function JakeStretchRide({ href, playSound = true, className = '' }: Jake
   if (reduceMotion) return null
 
   return (
-    <div aria-hidden className={`pointer-events-none absolute overflow-visible ${className}`}>
+    <div
+      ref={rootRef}
+      aria-hidden
+      className={`pointer-events-none absolute overflow-hidden ${className}`}
+    >
       <motion.div
         className="relative overflow-hidden"
         style={{
@@ -129,17 +149,16 @@ export function JakeStretchRide({ href, playSound = true, className = '' }: Jake
         }}
       >
         {/*
-          Left-anchored clip grows toward FAQ.
-          Image stays right-aligned inside so the head leads to the right.
+          Jake is scaled to fitW so at FAQ (progress=1) he fills the pill exactly.
+          Clip grows left→right; head leads toward FAQ and stops at the right edge.
         */}
         <img
           src={JAKE_SRC}
           alt=""
-          width={JAKE_FULL_W}
           height={48}
           draggable={false}
           className="absolute bottom-0 right-0 h-12 max-w-none select-none drop-shadow-[1px_2px_0_rgba(0,0,0,0.28)]"
-          style={{ width: JAKE_FULL_W }}
+          style={{ width: fitW }}
         />
       </motion.div>
     </div>
