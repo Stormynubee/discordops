@@ -141,12 +141,6 @@ export function Hero() {
             delay={0.2}
           />
           <FloatingSticker
-            src="/stickers/emotes/peepo-jam.gif"
-            alt=""
-            className="bottom-[-8px] left-[-4px] z-20 hidden h-14 w-14 sm:block sm:h-16 sm:w-16 md:left-[-10px]"
-            delay={0.3}
-          />
-          <FloatingSticker
             src="/stickers/y2k/coin.svg"
             alt=""
             className="right-10 top-10 z-20 hidden h-8 w-8 md:block"

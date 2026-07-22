@@ -276,7 +276,8 @@ export function DiscordMockup() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="command-frame">
+        <div className="relative">
+          <div className="command-frame">
           <div className="relative overflow-hidden rounded-[2px] bg-discord">
             <div className="flex items-center justify-between border-b-[3px] border-black bg-[#14171b] px-3.5 py-2.5">
               <div className="flex items-center gap-1.5">
@@ -439,6 +440,15 @@ export function DiscordMockup() {
             </div>
           </div>
           </div>
+          {!reduceMotion ? (
+            <img
+              src="/stickers/emotes/peepo-jam.gif"
+              alt=""
+              aria-hidden
+              draggable={false}
+              className="pointer-events-none absolute left-2 bottom-0 z-20 h-12 w-12 -translate-y-[18%] select-none drop-shadow-[3px_3px_0_#000] sm:left-3 sm:h-[3.5rem] sm:w-[3.5rem]"
+            />
+          ) : null}
         </div>
       </motion.div>
       <div className="mt-3.5 flex min-h-10 flex-col items-center gap-2.5 px-1">
