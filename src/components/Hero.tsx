@@ -140,7 +140,7 @@ export function Hero() {
             delay={0.25}
           />
 
-          <div className="hard-card overflow-hidden bg-discord p-1.5 sm:p-2">
+          <div className="hard-card overflow-visible bg-discord p-1.5 sm:p-2">
             <DiscordMockup />
           </div>
         </div>

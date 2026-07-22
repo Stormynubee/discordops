@@ -432,37 +432,73 @@ export function DiscordMockup() {
           </div>
         </div>
       </motion.div>
-      <div className="mt-3 flex min-h-8 justify-center">
+      <div className="mt-3.5 flex min-h-10 flex-col items-center gap-2.5 px-1">
+        <div className="rule-y2k rule-y2k-thin w-full max-w-[220px] opacity-90" aria-hidden />
         <AnimatePresence mode="wait">
           {promptState === 'prompted' ? (
-            <motion.button
-              key="prompt"
-              type="button"
-              onClick={() => selectChannel('announcements')}
-              initial={reduceMotion ? false : { opacity: 0, y: 8, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={reduceMotion ? undefined : { opacity: 0, y: -5 }}
+            <motion.div
+              key="prompt-wrap"
+              className="flex w-full items-center justify-center gap-2 sm:gap-3"
+              initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
               transition={{ type: 'spring', stiffness: 360, damping: 26 }}
-              className="inline-flex min-h-8 items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1.5 text-[11px] font-semibold text-accent"
             >
               <motion.span
-                animate={reduceMotion ? undefined : { scale: [1, 1.35, 1] }}
-                transition={{ duration: 0.45, delay: 0.2 }}
-                className="h-1.5 w-1.5 rounded-full bg-accent"
+                aria-hidden
+                className="hidden h-px flex-1 bg-gradient-to-r from-transparent via-lime/70 to-lime sm:block"
+                animate={reduceMotion ? undefined : { opacity: [0.35, 1, 0.35], scaleX: [0.85, 1, 0.85] }}
+                transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+                style={{ originX: 1 }}
               />
-              Open it before the mods do.
-            </motion.button>
+              <motion.button
+                type="button"
+                onClick={() => selectChannel('announcements')}
+                whileHover={reduceMotion ? undefined : { y: -2, scale: 1.02 }}
+                whileTap={reduceMotion ? undefined : { scale: 0.97 }}
+                animate={
+                  reduceMotion
+                    ? undefined
+                    : { y: [0, -3, 0] }
+                }
+                transition={
+                  reduceMotion
+                    ? undefined
+                    : { y: { duration: 1.8, repeat: Infinity, ease: 'easeInOut' } }
+                }
+                className="neon-pill text-[11px] font-semibold tracking-wide sm:text-[12px]"
+              >
+                <span className="neon-pill-dot" aria-hidden />
+                Open it before the mods do.
+                <motion.span
+                  aria-hidden
+                  className="ml-0.5 font-display text-[10px] text-lime"
+                  animate={reduceMotion ? undefined : { x: [0, 3, 0] }}
+                  transition={{ duration: 1.1, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  →
+                </motion.span>
+              </motion.button>
+              <motion.span
+                aria-hidden
+                className="hidden h-px flex-1 bg-gradient-to-l from-transparent via-lime/70 to-lime sm:block"
+                animate={reduceMotion ? undefined : { opacity: [0.35, 1, 0.35], scaleX: [0.85, 1, 0.85] }}
+                transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut', delay: 0.15 }}
+                style={{ originX: 0 }}
+              />
+            </motion.div>
           ) : promptState === 'used' ? (
             <motion.p
               key="used"
-              initial={reduceMotion ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-[11px] text-muted"
+              initial={reduceMotion ? false : { opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="rounded-full border border-lime/40 bg-lime/10 px-3 py-1 text-[11px] font-semibold text-lime"
             >
               Good choice. The buttons work.
             </motion.p>
           ) : null}
         </AnimatePresence>
+        <div className="rule-y2k w-full max-w-[280px]" aria-hidden />
       </div>
     </div>
   )

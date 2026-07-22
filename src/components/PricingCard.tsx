@@ -37,14 +37,25 @@ export function PricingCard({ plan, index }: PricingCardProps) {
       ].join(' ')}
     >
       {featured ? (
-        <div
-          className="pointer-events-none absolute -right-2 -top-3 z-20 rotate-[8deg] sm:-right-3 sm:-top-4"
+        <motion.div
+          className="pointer-events-none absolute -right-2 -top-3 z-20 sm:-right-3 sm:-top-4"
           aria-hidden
+          initial={reduceMotion ? false : { rotate: 8, y: -6, opacity: 0 }}
+          whileInView={{ rotate: 8, y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          animate={
+            reduceMotion
+              ? { rotate: 8 }
+              : hovered
+                ? { rotate: [8, 12, 6, 8], y: [0, -2, 0] }
+                : { rotate: 8 }
+          }
+          transition={{ duration: hovered ? 0.7 : 0.4, ease: 'easeInOut' }}
         >
           <span className="inline-flex items-center rounded-sm border-[3px] border-black bg-yellow px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-bg shadow-[4px_4px_0_#000] sm:px-3.5 sm:py-2 sm:text-xs">
             Recommended
           </span>
-        </div>
+        </motion.div>
       ) : null}
 
       <div className="flex items-start justify-between gap-3">
@@ -64,36 +75,61 @@ export function PricingCard({ plan, index }: PricingCardProps) {
         <PlanMascot plan={plan} size="card" className="-mr-1 -mt-0.5" />
       </div>
 
-      <div className="mt-5 flex items-end gap-2.5 border-b-[3px] border-black/40 pb-4 sm:mt-6 sm:pb-5">
-        <p
-          className="text-price flex items-baseline gap-0.5 text-[clamp(2.85rem,calc(2.1rem+3.2vw),3.85rem)] text-lime"
-          aria-label={`${plan.price} dollars`}
-        >
-          <span className="text-[0.55em] font-black tracking-normal">$</span>
-          <span>{plan.price}</span>
-        </p>
-        <span className="mb-2 text-[13px] font-semibold tracking-wide text-muted sm:text-sm">
-          / once
-        </span>
+      <div className="mt-5 sm:mt-6">
+        <div className="flex items-end gap-2.5 pb-3">
+          <p
+            className="text-price flex items-baseline gap-0.5 text-[clamp(2.85rem,calc(2.1rem+3.2vw),3.85rem)] text-lime"
+            aria-label={`${plan.price} dollars`}
+          >
+            <span className="text-[0.55em] font-black tracking-normal">$</span>
+            <span>{plan.price}</span>
+          </p>
+          <span className="mb-2 text-[13px] font-semibold tracking-wide text-muted sm:text-sm">
+            / once
+          </span>
+        </div>
+        <div className="space-y-1" aria-hidden>
+          <div className="rule-y2k-thin rule-y2k" />
+          <div className="rule-y2k" />
+        </div>
       </div>
 
       <p className="mt-4 text-[14px] leading-relaxed text-text/85 sm:text-[15px]">{plan.blurb}</p>
 
-      <p className="mt-6 font-display text-[13px] font-bold uppercase tracking-[0.14em] text-lime sm:mt-7 sm:text-sm">
-        What you get
-      </p>
+      <div className="mt-6 flex items-center gap-2 sm:mt-7">
+        <p className="font-display text-[13px] font-bold uppercase tracking-[0.14em] text-lime sm:text-sm">
+          What you get
+        </p>
+        <motion.span
+          aria-hidden
+          className="h-px flex-1 bg-gradient-to-r from-lime/80 via-yellow/50 to-transparent"
+          initial={reduceMotion ? false : { scaleX: 0, opacity: 0 }}
+          whileInView={{ scaleX: 1, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55, delay: 0.15 + index * 0.05, ease: [0.22, 1, 0.36, 1] }}
+          style={{ originX: 0 }}
+        />
+      </div>
 
       <ul className="mt-3 flex-1 space-y-2.5 sm:mt-3.5 sm:space-y-3">
-        {plan.features.map((f) => (
-          <li
+        {plan.features.map((f, fi) => (
+          <motion.li
             key={f}
+            initial={reduceMotion ? false : { opacity: 0, x: -8 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: '-20px' }}
+            transition={{
+              duration: 0.35,
+              delay: reduceMotion ? 0 : 0.12 + index * 0.04 + fi * 0.035,
+              ease: [0.22, 1, 0.36, 1],
+            }}
             className="flex items-start gap-2.5 text-[13.5px] leading-[1.45] text-text sm:gap-3 sm:text-[14.5px]"
           >
             <span className="mt-0.5 flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[3px] bg-accent/15 sm:h-5 sm:w-5">
               <Check size={12} className="text-accent" strokeWidth={3.5} aria-hidden />
             </span>
             <span>{f}</span>
-          </li>
+          </motion.li>
         ))}
       </ul>
 
