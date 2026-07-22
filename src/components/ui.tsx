@@ -96,11 +96,12 @@ export function Sticker({
 }: {
   children: ReactNode
   className?: string
-  tone?: 'yellow' | 'pink' | 'lime' | 'cobalt'
+  tone?: 'yellow' | 'pink' | 'orange' | 'lime' | 'cobalt'
 }) {
   const tones = {
     yellow: 'bg-yellow text-bg border-black',
     pink: 'bg-accent text-white border-black',
+    orange: 'bg-accent text-white border-black',
     lime: 'bg-lime text-bg border-black',
     cobalt: 'bg-cobalt text-white border-yellow',
   }

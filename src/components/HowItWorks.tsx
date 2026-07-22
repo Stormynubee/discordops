@@ -49,7 +49,7 @@ function StepPointer({
               scale: 1,
               opacity: 1,
               borderColor: '#39ff9e',
-              color: '#ff2d95',
+              color: '#ff6b1a',
               backgroundColor: '#16122a',
             }
           : {

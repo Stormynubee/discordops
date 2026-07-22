@@ -63,7 +63,7 @@ export function Hero() {
 
           <Reveal>
             <div className="mb-3 flex flex-wrap items-center gap-2">
-              <Sticker tone="pink" className="sticker-rotate">
+              <Sticker tone="orange" className="sticker-rotate">
                 Staff picks
               </Sticker>
               {!reduceMotion ? (

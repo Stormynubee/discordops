@@ -9,7 +9,7 @@ import {
 } from 'framer-motion'
 import { BatFace } from './mascots'
 
-const ACCENT = '#ff2d95'
+const ACCENT = '#ff6b1a'
 
 export function DiscordOrb() {
   const reduceMotion = useReducedMotion()

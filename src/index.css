@@ -5,12 +5,12 @@
   --color-surface: #16122a;
   --color-card: #1e1836;
   --color-border: #ffe600;
-  --color-accent: #ff2d95;
-  --color-accent-dim: #d91f7a;
+  --color-accent: #ff6b1a;
+  --color-accent-dim: #e04e00;
   --color-lime: #39ff9e;
   --color-cobalt: #3d4dff;
   --color-yellow: #ffe600;
-  --color-blurple: #ff2d95;
+  --color-blurple: #ff6b1a;
   --color-silver: #c8c4d8;
   --color-discord: #1a1d21;
   --color-discord-panel: #23272e;
@@ -396,7 +396,7 @@
       0 0 28px color-mix(in srgb, var(--color-accent) 45%, transparent);
   }
 
-  /* Neon status pill — lime shell, pink core */
+  /* Neon status pill — lime shell, orange core */
   .neon-pill {
     position: relative;
     display: inline-flex;
