@@ -95,24 +95,25 @@ export function OrderPage() {
         }}
       />
 
-      <header className="relative z-10 mx-auto flex max-w-6xl items-center justify-between px-5 py-6 sm:px-8">
+      <header className="section-pad relative z-10 mx-auto flex max-w-6xl items-center justify-between py-5 sm:py-6">
         <a
           href="#top"
-          className="group inline-flex items-center gap-2 text-sm text-muted transition hover:text-text"
+          className="group inline-flex min-h-11 items-center gap-2 text-sm text-muted transition hover:text-text"
         >
           <ArrowLeft className="h-4 w-4 transition group-hover:-translate-x-0.5" />
-          Back to DiscordOps
+          <span className="hidden sm:inline">Back to DiscordOps</span>
+          <span className="sm:hidden">Back</span>
         </a>
         <p className="text-brand text-sm text-accent/90">DiscordOps</p>
       </header>
 
-      <main className="relative z-10 mx-auto grid max-w-6xl gap-10 px-5 pb-20 pt-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-14 lg:px-8 lg:pt-8">
+      <main className="section-pad relative z-10 mx-auto grid max-w-6xl gap-8 pb-16 pt-2 sm:gap-10 sm:pb-20 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-12 lg:pt-6 xl:gap-14">
         {/* Plan plaque + switcher */}
         <motion.aside
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className={`relative overflow-hidden rounded-3xl border p-7 sm:p-8 ${
+          className={`relative overflow-hidden rounded-2xl border p-5 sm:rounded-3xl sm:p-7 md:p-8 ${
             plan.featured
               ? 'border-accent/40 bg-gradient-to-br from-accent/12 via-card/80 to-discord-panel shadow-[0_0_48px_rgba(230,195,100,0.12)]'
               : 'border-border/70 bg-card/70'
@@ -217,7 +218,7 @@ export function OrderPage() {
           initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: reduceMotion ? 0 : 0.08, ease: [0.22, 1, 0.36, 1] }}
-          className="rounded-3xl border border-border/60 bg-surface/90 p-7 sm:p-9"
+          className="rounded-2xl border border-border/60 bg-surface/90 p-5 sm:rounded-3xl sm:p-7 md:p-9"
         >
           <div className="mb-2 flex items-center gap-2 text-accent">
             <MessageCircle className="h-5 w-5" aria-hidden />

@@ -28,7 +28,7 @@ const secondary = [
 
 export function Testimonials() {
   return (
-    <section className="relative section-pad section-band py-20 md:py-28">
+    <section className="relative section-pad section-band section-y">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Proof"

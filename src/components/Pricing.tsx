@@ -5,7 +5,7 @@ import { PLANS, PRICING_ORDER } from '../data/plans'
 
 export function Pricing() {
   return (
-    <section id="pricing" className="relative py-24 md:py-32">
+    <section id="pricing" className="relative section-y">
       <div className="section-pad relative z-10 mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Pricing"
@@ -14,14 +14,14 @@ export function Pricing() {
           align="center"
         />
 
-        <div className="grid items-stretch gap-8 lg:grid-cols-3 lg:gap-6 xl:gap-8">
+        <div className="mx-auto grid max-w-md items-stretch gap-5 sm:gap-6 lg:max-w-none lg:grid-cols-3 lg:gap-5 xl:gap-7">
           {PRICING_ORDER.map((id, i) => (
             <PricingCard key={id} plan={PLANS[id]} index={i} />
           ))}
         </div>
 
-        <Reveal delay={0.2} className="mt-12 text-center">
-          <p className="text-[15px] text-muted">
+        <Reveal delay={0.2} className="mt-10 px-1 text-center sm:mt-12">
+          <p className="text-[14px] leading-relaxed text-muted sm:text-[15px]">
             Still picking?{' '}
             <a href="#order?plan=Full%20Send" className="font-medium text-accent underline-offset-4 hover:underline">
               Full Send ($459)

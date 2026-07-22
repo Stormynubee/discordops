@@ -71,7 +71,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="relative section-pad py-20 md:py-28">
+    <section id="contact" className="relative section-pad section-y">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Contact"

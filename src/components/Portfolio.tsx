@@ -45,7 +45,7 @@ const projects = [
 
 export function Portfolio() {
   return (
-    <section id="portfolio" className="relative section-pad py-20 md:py-28">
+    <section id="portfolio" className="relative section-pad section-y">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Portfolio"

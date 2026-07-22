@@ -11,7 +11,7 @@ export function CommandDeck() {
   const tier = PLANS[active]
 
   return (
-    <section id="command-deck" className="relative section-pad py-20 md:py-28">
+    <section id="command-deck" className="relative section-pad section-y">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Plan Picker"

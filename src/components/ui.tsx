@@ -151,15 +151,15 @@ export function SectionHeading({
   const descClass = align === 'center' ? 'mx-auto max-w-lg' : 'max-w-xl'
 
   return (
-    <Reveal className={`mb-12 md:mb-16 ${alignClass}`}>
+    <Reveal className={`mb-10 sm:mb-12 md:mb-16 ${alignClass}`}>
       <p className="text-label-caps mb-2 text-muted">
         {eyebrow}
       </p>
-      <h2 className="text-display overflow-visible text-[clamp(1.75rem,4vw,3rem)] text-text text-balance">
+      <h2 className="text-display overflow-visible text-[clamp(1.65rem,calc(1.2rem+2.8vw),3rem)] text-text text-balance">
         {title}
       </h2>
       {description ? (
-        <p className={`mt-3 text-[15px] leading-relaxed text-muted sm:text-base ${descClass}`}>
+        <p className={`mt-2.5 text-[14px] leading-relaxed text-muted sm:mt-3 sm:text-[15px] md:text-base ${descClass}`}>
           {description}
         </p>
       ) : null}

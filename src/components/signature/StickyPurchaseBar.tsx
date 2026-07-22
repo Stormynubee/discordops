@@ -49,9 +49,9 @@ export function StickyPurchaseBar() {
         >
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 sm:gap-4">
             <div className="min-w-0">
-              <p className="truncate text-sm font-semibold text-text">
-                Full Send · <span className="text-accent">${flagship.price}</span> · the one that
-                actually fixes everything
+              <p className="truncate text-[13px] font-semibold text-text sm:text-sm">
+                Full Send · <span className="text-accent">${flagship.price}</span>
+                <span className="hidden sm:inline"> · the one that actually fixes everything</span>
               </p>
               <p className="hidden text-[12px] text-muted sm:block">
                 Integrations, training, maintenance. We stick around.

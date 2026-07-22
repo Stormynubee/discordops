@@ -14,9 +14,6 @@ export function PricingCard({ plan, index }: PricingCardProps) {
   const reduceMotion = useReducedMotion()
   const [hovered, setHovered] = useState(false)
 
-  const baseScale = plan.featured ? 1.08 : 1
-  const hoverScale = plan.featured ? 1.1 : 1.05
-
   return (
     <motion.article
       initial={reduceMotion ? false : { opacity: 0, y: 24 }}
@@ -24,56 +21,57 @@ export function PricingCard({ plan, index }: PricingCardProps) {
       viewport={{ once: true, margin: '-40px' }}
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
-      animate={
-        reduceMotion
-          ? { scale: baseScale, y: 0 }
-          : {
-              scale: hovered ? hoverScale : baseScale,
-              y: hovered ? -8 : 0,
-            }
-      }
+      animate={reduceMotion ? { y: 0 } : { y: hovered ? -6 : 0 }}
       transition={{
         opacity: { duration: 0.55, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] },
         y: { type: 'spring', stiffness: 320, damping: 26 },
-        scale: { type: 'spring', stiffness: 320, damping: 26 },
       }}
-      className={`relative flex min-h-[32rem] flex-col rounded-2xl p-9 md:min-h-[36rem] md:p-11 ${
+      className={`relative flex flex-col rounded-2xl p-6 sm:p-8 md:p-10 ${
         plan.featured
-          ? 'z-10 border-2 border-accent bg-card lg:min-h-[38rem]'
+          ? 'z-10 border-2 border-accent bg-card shadow-[0_0_48px_-12px_rgba(230,195,100,0.28)] lg:origin-center lg:scale-[1.04]'
           : 'border border-border bg-surface hover:border-accent/40'
-      } ${hovered ? 'shadow-[0_0_48px_-8px_rgba(230,195,100,0.4)]' : plan.featured ? 'shadow-[0_0_48px_-12px_rgba(230,195,100,0.28)]' : ''}`}
+      } ${hovered ? 'shadow-[0_0_40px_-8px_rgba(230,195,100,0.35)]' : ''}`}
     >
       {plan.featured ? (
-        <div className="absolute right-0 top-0 rounded-bl-xl rounded-tr-2xl bg-accent px-5 py-1.5 text-label-caps text-bg">
+        <div className="absolute right-0 top-0 rounded-bl-xl rounded-tr-2xl bg-accent px-4 py-1.5 text-label-caps text-bg sm:px-5">
           Recommended
         </div>
       ) : null}
 
-      <div className="mb-4 flex items-start justify-between gap-3">
-        <h3 className={`text-headline overflow-visible text-2xl ${plan.featured ? 'text-accent' : 'text-text'}`}>
+      <div className="mb-3 flex items-start justify-between gap-3 sm:mb-4">
+        <h3
+          className={`text-headline overflow-visible text-xl sm:text-2xl ${
+            plan.featured ? 'text-accent' : 'text-text'
+          }`}
+        >
           {plan.id}
         </h3>
         <PlanMascot plan={plan} size="sm" className="-mr-1 -mt-1" />
       </div>
 
       <div className="mt-1 flex items-baseline gap-1.5">
-        <span className="text-price overflow-visible text-[clamp(3rem,5vw,4.25rem)] text-text">
+        <span className="text-price overflow-visible text-[clamp(2.5rem,6vw,4rem)] text-text">
           ${plan.price}
         </span>
-        <span className="text-base text-muted">/once</span>
+        <span className="text-sm text-muted sm:text-base">/once</span>
       </div>
 
       <p
-        className={`mt-4 text-[15px] leading-relaxed text-muted ${plan.featured ? 'border-b border-border pb-5' : ''}`}
+        className={`mt-3 text-[14px] leading-relaxed text-muted sm:mt-4 sm:text-[15px] ${
+          plan.featured ? 'border-b border-border pb-4 sm:pb-5' : ''
+        }`}
       >
         {plan.blurb}
       </p>
 
-      <p className="text-label-caps mt-6 text-muted">What you get</p>
-      <ul className="mt-3 flex-1 space-y-2.5 overflow-y-auto pr-1">
+      <p className="text-label-caps mt-5 text-muted sm:mt-6">What you get</p>
+      <ul className="mt-3 flex-1 space-y-2.5 pr-1">
         {plan.features.map((f) => (
-          <li key={f} className="flex items-start gap-3 text-[14px] leading-snug text-text/90 md:text-[15px]">
-            <Check size={16} className="mt-0.5 shrink-0 text-accent" strokeWidth={2.5} />
+          <li
+            key={f}
+            className="flex items-start gap-2.5 text-[13px] leading-snug text-text/90 sm:gap-3 sm:text-[14px] md:text-[15px]"
+          >
+            <Check size={15} className="mt-0.5 shrink-0 text-accent" strokeWidth={2.5} />
             {f}
           </li>
         ))}
@@ -82,7 +80,7 @@ export function PricingCard({ plan, index }: PricingCardProps) {
       <Button
         href={`#order?plan=${encodeURIComponent(plan.id)}`}
         variant={plan.featured ? 'primary' : 'secondary'}
-        className={`mt-8 w-full ${plan.featured ? '!py-4 text-base' : ''}`}
+        className={`mt-7 w-full sm:mt-8 ${plan.featured ? '!py-3.5 text-[15px] sm:!py-4 sm:text-base' : ''}`}
       >
         {plan.cta}
       </Button>

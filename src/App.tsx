@@ -71,7 +71,7 @@ export default function App() {
       <div className="relative z-10">
         <Navbar />
         <StickyPurchaseBar />
-        <main className="pb-24">
+        <main className="pb-[max(6.5rem,calc(env(safe-area-inset-bottom,0px)+5.5rem))]">
           <Hero />
           <ProofMarquee />
           <HowItWorks />

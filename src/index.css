@@ -17,6 +17,8 @@
   --color-footer: #0c0e10;
   --font-display: "Cabinet Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
+  --radius-panel: 1rem;
+  --radius-card: 1.25rem;
 }
 
 @layer base {
@@ -29,19 +31,29 @@
   html {
     scroll-behavior: smooth;
     color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
     margin: 0;
     min-height: 100vh;
+    min-height: 100dvh;
     background: var(--color-bg);
     color: var(--color-text);
     font-family: var(--font-sans);
     font-weight: 400;
-    line-height: 1.6;
+    font-size: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
   }
 
   h1,
@@ -51,6 +63,11 @@
   h5,
   h6 {
     overflow: visible;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 
   ::selection {
@@ -59,7 +76,7 @@
   }
 
   :focus-visible {
-    outline: 1px solid var(--color-accent);
+    outline: 2px solid var(--color-accent);
     outline-offset: 3px;
   }
 }
@@ -78,102 +95,106 @@
     text-wrap: balance;
   }
 
-  /* Hero / section banners — Cabinet 800 */
   .text-display {
     font-family: var(--font-display);
     font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 1.45 !important;
-    padding-bottom: 0.3em;
+    letter-spacing: -0.035em;
+    line-height: 1.2 !important;
+    padding-bottom: 0.18em;
     overflow: visible !important;
   }
 
   .text-display-sm {
     font-family: var(--font-display);
     font-weight: 800;
-    font-size: clamp(2.25rem, 5vw, 3.75rem);
-    letter-spacing: -0.04em;
-    line-height: 1.45 !important;
-    padding-bottom: 0.3em;
+    font-size: clamp(2rem, 1.35rem + 3.2vw, 3.75rem);
+    letter-spacing: -0.035em;
+    line-height: 1.15 !important;
+    padding-bottom: 0.18em;
     overflow: visible !important;
   }
 
-  /* Prices / big numerals — Cabinet 800 */
   .text-price {
     font-family: var(--font-display);
     font-weight: 800;
     letter-spacing: -0.04em;
-    line-height: 1.1 !important;
-    padding-bottom: 0.12em;
+    line-height: 1.05 !important;
+    padding-bottom: 0.08em;
     overflow: visible !important;
     font-variant-numeric: tabular-nums;
   }
 
-  /* Section / card titles — Cabinet 700 */
   .text-headline {
     font-family: var(--font-display);
     font-weight: 700;
     letter-spacing: -0.02em;
-    line-height: 1.4 !important;
-    padding-bottom: 0.22em;
+    line-height: 1.25 !important;
+    padding-bottom: 0.14em;
     overflow: visible !important;
   }
 
   .text-headline-lg {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-size: clamp(1.25rem, 1rem + 1.4vw, 2rem);
     letter-spacing: -0.02em;
-    line-height: 1.4 !important;
-    padding-bottom: 0.22em;
+    line-height: 1.25 !important;
+    padding-bottom: 0.14em;
     overflow: visible !important;
   }
 
-  /* Smaller titles (cards, FAQ, services) — Cabinet 700 */
   .text-title {
     font-family: var(--font-display);
     font-weight: 700;
     letter-spacing: -0.02em;
-    line-height: 1.35 !important;
-    padding-bottom: 0.12em;
+    line-height: 1.3 !important;
+    padding-bottom: 0.08em;
     overflow: visible !important;
   }
 
-  /* Brand wordmark — Cabinet 700 */
   .text-brand {
     font-family: var(--font-display);
     font-weight: 700;
     letter-spacing: -0.02em;
   }
 
-  /* Body copy — Satoshi (default on body; use when resetting) */
   .text-body {
     font-family: var(--font-sans);
     font-weight: 400;
     letter-spacing: 0;
-    line-height: 1.6;
+    line-height: 1.65;
   }
 
-  /* Eyebrows / form labels / caps — Satoshi only */
   .text-label-caps {
     font-family: var(--font-sans);
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    line-height: 1.3;
+    line-height: 1.35;
+  }
+
+  @media (min-width: 640px) {
+    .text-label-caps {
+      font-size: 0.75rem;
+    }
   }
 
   .text-label {
     font-family: var(--font-sans);
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
     font-weight: 600;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    line-height: 1.3;
+    line-height: 1.35;
   }
 
-  /* Step markers / small numerals — Satoshi, not mono */
+  @media (min-width: 640px) {
+    .text-label {
+      font-size: 0.75rem;
+    }
+  }
+
   .text-step {
     font-family: var(--font-sans);
     font-weight: 600;
@@ -182,7 +203,15 @@
   }
 
   .section-pad {
-    padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+    padding-inline: clamp(1rem, 4.5vw, 2.5rem);
+  }
+
+  .section-y {
+    padding-block: clamp(3.5rem, 8vw, 7rem);
+  }
+
+  .section-y-sm {
+    padding-block: clamp(2.5rem, 5vw, 4.5rem);
   }
 
   .atmosphere-grid {
@@ -206,7 +235,7 @@
   .panel {
     border: 1px solid var(--color-border);
     background: var(--color-card);
-    border-radius: 0.75rem;
+    border-radius: var(--radius-panel);
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 12px 40px rgba(0, 0, 0, 0.35);
   }
 
@@ -257,6 +286,17 @@
     display: inline-flex;
     animation: marquee 30s linear infinite;
   }
+
+  .card-lift {
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.35s ease,
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .card-lift:hover {
+    border-color: color-mix(in srgb, var(--color-accent) 40%, var(--color-border));
+  }
 }
 
 @keyframes marquee {
@@ -275,5 +315,9 @@
 
   .marquee-content {
     animation: none !important;
+  }
+
+  .card-lift {
+    transition: none;
   }
 }

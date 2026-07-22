@@ -31,18 +31,18 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-400 ${
+      className={`fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top,0px)] transition-all duration-400 ${
         scrolled
           ? 'border-b border-border/80 bg-bg/88 backdrop-blur-xl'
           : 'bg-transparent'
       }`}
     >
       <nav className="section-pad mx-auto flex h-14 max-w-7xl items-center justify-between md:h-16">
-        <a href="#top" className="text-brand text-lg text-text" aria-label="DiscordOps home">
+        <a href="#top" className="text-brand text-base text-text sm:text-lg" aria-label="DiscordOps home">
           Discord<span className="text-accent">Ops</span>
         </a>
 
-        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 lg:flex">
+        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 xl:gap-7 lg:flex">
           {links.map((link) => (
             <li key={link.href}>
               <a
@@ -63,7 +63,7 @@ export function Navbar() {
 
         <button
           type="button"
-          className="flex h-11 w-11 items-center justify-center rounded-lg border border-border text-text lg:hidden"
+          className="flex h-11 w-11 items-center justify-center rounded-lg border border-border text-text transition hover:border-accent/40 hover:text-accent lg:hidden"
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -78,14 +78,14 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 top-14 z-40 bg-bg/98 backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 top-[calc(3.5rem+env(safe-area-inset-top,0px))] z-40 bg-bg/98 backdrop-blur-xl lg:hidden"
           >
             <ul className="section-pad flex flex-col gap-1 py-6">
               {links.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="flex min-h-[44px] items-center rounded-lg px-3 text-base text-muted hover:bg-white/[0.03] hover:text-text"
+                    className="flex min-h-[48px] items-center rounded-xl px-3 text-base text-muted transition hover:bg-white/[0.03] hover:text-text"
                     onClick={() => setOpen(false)}
                   >
                     {link.label}

@@ -1,4 +1,13 @@
-import { Reveal, SectionHeading } from './ui'
+import { useRef } from 'react'
+import {
+  motion,
+  useInView,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from 'framer-motion'
+import { SectionHeading } from './ui'
 
 const steps = [
   {
@@ -18,9 +27,79 @@ const steps = [
   },
 ]
 
-export function HowItWorks() {
+function StepPointer({
+  num,
+  index,
+  reduceMotion,
+}: {
+  num: string
+  index: number
+  reduceMotion: boolean | null
+}) {
+  const ref = useRef<HTMLSpanElement>(null)
+  const inView = useInView(ref, { once: true, amount: 0.75, margin: '-6% 0px' })
+
   return (
-    <section className="relative section-pad py-16 md:py-20">
+    <motion.span
+      ref={ref}
+      initial={reduceMotion ? false : { scale: 0.6, opacity: 0.4 }}
+      animate={
+        inView
+          ? {
+              scale: 1,
+              opacity: 1,
+              borderColor: 'rgba(230,195,100,0.85)',
+              color: '#e6c364',
+              boxShadow: '0 0 0 4px rgba(230,195,100,0.1), 0 0 20px rgba(230,195,100,0.2)',
+            }
+          : {
+              scale: 0.6,
+              opacity: 0.4,
+              borderColor: 'rgba(77,70,55,1)',
+              color: '#c3c6cf',
+              boxShadow: '0 0 0 0 rgba(230,195,100,0)',
+            }
+      }
+      transition={
+        reduceMotion
+          ? { duration: 0 }
+          : { type: 'spring', stiffness: 380, damping: 22, delay: index * 0.05 }
+      }
+      className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border bg-bg text-step text-[11px] sm:h-10 sm:w-10"
+    >
+      {inView && !reduceMotion ? (
+        <motion.span
+          aria-hidden
+          className="absolute inset-0 rounded-full border border-accent/45"
+          initial={{ scale: 1, opacity: 0.65 }}
+          animate={{ scale: 1.75, opacity: 0 }}
+          transition={{ duration: 0.85, ease: 'easeOut' }}
+        />
+      ) : null}
+      {num}
+    </motion.span>
+  )
+}
+
+export function HowItWorks() {
+  const reduceMotion = useReducedMotion()
+  const listRef = useRef<HTMLDivElement>(null)
+
+  const { scrollYProgress } = useScroll({
+    target: listRef,
+    offset: ['start 0.8', 'end 0.4'],
+  })
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 28,
+    restDelta: 0.001,
+  })
+
+  const lineScale = useTransform(smoothProgress, [0, 1], [0, 1])
+
+  return (
+    <section className="relative section-pad section-y-sm">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Process"
@@ -28,26 +107,42 @@ export function HowItWorks() {
           description="No endless email chains. Just a clear path to a server that works."
         />
 
-        <div className="relative mt-4 overflow-visible">
+        <div ref={listRef} className="relative mt-2 overflow-visible sm:mt-4">
           <div
             aria-hidden
-            className="absolute left-[15px] top-4 hidden h-[calc(100%-2rem)] w-px bg-border md:left-[19px] md:block"
+            className="absolute left-[17px] top-4 hidden h-[calc(100%-2rem)] w-px bg-border sm:left-[19px] md:block"
           />
-          <ol className="space-y-10 md:space-y-12">
+          {!reduceMotion ? (
+            <motion.div
+              aria-hidden
+              className="absolute left-[17px] top-4 hidden h-[calc(100%-2rem)] w-px origin-top bg-gradient-to-b from-accent via-accent to-accent/35 sm:left-[19px] md:block"
+              style={{ scaleY: lineScale }}
+            />
+          ) : (
+            <div
+              aria-hidden
+              className="absolute left-[17px] top-4 hidden h-[calc(100%-2rem)] w-px bg-accent/45 sm:left-[19px] md:block"
+            />
+          )}
+
+          <ol className="space-y-9 sm:space-y-11 md:space-y-12">
             {steps.map((step, i) => (
-              <Reveal key={step.num} delay={i * 0.08}>
-                <li className="relative flex gap-5 overflow-visible md:gap-8">
-                  <span className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border bg-bg text-step text-[11px] text-silver md:h-10 md:w-10">
-                    {step.num}
-                  </span>
-                  <div className="overflow-visible pt-0.5 md:pt-1">
-                    <h3 className="text-title text-xl text-text md:text-2xl">
-                      {step.title}
-                    </h3>
-                    <p className="mt-2 max-w-lg text-[15px] leading-relaxed text-muted">{step.desc}</p>
-                  </div>
-                </li>
-              </Reveal>
+              <motion.li
+                key={step.num}
+                initial={reduceMotion ? false : { opacity: 0, x: -10 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.4 }}
+                transition={{ duration: 0.45, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                className="relative flex gap-4 overflow-visible sm:gap-6 md:gap-8"
+              >
+                <StepPointer num={step.num} index={i} reduceMotion={reduceMotion} />
+                <div className="min-w-0 flex-1 overflow-visible pt-1">
+                  <h3 className="text-title text-lg text-text sm:text-xl md:text-2xl">{step.title}</h3>
+                  <p className="mt-1.5 max-w-lg text-[14px] leading-relaxed text-muted sm:mt-2 sm:text-[15px]">
+                    {step.desc}
+                  </p>
+                </div>
+              </motion.li>
             ))}
           </ol>
         </div>
