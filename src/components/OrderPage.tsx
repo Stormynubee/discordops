@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowUpRight, Check, MessageCircle } from 'lucide-react'
 import { CONTACT_EMAIL, FOUNDERS_SHORT } from '../data/brand'
 import { getPlan, PLANS, PRICING_ORDER, type PlanId } from '../data/plans'
 import { sendFormSubmit } from '../lib/formsubmit'
+import { clampText, validateOrderFields } from '../lib/formValidation'
 import { getLockedPlanFromHash, orderHref } from '../lib/order'
 import { PlanMascot } from './PlanMascot'
 import { BrandLockup } from './BrandMark'
@@ -42,12 +43,18 @@ export function OrderPage() {
     if (sending) return
     const form = e.currentTarget as HTMLFormElement
     const data = new FormData(form)
-    const name = String(data.get('name') ?? '').trim()
-    const email = String(data.get('email') ?? '').trim()
-    const discord = String(data.get('discord') ?? '').trim()
-    const server = String(data.get('server') ?? '').trim()
-    const notes = String(data.get('notes') ?? '').trim()
+    const name = clampText(String(data.get('name') ?? ''), 120)
+    const email = clampText(String(data.get('email') ?? ''), 254)
+    const discord = clampText(String(data.get('discord') ?? ''), 80)
+    const server = clampText(String(data.get('server') ?? ''), 500)
+    const notes = clampText(String(data.get('notes') ?? ''), 4000)
     if (String(data.get('_honey') ?? '')) return
+
+    const validationError = validateOrderFields({ name, email, discord, server, notes })
+    if (validationError) {
+      setError(validationError)
+      return
+    }
 
     setSending(true)
     setError(null)
@@ -257,7 +264,7 @@ export function OrderPage() {
               <div className="grid gap-5 sm:grid-cols-2">
                 <label className="block space-y-1.5">
                   <span className="text-label text-muted">Your name</span>
-                  <input name="name" required autoComplete="name" className={fieldClass} placeholder="Alex" />
+                  <input name="name" required maxLength={120} autoComplete="name" className={fieldClass} placeholder="Alex" />
                 </label>
                 <label className="block space-y-1.5">
                   <span className="text-label text-muted">Email</span>
@@ -265,6 +272,7 @@ export function OrderPage() {
                     name="email"
                     type="email"
                     required
+                    maxLength={254}
                     autoComplete="email"
                     className={fieldClass}
                     placeholder="you@company.com"
@@ -277,6 +285,7 @@ export function OrderPage() {
                 <input
                   name="discord"
                   required
+                  maxLength={80}
                   className={fieldClass}
                   placeholder="username or user#0000"
                   autoComplete="off"
@@ -289,6 +298,7 @@ export function OrderPage() {
                 </span>
                 <input
                   name="server"
+                  maxLength={500}
                   className={fieldClass}
                   placeholder="discord.gg/... or server ID"
                   autoComplete="off"
@@ -300,6 +310,7 @@ export function OrderPage() {
                 <textarea
                   name="notes"
                   rows={5}
+                  maxLength={4000}
                   className={`${fieldClass} resize-y min-h-[120px]`}
                   placeholder="Roles are a mess, welcome flow is dead, mods are drowning… paint the picture."
                 />

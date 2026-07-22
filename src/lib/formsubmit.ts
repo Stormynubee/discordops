@@ -4,6 +4,8 @@ const endpoint = `https://formsubmit.co/ajax/${CONTACT_EMAIL}`
 
 export type FormSubmitPayload = Record<string, string | number | boolean | undefined>
 
+const MAX_FIELD = 4000
+
 /** Send a form payload to FormSubmit. First use requires confirming the inbox email. */
 export async function sendFormSubmit(payload: FormSubmitPayload): Promise<void> {
   const body: Record<string, string> = {
@@ -13,7 +15,7 @@ export async function sendFormSubmit(payload: FormSubmitPayload): Promise<void> 
 
   for (const [key, value] of Object.entries(payload)) {
     if (value === undefined || value === '') continue
-    body[key] = String(value)
+    body[key] = String(value).slice(0, MAX_FIELD)
   }
 
   const res = await fetch(endpoint, {

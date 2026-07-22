@@ -3,6 +3,7 @@ import { ArrowUpRight, Mail, MessageCircle } from 'lucide-react'
 import { CONTACT_EMAIL, FOUNDER_ARYA, FOUNDER_HANSRAJ } from '../data/brand'
 import { DEFAULT_PLAN, PLAN_IDS } from '../data/plans'
 import { sendFormSubmit } from '../lib/formsubmit'
+import { clampText, validateContactFields } from '../lib/formValidation'
 import { Button, Reveal, SectionHeading } from './ui'
 
 const timeline = [
@@ -44,11 +45,21 @@ export function Contact() {
     if (sending) return
     const form = e.currentTarget as HTMLFormElement
     const data = new FormData(form)
-    const name = String(data.get('name') ?? '').trim()
-    const email = String(data.get('email') ?? '').trim()
+    const name = clampText(String(data.get('name') ?? ''), 120)
+    const email = clampText(String(data.get('email') ?? ''), 254)
     const type = String(data.get('type') ?? plan)
-    const message = String(data.get('message') ?? '').trim()
+    const message = clampText(String(data.get('message') ?? ''), 4000)
     if (String(data.get('_honey') ?? '')) return
+
+    const validationError = validateContactFields({ name, email, message })
+    if (validationError) {
+      setError(validationError)
+      return
+    }
+    if (!(VALID_PLANS as readonly string[]).includes(type)) {
+      setError('Pick a valid package.')
+      return
+    }
 
     setSending(true)
     setError(null)
@@ -147,6 +158,8 @@ export function Contact() {
                     <input
                       required
                       name="name"
+                      maxLength={120}
+                      autoComplete="name"
                       className="w-full rounded-sm border-[3px] border-black bg-bg px-3.5 py-2.5 text-sm text-text shadow-[3px_3px_0_#000] outline-none transition focus:border-lime"
                       placeholder="Your name"
                     />
@@ -157,6 +170,8 @@ export function Contact() {
                       required
                       type="email"
                       name="email"
+                      maxLength={254}
+                      autoComplete="email"
                       className="w-full rounded-sm border-[3px] border-black bg-bg px-3.5 py-2.5 text-sm text-text shadow-[3px_3px_0_#000] outline-none transition focus:border-lime"
                       placeholder="you@company.com"
                     />
@@ -183,6 +198,7 @@ export function Contact() {
                       required
                       name="message"
                       rows={4}
+                      maxLength={4000}
                       className="w-full resize-none rounded-sm border-[3px] border-black bg-bg px-3.5 py-2.5 text-sm text-text shadow-[3px_3px_0_#000] outline-none transition focus:border-lime"
                       placeholder="What's wrong with your server? Be honest."
                     />
