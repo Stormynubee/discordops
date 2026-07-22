@@ -4,11 +4,12 @@ import type { PlanDefinition } from '../data/plans'
 type PlanMascotProps = {
   plan: PlanDefinition
   className?: string
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg' | 'card'
 }
 
 const sizes = {
   sm: 'h-14 w-14',
+  card: 'h-16 w-16 sm:h-[4.75rem] sm:w-[4.75rem]',
   md: 'h-24 w-24',
   lg: 'h-32 w-32 sm:h-40 sm:w-40',
 }

@@ -14,7 +14,7 @@ export function Pricing() {
           align="center"
         />
 
-        <div className="mx-auto grid max-w-md items-stretch gap-5 sm:gap-6 lg:max-w-none lg:grid-cols-3 lg:gap-5 xl:gap-7">
+        <div className="mx-auto grid max-w-md items-stretch gap-7 pt-4 sm:gap-8 lg:max-w-none lg:grid-cols-3 lg:items-center lg:gap-6 xl:gap-8">
           {PRICING_ORDER.map((id, i) => (
             <PricingCard key={id} plan={PLANS[id]} index={i} />
           ))}
