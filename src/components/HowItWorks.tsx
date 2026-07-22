@@ -18,7 +18,7 @@ const steps = [
   {
     num: '02',
     title: 'We build your server',
-    desc: 'Channels, bots, branding, automations. Usually done in 7 to 14 days.',
+    desc: 'Channels, bots, branding, automations. Usually done in 3 to 7 days.',
   },
   {
     num: '03',
@@ -106,7 +106,7 @@ export function HowItWorks() {
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Process"
-          title="Three steps. Two weeks. Done."
+          title="Three steps. 3–7 days. Done."
           description="No endless email chains. Just a clear path to a server that works."
         />
 

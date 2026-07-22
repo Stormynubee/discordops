@@ -7,7 +7,7 @@ import { Reveal, SectionHeading } from './ui'
 const faqs = [
   {
     q: 'How long until my server is live?',
-    a: 'Kickoff and Autopilot usually ship in 7 to 14 days. Full Send takes 3 to 6 weeks because there is more stuff: integrations, training, all of it.',
+    a: 'Kickoff and Autopilot usually ship in 3 to 7 days. Full Send takes longer when we stay on for integrations, training, and ongoing ops.',
   },
   {
     q: 'Do you actually build custom bots?',

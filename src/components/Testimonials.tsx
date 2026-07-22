@@ -3,7 +3,7 @@ import { Reveal, SectionHeading } from './ui'
 
 const featured = {
   quote:
-    'They rebuilt our whole Discord in two weeks. Felt like we hired in-house people, not some agency that ghosts you after invoice day.',
+    'They rebuilt our whole Discord in 3 to 7 days. Felt like we hired in-house people, not some agency that ghosts you after invoice day.',
   name: 'Elena Voss',
   role: 'Head of Community, NovaSaaS',
   initials: 'EV',
