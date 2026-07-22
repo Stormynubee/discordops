@@ -68,8 +68,8 @@ export default function App() {
       <SiteAtmosphere />
       {!showSplash ? <BackgroundMascot /> : null}
       {showSplash ? <SplashScreen onComplete={handleSplashComplete} /> : null}
+      <Navbar />
       <div className="relative z-10">
-        <Navbar />
         <StickyPurchaseBar />
         <main className="pb-[max(6.5rem,calc(env(safe-area-inset-bottom,0px)+5.5rem))]">
           <Hero />

@@ -25,20 +25,25 @@ export function Navbar() {
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
     return () => {
-      if (!open) document.body.style.overflow = ''
+      document.body.style.overflow = ''
     }
   }, [open])
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top,0px)] transition-all duration-300 ${
-        scrolled
-          ? 'border-b-[3px] border-yellow bg-bg/95 shadow-[0_4px_0_#000] backdrop-blur-md'
+      className={`fixed inset-x-0 top-0 z-[80] pt-[env(safe-area-inset-top,0px)] transition-all duration-300 ${
+        open || scrolled
+          ? 'border-b-[3px] border-yellow bg-bg shadow-[0_4px_0_#000]'
           : 'bg-transparent'
       }`}
     >
-      <nav className="section-pad mx-auto flex h-14 max-w-7xl items-center justify-between md:h-16">
-        <a href="#top" className="text-brand text-base text-text sm:text-lg" aria-label="DiscordOps home">
+      <nav className="section-pad relative z-[81] mx-auto flex h-14 max-w-7xl items-center justify-between md:h-16">
+        <a
+          href="#top"
+          className="text-brand text-base text-text sm:text-lg"
+          aria-label="DiscordOps home"
+          onClick={() => setOpen(false)}
+        >
           Discord<span className="text-accent">Ops</span>
         </a>
 
@@ -63,7 +68,7 @@ export function Navbar() {
 
         <button
           type="button"
-          className="flex h-11 w-11 items-center justify-center rounded-sm border-[3px] border-black bg-cobalt text-white shadow-[3px_3px_0_#000] lg:hidden"
+          className="relative z-[82] flex h-11 w-11 items-center justify-center rounded-sm border-[3px] border-black bg-cobalt text-white shadow-[3px_3px_0_#000] lg:hidden"
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -75,25 +80,43 @@ export function Navbar() {
       <AnimatePresence>
         {open ? (
           <motion.div
+            key="mobile-menu"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 top-[calc(3.5rem+env(safe-area-inset-top,0px))] z-40 border-t-[3px] border-yellow bg-bg/98 backdrop-blur-xl lg:hidden"
+            transition={{ duration: 0.18 }}
+            className="fixed inset-0 z-[79] bg-bg lg:hidden"
+            style={{ paddingTop: 'calc(3.5rem + env(safe-area-inset-top, 0px))' }}
           >
-            <ul className="section-pad flex flex-col gap-1 py-6">
-              {links.map((link) => (
-                <li key={link.href}>
+            <div className="absolute inset-0 bg-bg" aria-hidden />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 opacity-[0.07] checker-bg"
+            />
+            <ul className="section-pad relative z-10 flex h-full flex-col gap-1 overflow-y-auto border-t-[3px] border-yellow py-6 pb-10">
+              {links.map((link, i) => (
+                <motion.li
+                  key={link.href}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.04 + i * 0.04, duration: 0.25 }}
+                >
                   <a
                     href={link.href}
-                    className="flex min-h-[48px] items-center rounded-sm border-[2.5px] border-transparent px-3 text-base font-bold text-muted transition hover:border-yellow hover:bg-card hover:text-text"
+                    className="flex min-h-[52px] items-center rounded-sm border-[2.5px] border-black bg-card px-4 text-base font-bold text-text shadow-[3px_3px_0_#000] transition hover:border-lime hover:text-lime"
                     onClick={() => setOpen(false)}
                   >
                     {link.label}
                   </a>
-                </li>
+                </motion.li>
               ))}
-              <li className="pt-4">
-                <Button href="#order?plan=Full%20Send" variant="primary" className="w-full">
+              <li className="pt-5">
+                <Button
+                  href="#order?plan=Full%20Send"
+                  variant="primary"
+                  className="w-full"
+                  onClick={() => setOpen(false)}
+                >
                   Go Full Send
                 </Button>
               </li>
