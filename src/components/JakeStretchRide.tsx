@@ -1,13 +1,27 @@
 import { useEffect, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 
-/** Progressive stretch by nav href — Services short → FAQ longest */
-export const JAKE_STRETCH_BY_HREF: Record<string, number> = {
-  '#services': 40,
-  '#command-deck': 95,
-  '#portfolio': 150,
-  '#pricing': 210,
-  '#faq': 280,
+/** Full-character stretch frames (alpha cleaned) — short → max. */
+export const JAKE_FRAMES = [
+  '/stickers/adventure/frames/01.png',
+  '/stickers/adventure/frames/02.png',
+  '/stickers/adventure/frames/03.png',
+  '/stickers/adventure/frames/04.png',
+  '/stickers/adventure/frames/05.png',
+  '/stickers/adventure/frames/06.png',
+  '/stickers/adventure/frames/07.png',
+] as const
+
+/** Native widths at 48px height — keep slot sized so head stays right-aligned. */
+const FRAME_WIDTHS = [113, 141, 159, 177, 205, 339, 362] as const
+
+/** Nav links map onto the frame ladder (Services short → FAQ max). */
+export const JAKE_FRAME_BY_HREF: Record<string, number> = {
+  '#services': 0,
+  '#command-deck': 1,
+  '#portfolio': 3,
+  '#pricing': 5,
+  '#faq': 6,
 }
 
 type JakeStretchRideProps = {
@@ -16,32 +30,24 @@ type JakeStretchRideProps = {
   className?: string
 }
 
-const Y = '#F5C518'
-const YD = '#E8B000'
-const H = 42
-const BODY_H = 22
-const FEET_W = 32
-const HEAD_W = 40
-const MAX_BODY = 280
-const SVG_W = FEET_W + MAX_BODY + HEAD_W
-
 /**
- * Seamless Jake inside the nav pill (behind link text).
- * One continuous yellow body — no cut PNG pieces.
- * Stretch length grows with the hovered link.
+ * Jake inside the nav pill, behind link text.
+ * Scrubs full-character stretch frames as the cursor moves across links.
  */
 export function JakeStretchRide({ href, playSound = true, className = '' }: JakeStretchRideProps) {
   const reduceMotion = useReducedMotion()
   const show = !reduceMotion && href !== null
-  const bodyW = show ? (JAKE_STRETCH_BY_HREF[href!] ?? 100) : 18
+  const frameIndex = show ? (JAKE_FRAME_BY_HREF[href!] ?? 1) : 0
+  const slotW = show ? FRAME_WIDTHS[frameIndex] : FRAME_WIDTHS[0]
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const wasShowing = useRef(false)
+  const lastIndex = useRef(frameIndex)
 
   useEffect(() => {
     if (!audioRef.current) {
       const a = new Audio('/stickers/adventure/jake-stretch.mp3')
       a.preload = 'auto'
-      a.volume = 0.3
+      a.volume = 0.28
       audioRef.current = a
     }
   }, [])
@@ -49,7 +55,8 @@ export function JakeStretchRide({ href, playSound = true, className = '' }: Jake
   useEffect(() => {
     const a = audioRef.current
     if (!a) return
-    if (show && playSound && !wasShowing.current) {
+    const grew = show && frameIndex > lastIndex.current
+    if (show && playSound && (!wasShowing.current || grew)) {
       a.currentTime = 0
       void a.play().catch(() => {})
     }
@@ -58,114 +65,49 @@ export function JakeStretchRide({ href, playSound = true, className = '' }: Jake
       a.currentTime = 0
     }
     wasShowing.current = show
-  }, [show, playSound])
+    lastIndex.current = frameIndex
+  }, [show, playSound, frameIndex])
+
+  useEffect(() => {
+    for (const src of JAKE_FRAMES) {
+      const img = new Image()
+      img.src = src
+    }
+  }, [])
 
   if (reduceMotion) return null
 
-  const headX = FEET_W + bodyW - 8
-  const visibleW = FEET_W + bodyW + HEAD_W - 8
-  const bodyY = (H - BODY_H) / 2
-  const t = { duration: show ? 0.48 : 0.28, ease: [0.22, 1, 0.36, 1] as const }
+  const t = { duration: show ? 0.36 : 0.2, ease: [0.22, 1, 0.36, 1] as const }
 
   return (
     <div aria-hidden className={`pointer-events-none absolute overflow-visible ${className}`}>
       <motion.div
-        className="overflow-hidden"
+        className="relative overflow-visible"
         initial={false}
-        animate={{ opacity: show ? 0.9 : 0, width: Math.max(visibleW, 1) }}
+        animate={{
+          opacity: show ? 0.88 : 0,
+          width: slotW,
+        }}
         transition={t}
-        style={{ height: H, marginLeft: 'auto' }}
+        style={{ height: 48, marginLeft: 'auto' }}
       >
-        <svg
-          width={SVG_W}
-          height={H}
-          viewBox={`0 0 ${SVG_W} ${H}`}
-          className="drop-shadow-[1px_2px_0_rgba(0,0,0,0.28)]"
-          style={{ display: 'block' }}
-        >
-          {/* Stretching mid-body — continuous yellow */}
-          <motion.rect
-            x={FEET_W - 10}
-            y={bodyY}
-            height={BODY_H}
-            rx={BODY_H / 2}
-            fill={Y}
-            stroke="#000"
-            strokeWidth="2.2"
-            initial={false}
-            animate={{ width: bodyW + 20 }}
-            transition={t}
-          />
-          <motion.rect
-            x={FEET_W - 4}
-            y={bodyY + BODY_H - 6}
-            height={4}
-            rx={2}
-            fill={YD}
-            opacity={0.3}
-            initial={false}
-            animate={{ width: bodyW + 8 }}
-            transition={t}
-          />
-
-          {/* Rear / feet — fixed left, overlaps tube */}
-          <g>
-            <rect x={FEET_W - 12} y={bodyY + 1} width={14} height={BODY_H - 2} fill={Y} />
-            <path
-              d={`M${FEET_W - 6} ${bodyY}
-                  C 16 ${bodyY}, 3 ${bodyY + 4}, 3 ${H / 2}
-                  C 3 ${H - bodyY - 4}, 16 ${H - bodyY}, ${FEET_W - 6} ${H - bodyY}
-                  Z`}
-              fill={Y}
-              stroke="#000"
-              strokeWidth="2.2"
-              strokeLinejoin="round"
+        {JAKE_FRAMES.map((src, i) => {
+          const dist = Math.abs(i - frameIndex)
+          // Soft neighbor blend so scrubbing feels continuous
+          const opacity = !show ? 0 : dist === 0 ? 1 : dist === 1 ? 0.22 : dist === 2 ? 0.06 : 0
+          return (
+            <motion.img
+              key={src}
+              src={src}
+              alt=""
+              draggable={false}
+              className="absolute bottom-0 right-0 h-12 w-auto max-w-none select-none drop-shadow-[1px_2px_0_rgba(0,0,0,0.28)]"
+              initial={false}
+              animate={{ opacity }}
+              transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
             />
-            <line x1={FEET_W - 6} y1={bodyY} x2={FEET_W + 4} y2={bodyY} stroke="#000" strokeWidth="2.2" />
-            <line
-              x1={FEET_W - 6}
-              y1={H - bodyY}
-              x2={FEET_W + 4}
-              y2={H - bodyY}
-              stroke="#000"
-              strokeWidth="2.2"
-            />
-            <ellipse cx="11" cy={bodyY} rx="4" ry="4.5" fill={Y} stroke="#000" strokeWidth="1.8" />
-            <path
-              d={`M9 ${H - bodyY - 1} L7 ${H - 1} L13 ${H - 1} L14 ${H - bodyY - 1}`}
-              fill={Y}
-              stroke="#000"
-              strokeWidth="1.8"
-              strokeLinejoin="round"
-            />
-            <path
-              d={`M17 ${H - bodyY - 1} L16 ${H - 1} L22 ${H - 1} L21 ${H - bodyY - 1}`}
-              fill={Y}
-              stroke="#000"
-              strokeWidth="1.8"
-              strokeLinejoin="round"
-            />
-          </g>
-
-          {/* Head — rides the right end of the stretch */}
-          <motion.g initial={false} animate={{ x: headX }} transition={t}>
-            <rect x={-8} y={bodyY + 1} width={14} height={BODY_H - 2} fill={Y} />
-            <line x1={-8} y1={bodyY} x2={2} y2={bodyY} stroke="#000" strokeWidth="2.2" />
-            <line x1={-8} y1={H - bodyY} x2={2} y2={H - bodyY} stroke="#000" strokeWidth="2.2" />
-            <ellipse cx="18" cy="16" rx="15" ry="13.5" fill={Y} stroke="#000" strokeWidth="2.2" />
-            <ellipse cx="7" cy="7" rx="3.6" ry="4.5" fill={Y} stroke="#000" strokeWidth="1.7" />
-            <ellipse cx="28" cy="7" rx="3.6" ry="4.5" fill={Y} stroke="#000" strokeWidth="1.7" />
-            <circle cx="12.5" cy="13.5" r="5.4" fill="#fff" stroke="#000" strokeWidth="1.2" />
-            <circle cx="23.5" cy="13.5" r="5.4" fill="#fff" stroke="#000" strokeWidth="1.2" />
-            <circle cx="13.4" cy="14" r="2" fill="#000" />
-            <circle cx="24.4" cy="14" r="2" fill="#000" />
-            <ellipse cx="18" cy="21.5" rx="6.5" ry="4.2" fill="#F0D070" stroke="#000" strokeWidth="1.15" />
-            <ellipse cx="18" cy="20" rx="1.6" ry="1.2" fill="#000" />
-            <path d="M14.5 23.2 Q18 25.5 21.5 23.2" fill="none" stroke="#000" strokeWidth="1.15" strokeLinecap="round" />
-            <ellipse cx="11" cy="32.5" rx="5" ry="3.4" fill={Y} stroke="#000" strokeWidth="1.7" />
-            <ellipse cx="24" cy="32.5" rx="5" ry="3.4" fill={Y} stroke="#000" strokeWidth="1.7" />
-          </motion.g>
-        </svg>
+          )
+        })}
       </motion.div>
     </div>
   )

@@ -254,7 +254,7 @@ function DesktopNavItem({
       <a
         href={link.href}
         aria-describedby={showPreview ? panelId : undefined}
-        className={`group relative z-[20] inline-flex items-center px-1 py-2 text-[13px] font-bold tracking-wide transition ${
+        className={`group relative z-[20] inline-flex items-center px-1 py-2 text-[13px] font-bold tracking-wide transition [text-shadow:0_1px_0_rgba(0,0,0,0.55)] ${
           active || showPreview ? 'text-lime' : 'text-[#ffd6ea] hover:text-lime'
         }`}
       >
