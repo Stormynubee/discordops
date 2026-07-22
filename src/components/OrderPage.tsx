@@ -188,9 +188,15 @@ export function OrderPage() {
             </h1>
             <p className="mt-3 max-w-md text-base text-silver/90">{plan.blurb}</p>
 
-            <div className="mt-8 flex items-end gap-1 border-b border-border/50 pb-6">
-              <span className="text-price text-5xl text-accent sm:text-6xl">${plan.price}</span>
-              <span className="mb-2 text-sm text-muted">one-time kickoff</span>
+            <div className="mt-8 flex items-end gap-2.5 border-b border-border/50 pb-6">
+              <p
+                className="text-price flex items-baseline gap-0.5 text-5xl text-accent sm:text-6xl"
+                aria-label={`${plan.price} dollars`}
+              >
+                <span className="text-[0.55em] font-black tracking-normal">$</span>
+                <span>{plan.price}</span>
+              </p>
+              <span className="mb-2 text-sm font-semibold text-muted">one-time kickoff</span>
             </div>
 
             <ul className="mt-6 space-y-2.5">

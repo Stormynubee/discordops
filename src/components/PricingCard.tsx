@@ -64,11 +64,17 @@ export function PricingCard({ plan, index }: PricingCardProps) {
         <PlanMascot plan={plan} size="card" className="-mr-1 -mt-0.5" />
       </div>
 
-      <div className="mt-5 flex items-end gap-2 border-b-[3px] border-black/40 pb-4 sm:mt-6 sm:pb-5">
-        <span className="text-price text-[clamp(2.75rem,calc(2rem+3vw),3.75rem)] leading-none text-lime">
-          ${plan.price}
+      <div className="mt-5 flex items-end gap-2.5 border-b-[3px] border-black/40 pb-4 sm:mt-6 sm:pb-5">
+        <p
+          className="text-price flex items-baseline gap-0.5 text-[clamp(2.85rem,calc(2.1rem+3.2vw),3.85rem)] text-lime"
+          aria-label={`${plan.price} dollars`}
+        >
+          <span className="text-[0.55em] font-black tracking-normal">$</span>
+          <span>{plan.price}</span>
+        </p>
+        <span className="mb-2 text-[13px] font-semibold tracking-wide text-muted sm:text-sm">
+          / once
         </span>
-        <span className="mb-1.5 text-[13px] font-semibold text-muted sm:text-sm">/ once</span>
       </div>
 
       <p className="mt-4 text-[14px] leading-relaxed text-text/85 sm:text-[15px]">{plan.blurb}</p>

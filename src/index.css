@@ -118,14 +118,16 @@
     overflow: visible !important;
   }
 
+  /* Money amounts: Satoshi, not pixel — digits must stay unambiguous */
   .text-price {
-    font-family: var(--font-display);
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    line-height: 1.05 !important;
-    padding-bottom: 0.08em;
+    font-family: var(--font-sans);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.95 !important;
     overflow: visible !important;
     font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1, "ss01" 1;
+    text-shadow: 3px 3px 0 #000000;
   }
 
   .text-headline {
