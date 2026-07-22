@@ -38,28 +38,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://api.fontshare.com" />
     <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+    <!-- Direct stylesheets (not preload+onload): CSP script-src 'self' blocks inline onload, so fonts never applied -->
     <link
-      rel="preload"
-      as="style"
+      rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Jersey+20&family=Pixelify+Sans:wght@700&display=swap"
-      onload="this.onload=null;this.rel='stylesheet'"
     />
     <link
-      rel="preload"
-      as="style"
+      rel="stylesheet"
       href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap"
-      onload="this.onload=null;this.rel='stylesheet'"
     />
-    <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Jersey+20&family=Pixelify+Sans:wght@700&display=swap"
-        rel="stylesheet"
-      />
-      <link
-        href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap"
-        rel="stylesheet"
-      />
-    </noscript>
     <title>DeezOps</title>
     <script type="application/ld+json">
       {

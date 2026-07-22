@@ -228,24 +228,28 @@
     letter-spacing: 0.04em;
   }
 
-  /* Chunky game banner type — Jersey 20 (Minecraft vibe, still readable) */
+  /* Chunky game banner type — Jersey 20 (must load via stylesheet; not Satoshi) */
   .text-pixel-3d {
-    font-family: var(--font-pixel);
+    font-family: "Jersey 20", var(--font-pixel);
     font-weight: 400;
+    font-style: normal;
     color: var(--color-pixel-pink);
     text-shadow:
       1px 1px 0 #000,
       2px 2px 0 #000,
       3px 3px 0 #000,
       4px 4px 0 #000,
+      5px 5px 0 #000,
       -1px 0 0 #fff,
       0 -1px 0 #fff,
       1px 0 0 #fff,
       0 1px 0 #fff;
-    letter-spacing: 0.03em;
-    line-height: 1.12;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: geometricPrecision;
+    letter-spacing: 0.02em;
+    line-height: 1.05;
+    text-transform: none;
+    font-synthesis: none;
+    -webkit-font-smoothing: auto;
+    text-rendering: optimizeLegibility;
   }
 
   /* Nav labels over Jake: transparent ground + comic stroke so Jake stays visible */
