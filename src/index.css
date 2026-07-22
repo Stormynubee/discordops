@@ -21,7 +21,7 @@
   --color-pixel-pink: #ffd6ea;
   --color-footer: #08060f;
   --font-display: "Pixelify Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-pixel: "Jersey 20", "Pixelify Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-pixel: "Pixelify Sans", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
   --radius-panel: 0.35rem;
   --radius-card: 0.5rem;
@@ -228,10 +228,10 @@
     letter-spacing: 0.04em;
   }
 
-  /* Chunky game banner type — Jersey 20 (must load via stylesheet; not Satoshi) */
+  /* Soft pixel banner type — Pixelify Sans + hard extrude */
   .text-pixel-3d {
-    font-family: "Jersey 20", var(--font-pixel);
-    font-weight: 400;
+    font-family: var(--font-pixel);
+    font-weight: 700;
     font-style: normal;
     color: var(--color-pixel-pink);
     text-shadow:
@@ -239,16 +239,15 @@
       2px 2px 0 #000,
       3px 3px 0 #000,
       4px 4px 0 #000,
-      5px 5px 0 #000,
       -1px 0 0 #fff,
       0 -1px 0 #fff,
       1px 0 0 #fff,
       0 1px 0 #fff;
     letter-spacing: 0.02em;
-    line-height: 1.05;
+    line-height: 1.12;
     text-transform: none;
     font-synthesis: none;
-    -webkit-font-smoothing: auto;
+    -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
