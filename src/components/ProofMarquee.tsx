@@ -21,7 +21,7 @@ export function ProofMarquee() {
       aria-label="Client results"
     >
       <div className="marquee-container w-full">
-        <div className="marquee-content items-center gap-12 px-8 text-[13px] font-medium tracking-wide text-muted">
+        <div className="marquee-content items-center gap-12 px-8 text-[13px] font-medium text-muted">
           {doubled.map((item, i) => (
             <span key={`${item}-${i}`} className="inline-flex shrink-0 items-center gap-12">
               {item}

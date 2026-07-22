@@ -38,7 +38,7 @@ export function Navbar() {
       }`}
     >
       <nav className="section-pad mx-auto flex h-14 max-w-7xl items-center justify-between md:h-16">
-        <a href="#top" className="font-display text-lg font-bold tracking-tight text-text" aria-label="DiscordOps home">
+        <a href="#top" className="text-brand text-lg text-text" aria-label="DiscordOps home">
           Discord<span className="text-accent">Ops</span>
         </a>
 

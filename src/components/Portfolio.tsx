@@ -94,15 +94,15 @@ export function Portfolio() {
                 </div>
                 <div className="flex items-end justify-between gap-4 p-5">
                   <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-accent">
+                    <p className="text-label-caps text-accent">
                       {project.type}
                     </p>
-                    <h3 className="mt-1 font-display text-xl font-semibold tracking-tight text-text">
+                    <h3 className="text-title mt-1 text-xl text-text">
                       {project.name}
                     </h3>
                   </div>
                   <div className="text-right">
-                    <p className="font-display text-lg font-semibold text-accent">{project.metric}</p>
+                    <p className="text-title text-lg text-accent">{project.metric}</p>
                     <p className="text-[11px] text-muted">{project.members} members</p>
                   </div>
                 </div>

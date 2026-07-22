@@ -83,13 +83,13 @@ export function Contact() {
           <Reveal>
             <div className="space-y-6">
               <div>
-                <p className="mb-4 text-[11px] font-semibold uppercase tracking-[0.12em] text-silver">
+                <p className="text-label-caps mb-4 text-silver">
                   What happens next
                 </p>
                 <ol className="space-y-4">
                   {timeline.map((item) => (
                     <li key={item.step} className="flex gap-4">
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border font-mono text-[11px] text-silver">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border text-step text-[11px] text-silver">
                         {item.step}
                       </span>
                       <div>
@@ -134,7 +134,7 @@ export function Contact() {
                   <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-accent/10 text-accent">
                     <ArrowUpRight size={18} />
                   </div>
-                  <h3 className="font-display text-xl font-semibold text-text">Got it.</h3>
+                  <h3 className="text-title text-xl text-text">Got it.</h3>
                   <p className="mt-2 max-w-sm text-sm text-muted">
                     {FOUNDER_HANSRAJ} or {FOUNDER_ARYA} will get back to you. Usually within a day.
                   </p>
@@ -143,7 +143,7 @@ export function Contact() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden />
                   <label className="block">
-                    <span className="mb-1.5 block text-[12px] font-medium text-muted">Name</span>
+                    <span className="mb-1.5 block text-label text-muted">Name</span>
                     <input
                       required
                       name="name"
@@ -152,7 +152,7 @@ export function Contact() {
                     />
                   </label>
                   <label className="block">
-                    <span className="mb-1.5 block text-[12px] font-medium text-muted">Email</span>
+                    <span className="mb-1.5 block text-label text-muted">Email</span>
                     <input
                       required
                       type="email"
@@ -162,7 +162,7 @@ export function Contact() {
                     />
                   </label>
                   <label className="block sm:col-span-2">
-                    <span className="mb-1.5 block text-[12px] font-medium text-muted">Package</span>
+                    <span className="mb-1.5 block text-label text-muted">Package</span>
                     <select
                       name="type"
                       value={plan}
@@ -178,7 +178,7 @@ export function Contact() {
                     </select>
                   </label>
                   <label className="block sm:col-span-2">
-                    <span className="mb-1.5 block text-[12px] font-medium text-muted">Message</span>
+                    <span className="mb-1.5 block text-label text-muted">Message</span>
                     <textarea
                       required
                       name="message"

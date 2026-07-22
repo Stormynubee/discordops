@@ -131,7 +131,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
 
         {/* Wordmark — fades as bat departs */}
         <motion.p
-          className="mt-6 font-display text-xl font-semibold tracking-tight text-text md:text-2xl"
+          className="text-brand mt-6 text-xl text-text md:text-2xl"
           initial={{ opacity: 0, y: 8 }}
           animate={
             exiting

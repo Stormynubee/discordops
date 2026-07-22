@@ -37,11 +37,11 @@ export function HowItWorks() {
             {steps.map((step, i) => (
               <Reveal key={step.num} delay={i * 0.08}>
                 <li className="relative flex gap-5 overflow-visible md:gap-8">
-                  <span className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border bg-bg font-mono text-[11px] font-medium text-silver md:h-10 md:w-10">
+                  <span className="relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border bg-bg text-step text-[11px] text-silver md:h-10 md:w-10">
                     {step.num}
                   </span>
                   <div className="overflow-visible pt-0.5 md:pt-1">
-                    <h3 className="font-display text-xl font-semibold text-text md:text-2xl">
+                    <h3 className="text-title text-xl text-text md:text-2xl">
                       {step.title}
                     </h3>
                     <p className="mt-2 max-w-lg text-[15px] leading-relaxed text-muted">{step.desc}</p>

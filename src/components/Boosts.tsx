@@ -14,10 +14,10 @@ export function Boosts() {
         <div className="mx-auto max-w-7xl border-y border-border py-10 md:py-12">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-lg">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-silver">
+              <p className="text-label-caps text-silver">
                 Optional add-on
               </p>
-              <h3 className="mt-2 font-display text-2xl font-semibold tracking-tight text-text md:text-3xl">
+              <h3 className="text-title mt-2 text-2xl text-text md:text-3xl">
                 Discord Server Boosts
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-muted md:text-[15px]">
@@ -33,10 +33,10 @@ export function Boosts() {
             <div className="flex flex-wrap gap-6 md:gap-10">
               {boosts.map((b) => (
                 <div key={b.level} className="min-w-[100px]">
-                  <p className="text-[11px] font-medium uppercase tracking-[0.08em] text-muted">
+                  <p className="text-label text-muted">
                     {b.level}
                   </p>
-                  <p className="mt-1 font-display text-2xl font-semibold tracking-tight text-text">
+                  <p className="text-title mt-1 text-2xl text-text">
                     {b.amount}
                   </p>
                   <p className="mt-0.5 text-[12px] text-silver">{b.note}</p>

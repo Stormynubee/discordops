@@ -77,7 +77,7 @@ export function CommandDeck() {
               </div>
 
               <div className="bg-discord p-6 md:p-8">
-                <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[#949ba4]">
+                <p className="text-label-caps text-[#949ba4]">
                   What your server looks like
                 </p>
                 <AnimatePresence mode="wait">
@@ -90,7 +90,7 @@ export function CommandDeck() {
                     className="mt-5 space-y-3"
                   >
                     <div className="rounded-lg border border-white/[0.06] bg-discord-panel p-3">
-                      <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-[#949ba4]">
+                      <p className="mb-2 text-label text-[#949ba4]">
                         Channels
                       </p>
                       <ul className="space-y-1">

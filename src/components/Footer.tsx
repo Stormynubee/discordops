@@ -8,7 +8,7 @@ export function Footer() {
       <div className="section-pad mx-auto max-w-7xl py-10">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <div className="text-center md:text-left">
-            <a href="#top" className="font-display text-lg font-bold tracking-tight text-text">
+            <a href="#top" className="text-brand text-lg text-text">
               Discord<span className="text-accent">Ops</span>
             </a>
             <p className="mt-1.5 text-[13px] text-muted">Founded by {FOUNDERS_SHORT}</p>

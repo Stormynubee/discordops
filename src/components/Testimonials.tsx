@@ -39,7 +39,7 @@ export function Testimonials() {
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <Reveal>
             <figure>
-              <blockquote className="font-display text-[clamp(1.35rem,2.8vw,2rem)] font-medium tracking-tight text-text">
+              <blockquote className="text-headline text-[clamp(1.35rem,2.8vw,2rem)] text-text">
                 &ldquo;{featured.quote}&rdquo;
               </blockquote>
               <figcaption className="mt-8 flex items-center gap-3 border-t border-border pt-6">

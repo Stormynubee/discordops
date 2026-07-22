@@ -57,7 +57,7 @@ export function PricingCard({ plan, index }: PricingCardProps) {
       </div>
 
       <div className="mt-1 flex items-baseline gap-1.5">
-        <span className="text-display overflow-visible text-[clamp(3rem,5vw,4.25rem)] text-text">
+        <span className="text-price overflow-visible text-[clamp(3rem,5vw,4.25rem)] text-text">
           ${plan.price}
         </span>
         <span className="text-base text-muted">/once</span>

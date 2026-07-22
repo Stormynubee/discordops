@@ -58,7 +58,7 @@ function FaqItem({
         className="flex w-full items-center justify-between gap-4 py-5 text-left transition hover:text-accent"
         aria-expanded={open}
       >
-        <span className="font-display text-[15px] font-semibold tracking-tight text-text md:text-lg">
+        <span className="text-title text-[15px] text-text md:text-lg">
           {q}
         </span>
         <span

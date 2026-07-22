@@ -103,7 +103,7 @@ export function OrderPage() {
           <ArrowLeft className="h-4 w-4 transition group-hover:-translate-x-0.5" />
           Back to DiscordOps
         </a>
-        <p className="font-display text-sm tracking-wide text-accent/90">DiscordOps</p>
+        <p className="text-brand text-sm text-accent/90">DiscordOps</p>
       </header>
 
       <main className="relative z-10 mx-auto grid max-w-6xl gap-10 px-5 pb-20 pt-4 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-14 lg:px-8 lg:pt-8">
@@ -119,7 +119,7 @@ export function OrderPage() {
           }`}
         >
           <div className="mb-6">
-            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted">Choose your plan</p>
+            <p className="text-label-caps mb-3 text-muted">Choose your plan</p>
             <div
               role="tablist"
               aria-label="Plan"
@@ -166,11 +166,11 @@ export function OrderPage() {
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap items-center gap-2">
               {plan.featured ? (
-                <span className="rounded-full bg-accent px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-bg">
+                <span className="rounded-full bg-accent px-3 py-1 text-label text-bg">
                   Flagship
                 </span>
               ) : null}
-              <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-muted">Selected</span>
+              <span className="text-label-caps text-muted">Selected</span>
             </div>
             <PlanMascot plan={plan} size="md" className="-mr-2" />
           </div>
@@ -181,14 +181,14 @@ export function OrderPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">{plan.tagline}</p>
-            <h1 className="font-display mt-2 text-[clamp(2.4rem,6vw,3.5rem)] leading-[1.1] tracking-tight text-text">
+            <p className="text-label text-muted">{plan.tagline}</p>
+            <h1 className="text-display mt-2 text-[clamp(2.4rem,6vw,3.5rem)] text-text">
               {plan.id}
             </h1>
             <p className="mt-3 max-w-md text-base text-silver/90">{plan.blurb}</p>
 
             <div className="mt-8 flex items-end gap-1 border-b border-border/50 pb-6">
-              <span className="font-display text-5xl tracking-tight text-accent sm:text-6xl">${plan.price}</span>
+              <span className="text-price text-5xl text-accent sm:text-6xl">${plan.price}</span>
               <span className="mb-2 text-sm text-muted">one-time kickoff</span>
             </div>
 
@@ -221,16 +221,16 @@ export function OrderPage() {
         >
           <div className="mb-2 flex items-center gap-2 text-accent">
             <MessageCircle className="h-5 w-5" aria-hidden />
-            <span className="text-xs font-semibold uppercase tracking-[0.16em]">Order ticket</span>
+            <span className="text-label-caps">Order ticket</span>
           </div>
-          <h2 className="font-display text-2xl tracking-tight text-text sm:text-3xl">Tell us what we are walking into</h2>
+          <h2 className="text-title text-2xl text-text sm:text-3xl">Tell us what we are walking into</h2>
           <p className="mt-2 max-w-lg text-sm text-muted">
             Hits our inbox directly. No account, no checkout widget. Just send it.
           </p>
 
           {submitted ? (
             <div className="mt-10 rounded-2xl border border-accent/30 bg-accent/8 p-6">
-              <p className="font-display text-xl text-accent">Ticket sent.</p>
+              <p className="text-title text-xl text-accent">Ticket sent.</p>
               <p className="mt-2 text-sm text-silver">
                 We got your <strong className="text-text">{plan.id}</strong> order. {FOUNDERS_SHORT} will reply soon.
               </p>
@@ -246,11 +246,11 @@ export function OrderPage() {
 
               <div className="grid gap-5 sm:grid-cols-2">
                 <label className="block space-y-1.5">
-                  <span className="text-xs font-medium uppercase tracking-wider text-muted">Your name</span>
+                  <span className="text-label text-muted">Your name</span>
                   <input name="name" required autoComplete="name" className={fieldClass} placeholder="Alex" />
                 </label>
                 <label className="block space-y-1.5">
-                  <span className="text-xs font-medium uppercase tracking-wider text-muted">Email</span>
+                  <span className="text-label text-muted">Email</span>
                   <input
                     name="email"
                     type="email"
@@ -263,7 +263,7 @@ export function OrderPage() {
               </div>
 
               <label className="block space-y-1.5">
-                <span className="text-xs font-medium uppercase tracking-wider text-muted">Discord handle</span>
+                <span className="text-label text-muted">Discord handle</span>
                 <input
                   name="discord"
                   required
@@ -274,7 +274,7 @@ export function OrderPage() {
               </label>
 
               <label className="block space-y-1.5">
-                <span className="text-xs font-medium uppercase tracking-wider text-muted">
+                <span className="text-label text-muted">
                   Server invite or ID <span className="normal-case tracking-normal text-muted/70">(optional)</span>
                 </span>
                 <input
@@ -286,7 +286,7 @@ export function OrderPage() {
               </label>
 
               <label className="block space-y-1.5">
-                <span className="text-xs font-medium uppercase tracking-wider text-muted">What is broken / what you want</span>
+                <span className="text-label text-muted">What is broken / what you want</span>
                 <textarea
                   name="notes"
                   rows={5}
