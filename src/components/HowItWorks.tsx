@@ -106,7 +106,7 @@ export function HowItWorks() {
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Process"
-          title="Three steps. 3–7 days. Done."
+          title="Three steps."
           description="No endless email chains. Just a clear path to a server that works."
         />
 
