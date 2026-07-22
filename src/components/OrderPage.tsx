@@ -1,8 +1,9 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowLeft, ArrowUpRight, Check, MessageCircle } from 'lucide-react'
-import { FOUNDERS_SHORT } from '../data/brand'
+import { CONTACT_EMAIL, FOUNDERS_SHORT } from '../data/brand'
 import { getPlan, PLANS, PRICING_ORDER, type PlanId } from '../data/plans'
+import { sendFormSubmit } from '../lib/formsubmit'
 import { getLockedPlanFromHash, orderHref } from '../lib/order'
 import { PlanMascot } from './PlanMascot'
 import { Button } from './ui'
@@ -14,12 +15,15 @@ export function OrderPage() {
   const reduceMotion = useReducedMotion()
   const [planId, setPlanId] = useState<PlanId>(() => getLockedPlanFromHash())
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     window.scrollTo(0, 0)
     const sync = () => {
       setPlanId(getLockedPlanFromHash())
       setSubmitted(false)
+      setError(null)
     }
     window.addEventListener('hashchange', sync)
     return () => window.removeEventListener('hashchange', sync)
@@ -32,8 +36,9 @@ export function OrderPage() {
     window.location.hash = orderHref(id)
   }
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    if (sending) return
     const form = e.currentTarget as HTMLFormElement
     const data = new FormData(form)
     const name = String(data.get('name') ?? '').trim()
@@ -41,25 +46,28 @@ export function OrderPage() {
     const discord = String(data.get('discord') ?? '').trim()
     const server = String(data.get('server') ?? '').trim()
     const notes = String(data.get('notes') ?? '').trim()
+    if (String(data.get('_honey') ?? '')) return
 
-    const body = [
-      `Plan: ${plan.id} ($${plan.price})`,
-      `Name: ${name}`,
-      `Email: ${email}`,
-      `Discord: ${discord}`,
-      server ? `Server invite / ID: ${server}` : null,
-      '',
-      notes || '(no notes)',
-    ]
-      .filter((line) => line !== null)
-      .join('\n')
-
-    const mailto = `mailto:hello@discordops.com?subject=${encodeURIComponent(
-      `DiscordOps order: ${plan.id}`,
-    )}&body=${encodeURIComponent(body)}`
-
-    window.location.href = mailto
-    setSubmitted(true)
+    setSending(true)
+    setError(null)
+    try {
+      await sendFormSubmit({
+        _subject: `DiscordOps order: ${plan.id}`,
+        form: 'Order ticket',
+        plan: `${plan.id} ($${plan.price})`,
+        name,
+        email,
+        discord,
+        server: server || undefined,
+        notes: notes || '(no notes)',
+      })
+      setSubmitted(true)
+      form.reset()
+    } catch {
+      setError('Could not send. Try again, or email us directly.')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -195,7 +203,7 @@ export function OrderPage() {
           </motion.div>
 
           <p className="mt-8 text-xs leading-relaxed text-muted">
-            Switch tiers anytime before you send. {FOUNDERS_SHORT} will reply from your email client.
+            Switch tiers anytime before you send. {FOUNDERS_SHORT} will reply by email.
           </p>
 
           <div
@@ -217,18 +225,14 @@ export function OrderPage() {
           </div>
           <h2 className="font-display text-2xl tracking-tight text-text sm:text-3xl">Tell us what we are walking into</h2>
           <p className="mt-2 max-w-lg text-sm text-muted">
-            Opens your email app with everything filled in. No account, no checkout widget. Just send it.
+            Hits our inbox directly. No account, no checkout widget. Just send it.
           </p>
 
           {submitted ? (
             <div className="mt-10 rounded-2xl border border-accent/30 bg-accent/8 p-6">
-              <p className="font-display text-xl text-accent">Email client should be open.</p>
+              <p className="font-display text-xl text-accent">Ticket sent.</p>
               <p className="mt-2 text-sm text-silver">
-                If nothing popped up, email{' '}
-                <a href="mailto:hello@discordops.com" className="text-accent underline-offset-2 hover:underline">
-                  hello@discordops.com
-                </a>{' '}
-                with plan <strong className="text-text">{plan.id}</strong> in the subject.
+                We got your <strong className="text-text">{plan.id}</strong> order. {FOUNDERS_SHORT} will reply soon.
               </p>
               <Button href="#top" variant="secondary" className="mt-6">
                 Back home
@@ -237,6 +241,8 @@ export function OrderPage() {
           ) : (
             <form onSubmit={onSubmit} className="mt-8 space-y-5">
               <input type="hidden" name="plan" value={plan.id} />
+              {/* Honeypot for bots */}
+              <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden />
 
               <div className="grid gap-5 sm:grid-cols-2">
                 <label className="block space-y-1.5">
@@ -289,13 +295,22 @@ export function OrderPage() {
                 />
               </label>
 
+              {error ? (
+                <p className="text-sm text-red-400" role="alert">
+                  {error}{' '}
+                  <a href={`mailto:${CONTACT_EMAIL}`} className="underline underline-offset-2">
+                    {CONTACT_EMAIL}
+                  </a>
+                </p>
+              ) : null}
+
               <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-xs text-muted">
                   Selected: <span className="font-semibold text-accent">{plan.id}</span> · ${plan.price}
                 </p>
-                <Button type="submit" variant="primary" className="w-full sm:w-auto">
-                  Send order ticket
-                  <ArrowUpRight className="h-4 w-4" aria-hidden />
+                <Button type="submit" variant="primary" className="w-full sm:w-auto" disabled={sending}>
+                  {sending ? 'Sending…' : 'Send order ticket'}
+                  {!sending ? <ArrowUpRight className="h-4 w-4" aria-hidden /> : null}
                 </Button>
               </div>
             </form>

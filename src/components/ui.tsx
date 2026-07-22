@@ -13,6 +13,7 @@ type ButtonProps = {
   href?: string
   className?: string
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type']
+  disabled?: boolean
   onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void
 }
 
@@ -22,6 +23,7 @@ export function Button({
   className = '',
   href,
   type = 'button',
+  disabled = false,
   onClick,
 }: ButtonProps) {
   const styles =
@@ -31,7 +33,7 @@ export function Button({
         ? 'bg-transparent text-text border border-silver/25 hover:border-accent/50 hover:bg-accent/5'
         : 'bg-transparent text-muted hover:text-text'
 
-  const classNameFull = `inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold tracking-[-0.01em] transition-all duration-300 ${styles} ${className}`
+  const classNameFull = `inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold tracking-[-0.01em] transition-all duration-300 disabled:pointer-events-none disabled:opacity-60 ${styles} ${className}`
 
   if (href) {
     return (
@@ -49,8 +51,9 @@ export function Button({
   return (
     <motion.button
       type={type}
+      disabled={disabled}
       onClick={onClick as (e: MouseEvent<HTMLButtonElement>) => void}
-      whileTap={{ scale: 0.98 }}
+      whileTap={disabled ? undefined : { scale: 0.98 }}
       className={classNameFull}
     >
       {children}

@@ -1,7 +1,8 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { ArrowUpRight, Mail, MessageCircle } from 'lucide-react'
-import { FOUNDER_ARYA, FOUNDER_HANSRAJ } from '../data/brand'
+import { CONTACT_EMAIL, FOUNDER_ARYA, FOUNDER_HANSRAJ } from '../data/brand'
 import { DEFAULT_PLAN, PLAN_IDS } from '../data/plans'
+import { sendFormSubmit } from '../lib/formsubmit'
 import { Button, Reveal, SectionHeading } from './ui'
 
 const timeline = [
@@ -27,6 +28,8 @@ function getPlanFromUrl(): string {
 
 export function Contact() {
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [plan, setPlan] = useState<string>(DEFAULT_PLAN)
 
   useEffect(() => {
@@ -36,20 +39,35 @@ export function Contact() {
     return () => window.removeEventListener('hashchange', onHashChange)
   }, [])
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    if (sending) return
     const form = e.currentTarget as HTMLFormElement
     const data = new FormData(form)
-    const name = String(data.get('name') ?? '')
-    const email = String(data.get('email') ?? '')
+    const name = String(data.get('name') ?? '').trim()
+    const email = String(data.get('email') ?? '').trim()
     const type = String(data.get('type') ?? plan)
-    const message = String(data.get('message') ?? '')
-    const body = [`Plan: ${type}`, `Name: ${name}`, `Email: ${email}`, '', message].join('\n')
-    const mailto = `mailto:hello@discordops.com?subject=${encodeURIComponent(
-      `DiscordOps inquiry: ${type}`,
-    )}&body=${encodeURIComponent(body)}`
-    window.location.href = mailto
-    setSubmitted(true)
+    const message = String(data.get('message') ?? '').trim()
+    if (String(data.get('_honey') ?? '')) return
+
+    setSending(true)
+    setError(null)
+    try {
+      await sendFormSubmit({
+        _subject: `DiscordOps inquiry: ${type}`,
+        form: 'Contact',
+        plan: type,
+        name,
+        email,
+        message,
+      })
+      setSubmitted(true)
+      form.reset()
+    } catch {
+      setError('Could not send. Try again, or email us directly.')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -85,7 +103,7 @@ export function Contact() {
 
               <div className="space-y-3 border-t border-border pt-6">
                 <a
-                  href="mailto:hello@discordops.com"
+                  href={`mailto:${CONTACT_EMAIL}`}
                   className="group flex items-center gap-4 rounded-xl border border-border bg-card p-5 transition hover:border-accent/35"
                 >
                   <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent">
@@ -93,9 +111,7 @@ export function Contact() {
                   </span>
                   <div>
                     <p className="text-[12px] text-muted">Email</p>
-                    <p className="text-sm font-medium text-text group-hover:text-accent">
-                      hello@discordops.com
-                    </p>
+                    <p className="text-sm font-medium text-text group-hover:text-accent">{CONTACT_EMAIL}</p>
                   </div>
                 </a>
                 <div className="flex items-center gap-4 rounded-xl border border-border bg-card p-5">
@@ -125,6 +141,7 @@ export function Contact() {
                 </div>
               ) : (
                 <div className="grid gap-4 sm:grid-cols-2">
+                  <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden />
                   <label className="block">
                     <span className="mb-1.5 block text-[12px] font-medium text-muted">Name</span>
                     <input
@@ -170,10 +187,18 @@ export function Contact() {
                       placeholder="What's wrong with your server? Be honest."
                     />
                   </label>
+                  {error ? (
+                    <p className="sm:col-span-2 text-sm text-red-400" role="alert">
+                      {error}{' '}
+                      <a href={`mailto:${CONTACT_EMAIL}`} className="underline underline-offset-2">
+                        {CONTACT_EMAIL}
+                      </a>
+                    </p>
+                  ) : null}
                   <div className="sm:col-span-2">
-                    <Button type="submit" variant="primary" className="w-full">
-                      Send it
-                      <ArrowUpRight size={16} />
+                    <Button type="submit" variant="primary" className="w-full" disabled={sending}>
+                      {sending ? 'Sending…' : 'Send it'}
+                      {!sending ? <ArrowUpRight size={16} /> : null}
                     </Button>
                   </div>
                 </div>
