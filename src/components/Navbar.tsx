@@ -254,19 +254,16 @@ function DesktopNavItem({
       <a
         href={link.href}
         aria-describedby={showPreview ? panelId : undefined}
-        className={`group relative z-[20] inline-flex items-center px-1 py-2 text-[13px] font-bold tracking-wide transition ${
-          active || showPreview ? 'text-lime' : 'text-white hover:text-lime'
+        className={`group relative z-[20] inline-flex items-center rounded-sm border-2 px-2 py-1 text-[13px] font-bold tracking-wide transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lime focus-visible:ring-offset-2 focus-visible:ring-offset-elevated ${
+          active || showPreview
+            ? 'border-black bg-elevated text-lime shadow-[2px_2px_0_#000]'
+            : 'border-black/80 bg-[#0c0a14]/88 text-white shadow-[2px_2px_0_rgba(0,0,0,0.85)] hover:border-black hover:bg-elevated hover:text-lime hover:shadow-[2px_2px_0_#000]'
         }`}
-        style={{
-          // Hard outline so labels stay readable over Jake’s yellow
-          textShadow:
-            '0 0 1px #000, 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 1px 1px 0 #000, -1px 1px 0 #000',
-        }}
       >
-        {link.label}
+        <span className="relative">{link.label}</span>
         <span
           aria-hidden
-          className={`absolute inset-x-0 -bottom-0.5 h-[3px] origin-left rounded-sm bg-accent transition-transform duration-200 ${
+          className={`absolute inset-x-1.5 -bottom-[5px] h-[3px] origin-left rounded-sm bg-accent transition-transform duration-200 ${
             active || showPreview ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
           }`}
         />
@@ -380,8 +377,8 @@ export function Navbar() {
         </a>
 
         <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 overflow-visible lg:block">
-          <ul className="relative z-[82] flex items-center gap-1 overflow-visible rounded-sm border-[3px] border-black bg-elevated/90 px-3 shadow-[3px_3px_0_#000] backdrop-blur-sm xl:gap-2 xl:px-4">
-            {/* Jake lives INSIDE the nav pill — behind link text, stretches by hovered item */}
+          <ul className="relative z-[82] flex items-center gap-1.5 overflow-visible rounded-sm border-[3px] border-black bg-elevated/90 px-2.5 py-1 shadow-[3px_3px_0_#000] backdrop-blur-sm xl:gap-2 xl:px-3.5">
+            {/* Jake = atmosphere under labels; label chips own readability */}
             <JakeStretchRide
               href={hovered}
               playSound={hovered !== null}
