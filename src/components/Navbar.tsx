@@ -356,7 +356,7 @@ export function Navbar() {
       <nav className="section-pad relative z-[81] mx-auto flex h-14 max-w-7xl items-center justify-between md:h-16">
         <a
           href="#top"
-          className="group inline-flex items-center gap-2"
+          className="group inline-flex items-center"
           aria-label="DiscordOps home"
           onClick={() => setOpen(false)}
         >
@@ -365,10 +365,6 @@ export function Navbar() {
               Discord<span className="text-accent">Ops</span>
             </span>
           </span>
-          <span
-            aria-hidden
-            className="hidden h-2 w-2 rounded-full bg-lime shadow-[0_0_8px_var(--color-lime)] sm:block"
-          />
         </a>
 
         <ul className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-sm border-[3px] border-black bg-elevated/90 px-3 shadow-[3px_3px_0_#000] backdrop-blur-sm lg:flex xl:gap-2 xl:px-4">

@@ -51,13 +51,13 @@ export function Hero() {
 
       <div className="section-pad relative z-10 mx-auto grid max-w-7xl items-center gap-10 pb-16 sm:gap-12 sm:pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pb-24">
         <div className="relative max-w-xl">
-          {/* Notification pill */}
           <Reveal>
-            <div className="mb-5">
-              <div className="inline-flex items-center gap-2 rounded-sm border-[2.5px] border-black bg-elevated px-2.5 py-1.5 text-[11px] shadow-[3px_3px_0_#000]">
-                <img src="/stickers/y2k/heart.svg" alt="" className="h-4 w-4" />
-                <span className="text-silver">Hansraj + Arya + crew</span>
-              </div>
+            <div className="mb-5 flex items-center gap-3">
+              <span className="font-display text-[12px] font-bold tracking-[0.18em] text-yellow">01</span>
+              <span aria-hidden className="h-[2px] w-7 bg-yellow shadow-[2px_0_0_#000]" />
+              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ffd6ea] sm:text-[12px]">
+                Server ops · live in two weeks
+              </p>
             </div>
           </Reveal>
 
