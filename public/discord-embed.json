@@ -1,0 +1,21 @@
+{
+  "embeds": [
+    {
+      "title": "DeezOps",
+      "description": "Tired of a Discord that looks like it was built at 3am? We set up channels, bots, and branding. Most servers go live in 3 to 7 days. You run the community. We run the boring stuff.",
+      "url": "https://deezops.vercel.app",
+      "color": 16739994,
+      "thumbnail": {
+        "url": "https://deezops.vercel.app/brand/deezops-logo.png"
+      },
+      "fields": [
+        { "name": "Kickoff", "value": "$129", "inline": true },
+        { "name": "Autopilot", "value": "$249", "inline": true },
+        { "name": "Full Send", "value": "$459", "inline": true }
+      ],
+      "footer": {
+        "text": "Hansraj & Arya"
+      }
+    }
+  ]
+}
