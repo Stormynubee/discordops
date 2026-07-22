@@ -12,7 +12,7 @@ export const JAKE_FRAMES = [
   '/stickers/adventure/frames/07.png',
 ] as const
 
-/** Native widths at 48px height — keep slot sized so head stays right-aligned. */
+/** Native widths at 48px height — slot grows with the active frame only. */
 const FRAME_WIDTHS = [113, 141, 159, 177, 205, 339, 362] as const
 
 /** Nav links map onto the frame ladder (Services short → FAQ max). */
@@ -32,7 +32,7 @@ type JakeStretchRideProps = {
 
 /**
  * Jake inside the nav pill, behind link text.
- * Scrubs full-character stretch frames as the cursor moves across links.
+ * One frame at a time — no stacked ghosts. Width grows from the head (right).
  */
 export function JakeStretchRide({ href, playSound = true, className = '' }: JakeStretchRideProps) {
   const reduceMotion = useReducedMotion()
@@ -77,37 +77,29 @@ export function JakeStretchRide({ href, playSound = true, className = '' }: Jake
 
   if (reduceMotion) return null
 
-  const t = { duration: show ? 0.36 : 0.2, ease: [0.22, 1, 0.36, 1] as const }
+  const t = { duration: show ? 0.32 : 0.18, ease: [0.22, 1, 0.36, 1] as const }
 
   return (
     <div aria-hidden className={`pointer-events-none absolute overflow-visible ${className}`}>
       <motion.div
-        className="relative overflow-visible"
+        className="relative overflow-hidden"
         initial={false}
         animate={{
-          opacity: show ? 0.88 : 0,
-          width: slotW,
+          opacity: show ? 0.9 : 0,
+          width: Math.max(slotW, 1),
         }}
         transition={t}
         style={{ height: 48, marginLeft: 'auto' }}
       >
-        {JAKE_FRAMES.map((src, i) => {
-          const dist = Math.abs(i - frameIndex)
-          // Soft neighbor blend so scrubbing feels continuous
-          const opacity = !show ? 0 : dist === 0 ? 1 : dist === 1 ? 0.22 : dist === 2 ? 0.06 : 0
-          return (
-            <motion.img
-              key={src}
-              src={src}
-              alt=""
-              draggable={false}
-              className="absolute bottom-0 right-0 h-12 w-auto max-w-none select-none drop-shadow-[1px_2px_0_rgba(0,0,0,0.28)]"
-              initial={false}
-              animate={{ opacity }}
-              transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
-            />
-          )
-        })}
+        {/* Single Jake only — swap src, never stack frames */}
+        {show ? (
+          <img
+            src={JAKE_FRAMES[frameIndex]}
+            alt=""
+            draggable={false}
+            className="absolute bottom-0 right-0 h-12 w-auto max-w-none select-none drop-shadow-[1px_2px_0_rgba(0,0,0,0.28)]"
+          />
+        ) : null}
       </motion.div>
     </div>
   )

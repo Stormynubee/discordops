@@ -380,7 +380,7 @@ export function Navbar() {
             <JakeStretchRide
               href={hovered}
               playSound={hovered !== null}
-              className="right-1 top-1/2 z-[5] -translate-y-1/2"
+              className="right-1 top-1/2 z-0 -translate-y-1/2"
             />
             {links.map((link) => (
               <DesktopNavItem
