@@ -254,9 +254,14 @@ function DesktopNavItem({
       <a
         href={link.href}
         aria-describedby={showPreview ? panelId : undefined}
-        className={`group relative z-[20] inline-flex items-center px-1 py-2 text-[13px] font-bold tracking-wide transition [text-shadow:0_1px_0_rgba(0,0,0,0.55)] ${
-          active || showPreview ? 'text-lime' : 'text-[#ffd6ea] hover:text-lime'
+        className={`group relative z-[20] inline-flex items-center px-1 py-2 text-[13px] font-bold tracking-wide transition ${
+          active || showPreview ? 'text-lime' : 'text-white hover:text-lime'
         }`}
+        style={{
+          // Hard outline so labels stay readable over Jake’s yellow
+          textShadow:
+            '0 0 1px #000, 1px 0 0 #000, -1px 0 0 #000, 0 1px 0 #000, 0 -1px 0 #000, 1px 1px 0 #000, -1px 1px 0 #000',
+        }}
       >
         {link.label}
         <span
