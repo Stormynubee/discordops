@@ -26,7 +26,7 @@ const faqs = [
     a: 'Autopilot gets you a solid server with bots and automation. Full Send means we stay on your team: CRM sync, mod training, monthly maintenance, priority support.',
   },
   {
-    q: 'Who runs DiscordOps?',
+    q: 'Who runs DeezOps?',
     a: `${FOUNDERS_SHORT}. Two people who got tired of bad Discord servers and decided to fix them for a living.`,
   },
   {

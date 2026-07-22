@@ -54,7 +54,7 @@ export function Contact() {
     setError(null)
     try {
       await sendFormSubmit({
-        _subject: `DiscordOps inquiry: ${type}`,
+        _subject: `DeezOps inquiry: ${type}`,
         form: 'Contact',
         plan: type,
         name,

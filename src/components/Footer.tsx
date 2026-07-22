@@ -9,7 +9,7 @@ export function Footer() {
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <div className="text-center md:text-left">
             <a href="#top" className="text-brand text-lg text-text">
-              Discord<span className="text-accent">Ops</span>
+              Deez<span className="text-accent">Ops</span>
             </a>
             <p className="mt-1.5 text-[13px] text-muted">Founded by {FOUNDERS_SHORT}</p>
           </div>
@@ -27,7 +27,7 @@ export function Footer() {
           </nav>
 
           <p className="text-[15px] text-muted opacity-80">
-            &copy; {new Date().getFullYear()} DiscordOps
+            &copy; {new Date().getFullYear()} DeezOps
           </p>
         </div>
       </div>

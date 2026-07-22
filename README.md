@@ -1,4 +1,4 @@
-# DiscordOps
+# DeezOps
 
 Premium Discord infrastructure agency landing page.
 

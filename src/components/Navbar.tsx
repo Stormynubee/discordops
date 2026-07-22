@@ -328,12 +328,12 @@ export function Navbar() {
         <a
           href="#top"
           className="group inline-flex items-center"
-          aria-label="DiscordOps home"
+          aria-label="DeezOps home"
           onClick={() => setOpen(false)}
         >
           <span className="inline-flex items-center rounded-sm border-[3px] border-black bg-elevated px-2.5 py-1 shadow-[3px_3px_0_#000] transition group-hover:-translate-x-px group-hover:-translate-y-px group-hover:shadow-[4px_4px_0_#000]">
             <span className="text-brand text-base text-text sm:text-lg">
-              Discord<span className="text-accent">Ops</span>
+              Deez<span className="text-accent">Ops</span>
             </span>
           </span>
         </a>

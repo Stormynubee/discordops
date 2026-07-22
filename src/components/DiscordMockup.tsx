@@ -53,13 +53,13 @@ const channels: Channel[] = [
     unread: 2,
     messages: [
       {
-        author: 'DiscordOps',
+        author: 'DeezOps',
         role: 'staff',
         text: 'New members: please pretend you read #rules.',
         time: 'Today at 9:00',
         reactions: [{ src: STICKER.approved, count: 34 }],
       },
-      { author: 'DiscordOps', role: 'staff', text: "Server's live. Try not to break it.", time: 'Today at 9:01' },
+      { author: 'DeezOps', role: 'staff', text: "Server's live. Try not to break it.", time: 'Today at 9:01' },
     ],
   },
   {

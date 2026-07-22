@@ -144,7 +144,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
               : { duration: 0.35, delay: 1.05, ease: [0.22, 1, 0.36, 1] }
           }
         >
-          Discord<span className="text-accent">Ops</span>
+              Deez<span className="text-accent">Ops</span>
         </motion.p>
       </div>
     </div>

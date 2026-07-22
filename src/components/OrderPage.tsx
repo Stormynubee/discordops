@@ -52,7 +52,7 @@ export function OrderPage() {
     setError(null)
     try {
       await sendFormSubmit({
-        _subject: `DiscordOps order: ${plan.id}`,
+        _subject: `DeezOps order: ${plan.id}`,
         form: 'Order ticket',
         plan: `${plan.id} ($${plan.price})`,
         name,
@@ -101,10 +101,10 @@ export function OrderPage() {
           className="group inline-flex min-h-11 items-center gap-2 text-sm text-muted transition hover:text-text"
         >
           <ArrowLeft className="h-4 w-4 transition group-hover:-translate-x-0.5" />
-          <span className="hidden sm:inline">Back to DiscordOps</span>
+          <span className="hidden sm:inline">Back to DeezOps</span>
           <span className="sm:hidden">Back</span>
         </a>
-        <p className="text-brand text-sm text-accent/90">DiscordOps</p>
+        <p className="text-brand text-sm text-accent/90">DeezOps</p>
       </header>
 
       <main className="section-pad relative z-10 mx-auto grid max-w-6xl gap-8 pb-16 pt-2 sm:gap-10 sm:pb-20 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-12 lg:pt-6 xl:gap-14">
