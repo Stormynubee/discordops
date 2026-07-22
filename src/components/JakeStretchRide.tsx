@@ -170,36 +170,36 @@ type FinnPricingPopProps = {
   className?: string
 }
 
-/** Small Finn peek above Pricing — clear of Jake and label text. */
+/** Small Finn peek on Pricing — sits on the pill’s top edge (never off-screen). */
 export function FinnPricingPop({ active, className = '' }: FinnPricingPopProps) {
   const reduceMotion = useReducedMotion()
   if (reduceMotion) return null
 
   return (
-    <motion.div
-      aria-hidden
-      className={`pointer-events-none absolute left-1/2 z-[40] -translate-x-1/2 ${className}`}
-      initial={false}
-      animate={{
-        y: active ? 0 : 10,
-        opacity: active ? 1 : 0,
-        scale: active ? 1 : 0.82,
-      }}
-      transition={
-        active
-          ? { type: 'spring', stiffness: 520, damping: 20, delay: 0.06 }
-          : { duration: 0.14 }
-      }
-      style={{ transformOrigin: 'bottom center' }}
-    >
-      <img
-        src="/stickers/adventure/finn-peek.png"
-        alt=""
-        width={40}
-        height={36}
-        draggable={false}
-        className="h-9 w-auto max-w-none select-none drop-shadow-[1px_2px_0_rgba(0,0,0,0.45)]"
-      />
-    </motion.div>
+    <div aria-hidden className={`pointer-events-none absolute z-[40] ${className}`}>
+      <motion.div
+        initial={false}
+        animate={{
+          y: active ? 0 : 5,
+          opacity: active ? 1 : 0,
+          scale: active ? 1 : 0.85,
+        }}
+        transition={
+          active
+            ? { type: 'spring', stiffness: 520, damping: 20, delay: 0.05 }
+            : { duration: 0.12 }
+        }
+        style={{ transformOrigin: 'bottom center' }}
+      >
+        <img
+          src="/stickers/adventure/finn-peek.png"
+          alt=""
+          width={28}
+          height={25}
+          draggable={false}
+          className="h-[26px] w-auto max-w-none select-none drop-shadow-[1px_2px_0_rgba(0,0,0,0.5)]"
+        />
+      </motion.div>
+    </div>
   )
 }
