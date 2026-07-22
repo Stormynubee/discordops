@@ -48,8 +48,8 @@ type JakeStretchRideProps = {
 
 /**
  * Jake inside the nav pill, behind link text.
- * Single PNG only — spring clips width from the head (right) so stretch is
- * smooth with zero overlapping ghosts.
+ * Single PNG only — anchored at Services (left), spring grows toward FAQ (right).
+ * Image is right-aligned in the clip so the head leads the stretch.
  */
 export function JakeStretchRide({ href, playSound = true, className = '' }: JakeStretchRideProps) {
   const reduceMotion = useReducedMotion()
@@ -123,12 +123,15 @@ export function JakeStretchRide({ href, playSound = true, className = '' }: Jake
         className="relative overflow-hidden"
         style={{
           height: 48,
-          marginLeft: 'auto',
+          marginRight: 'auto',
           width,
           opacity: shellOpacity,
         }}
       >
-        {/* One Jake. Parent width springs; image stays full-size and right-aligned. */}
+        {/*
+          Left-anchored clip grows toward FAQ.
+          Image stays right-aligned inside so the head leads to the right.
+        */}
         <img
           src={JAKE_SRC}
           alt=""
