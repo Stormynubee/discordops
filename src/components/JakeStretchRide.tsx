@@ -69,7 +69,7 @@ export function JakeStretchRide({ href, playSound = true, className = '' }: Jake
     damping: 24,
     mass: 0.35,
   })
-  const shellOpacity = useTransform(visible, (v) => v * 0.72)
+  const shellOpacity = useTransform(visible, (v) => v * 0.9)
 
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const lastWidth = useRef(targetWidth)

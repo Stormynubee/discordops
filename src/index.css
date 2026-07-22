@@ -226,6 +226,19 @@
     line-height: 1.1;
   }
 
+  /* Nav labels over Jake: transparent ground + comic stroke so Jake stays visible */
+  .nav-jake-label {
+    background: transparent;
+    -webkit-text-stroke: 1.35px #000;
+    paint-order: stroke fill;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
+  }
+
+  .nav-jake-label.is-active,
+  .nav-jake-label:hover {
+    -webkit-text-stroke: 1.35px #000;
+  }
+
   .banner-cobalt {
     display: inline-block;
     background: var(--color-cobalt);
