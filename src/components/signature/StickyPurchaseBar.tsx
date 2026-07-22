@@ -4,7 +4,7 @@ import { ArrowUpRight, X } from 'lucide-react'
 import { DEFAULT_PLAN, PLANS } from '../../data/plans'
 import { Button } from '../ui'
 
-const DISMISS_KEY = 'discordops-sticky-dismissed'
+const DISMISS_KEY = 'deezops-sticky-dismissed'
 
 export function StickyPurchaseBar() {
   const reduceMotion = useReducedMotion()

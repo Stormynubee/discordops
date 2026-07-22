@@ -53,13 +53,13 @@ const channels: Channel[] = [
     unread: 2,
     messages: [
       {
-        author: 'DiscordOps',
+        author: 'DeezOps',
         role: 'staff',
         text: 'New members: please pretend you read #rules.',
         time: 'Today at 9:00',
         reactions: [{ src: STICKER.approved, count: 34 }],
       },
-      { author: 'DiscordOps', role: 'staff', text: "Server's live. Try not to break it.", time: 'Today at 9:01' },
+      { author: 'DeezOps', role: 'staff', text: "Server's live. Try not to break it.", time: 'Today at 9:01' },
     ],
   },
   {
@@ -201,7 +201,7 @@ function ClipVideo({ src, reduceMotion }: { src: string; reduceMotion: boolean |
     <video
       ref={ref}
       src={src}
-      className="mt-1.5 w-[168px] rounded-lg border border-white/10 sm:w-[196px]"
+      className="mt-1.5 w-[10.5rem] rounded-lg border border-white/10 sm:w-[12.25rem]"
       autoPlay={!reduceMotion}
       loop
       muted
@@ -268,7 +268,7 @@ export function DiscordMockup() {
     >
       <audio ref={audioRef} src="/command-center-ping.wav" preload="auto" />
       <motion.div
-        className="relative mx-auto w-full max-w-full sm:max-w-[540px] perspective-[1200px]"
+        className="relative mx-auto w-full max-w-full sm:max-w-[33.75rem] lg:max-w-[36rem] perspective-[1200px]"
         style={enableTilt ? { rotateX, rotateY, transformStyle: 'preserve-3d' } : undefined}
         onMouseMove={enableTilt ? onMove : undefined}
         onMouseLeave={enableTilt ? onLeave : undefined}
@@ -276,21 +276,27 @@ export function DiscordMockup() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="relative overflow-hidden rounded-2xl border border-border bg-discord shadow-[0_32px_64px_rgba(0,0,0,0.55)]">
-          <div className="flex items-center justify-between border-b border-white/[0.06] bg-[#14171b] px-3.5 py-2.5">
-            <div className="flex items-center gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]/90" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]/90" />
-              <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]/90" />
+        <div className="relative">
+          <div className="command-frame">
+          <div className="relative overflow-hidden rounded-[2px] bg-discord">
+            <div className="flex items-center justify-between border-b-[3px] border-black bg-[#14171b] px-3.5 py-2.5">
+              <div className="flex items-center gap-1.5">
+                <span className="h-2.5 w-2.5 rounded-[2px] border-2 border-black bg-[#ff5f57]" />
+                <span className="h-2.5 w-2.5 rounded-[2px] border-2 border-black bg-[#febc2e]" />
+                <span className="h-2.5 w-2.5 rounded-[2px] border-2 border-black bg-[#28c840]" />
+              </div>
+              <p className="font-display text-[12px] font-bold tracking-wide text-yellow">
+                Command Center
+              </p>
+              <div className="flex items-center gap-1.5">
+                <span className="h-2 w-2 rounded-[1px] border-2 border-black bg-lime" />
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-lime">
+                  Live
+                </span>
+              </div>
             </div>
-            <p className="text-[11px] font-medium tracking-wide text-muted">Command Center</p>
-            <div className="flex items-center gap-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-              <span className="text-[10px] font-semibold tracking-wide text-accent">LIVE</span>
-            </div>
-          </div>
 
-          <div className="grid grid-cols-[108px_1fr] sm:grid-cols-[132px_1fr]">
+            <div className="grid grid-cols-[108px_1fr] sm:grid-cols-[132px_1fr]">
             <aside className="border-r border-white/[0.06] bg-[#1a1d21] p-2 sm:p-2.5">
               <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-2xl bg-accent text-[11px] font-bold text-bg">
                 DO
@@ -347,7 +353,7 @@ export function DiscordMockup() {
               </ul>
             </aside>
 
-            <div className="flex min-h-[280px] flex-col bg-discord-panel sm:min-h-[320px]">
+            <div className="flex min-h-[17.5rem] flex-col bg-discord-panel sm:min-h-[20rem]">
               <div className="grid grid-cols-4 gap-1.5 border-b border-white/[0.06] p-2 sm:gap-2 sm:p-2.5">
                 {[
                   { label: 'Members', value: 12.4, suffix: 'k', animate: true },
@@ -433,8 +439,18 @@ export function DiscordMockup() {
               </div>
             </div>
           </div>
+          </div>
+          </div>
+          {!reduceMotion ? (
+            <img
+              src="/stickers/emotes/peepo-jam.gif"
+              alt=""
+              aria-hidden
+              draggable={false}
+              className="pointer-events-none absolute left-2 bottom-0 z-20 h-12 w-12 -translate-y-[18%] select-none drop-shadow-[3px_3px_0_#000] sm:left-3 sm:h-[3.5rem] sm:w-[3.5rem]"
+            />
+          ) : null}
         </div>
-      </motion.div>
       <div className="mt-3.5 flex min-h-10 flex-col items-center gap-2.5 px-1">
         <div className="rule-y2k rule-y2k-thin w-full max-w-[220px] opacity-90" aria-hidden />
         <AnimatePresence mode="wait">
@@ -447,55 +463,42 @@ export function DiscordMockup() {
               exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
               transition={{ type: 'spring', stiffness: 360, damping: 26 }}
             >
-              <motion.span
+              <span
                 aria-hidden
-                className="hidden h-px flex-1 bg-gradient-to-r from-transparent via-lime/70 to-lime sm:block"
-                animate={reduceMotion ? undefined : { opacity: [0.35, 1, 0.35], scaleX: [0.85, 1, 0.85] }}
-                transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-                style={{ originX: 1 }}
+                className="hidden h-1 w-10 shrink-0 bg-lime shadow-[2px_2px_0_#000] sm:block"
               />
               <motion.button
                 type="button"
                 onClick={() => selectChannel('announcements')}
-                whileHover={reduceMotion ? undefined : { y: -2, scale: 1.02 }}
-                whileTap={reduceMotion ? undefined : { scale: 0.97 }}
-                animate={
+                whileHover={
                   reduceMotion
                     ? undefined
-                    : { y: [0, -3, 0] }
+                    : { x: -1, y: -1, boxShadow: '4px 4px 0 #000' }
                 }
-                transition={
+                whileTap={
                   reduceMotion
                     ? undefined
-                    : { y: { duration: 1.8, repeat: Infinity, ease: 'easeInOut' } }
+                    : { x: 2, y: 2, boxShadow: '1px 1px 0 #000' }
                 }
-                className="neon-pill text-[11px] font-semibold tracking-wide sm:text-[12px]"
+                className="hard-cta text-[11px] sm:text-[12px]"
               >
-                <span className="neon-pill-dot" aria-hidden />
+                <span className="hard-cta-mark" aria-hidden />
                 Open it before the mods do.
-                <motion.span
-                  aria-hidden
-                  className="ml-0.5 font-display text-[10px] text-lime"
-                  animate={reduceMotion ? undefined : { x: [0, 3, 0] }}
-                  transition={{ duration: 1.1, repeat: Infinity, ease: 'easeInOut' }}
-                >
+                <span aria-hidden className="font-display text-[14px] leading-none">
                   →
-                </motion.span>
+                </span>
               </motion.button>
-              <motion.span
+              <span
                 aria-hidden
-                className="hidden h-px flex-1 bg-gradient-to-l from-transparent via-lime/70 to-lime sm:block"
-                animate={reduceMotion ? undefined : { opacity: [0.35, 1, 0.35], scaleX: [0.85, 1, 0.85] }}
-                transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut', delay: 0.15 }}
-                style={{ originX: 0 }}
+                className="hidden h-1 w-10 shrink-0 bg-yellow shadow-[2px_2px_0_#000] sm:block"
               />
             </motion.div>
           ) : promptState === 'used' ? (
             <motion.p
               key="used"
-              initial={reduceMotion ? false : { opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="rounded-full border border-lime/40 bg-lime/10 px-3 py-1 text-[11px] font-semibold text-lime"
+              initial={reduceMotion ? false : { opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="rounded-sm border-[3px] border-black bg-lime px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-wider text-bg shadow-[3px_3px_0_#000]"
             >
               Good choice. The buttons work.
             </motion.p>
@@ -503,6 +506,7 @@ export function DiscordMockup() {
         </AnimatePresence>
         <div className="rule-y2k w-full max-w-[280px]" aria-hidden />
       </div>
+      </motion.div>
     </div>
   )
 }

@@ -18,7 +18,7 @@ const steps = [
   {
     num: '02',
     title: 'We build your server',
-    desc: 'Channels, bots, branding, automations. Usually done in 7 to 14 days.',
+    desc: 'Channels, bots, branding, automations. Usually done in 3 to 7 days.',
   },
   {
     num: '03',
@@ -48,16 +48,16 @@ function StepPointer({
           ? {
               scale: 1,
               opacity: 1,
-              borderColor: '#39ff9e',
-              color: '#ff6b1a',
-              backgroundColor: '#16122a',
+              borderColor: 'var(--color-lime)',
+              color: 'var(--color-accent)',
+              backgroundColor: 'var(--color-surface)',
             }
           : {
               scale: 0.6,
               opacity: 0.45,
-              borderColor: '#3d4dff',
-              color: '#c8c4d8',
-              backgroundColor: '#0c0a14',
+              borderColor: 'var(--color-cobalt)',
+              color: 'var(--color-silver)',
+              backgroundColor: 'var(--color-bg)',
             }
       }
       transition={
@@ -102,11 +102,11 @@ export function HowItWorks() {
   const beadTop = useTransform(smoothProgress, [0, 1], ['1.25rem', 'calc(100% - 1.25rem)'])
 
   return (
-    <section className="relative section-pad section-y-sm">
+    <section className="section-cv relative section-pad section-y-sm">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Process"
-          title="Three steps. Two weeks. Done."
+          title="Three steps."
           description="No endless email chains. Just a clear path to a server that works."
         />
 
@@ -153,9 +153,7 @@ export function HowItWorks() {
                 <StepPointer num={step.num} index={i} reduceMotion={reduceMotion} />
                 <div className="min-w-0 flex-1 overflow-visible pt-1.5">
                   <h3 className="text-title text-lg text-text sm:text-xl md:text-2xl">{step.title}</h3>
-                  <p className="mt-1.5 max-w-lg text-[14px] leading-relaxed text-muted sm:mt-2 sm:text-[15px]">
-                    {step.desc}
-                  </p>
+                  <p className="mt-1.5 text-body-sm text-muted">{step.desc}</p>
                 </div>
               </motion.li>
             ))}

@@ -1,118 +1,205 @@
-import { useEffect, useRef } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion'
+
+/** Kept for preload / export tooling — runtime uses the max frame only. */
+export const JAKE_FRAMES = [
+  '/stickers/adventure/frames/01.png',
+  '/stickers/adventure/frames/02.png',
+  '/stickers/adventure/frames/03.png',
+  '/stickers/adventure/frames/04.png',
+  '/stickers/adventure/frames/05.png',
+  '/stickers/adventure/frames/06.png',
+  '/stickers/adventure/frames/07.png',
+] as const
+
+/**
+ * Stretch progress per link (0 → 1). FAQ = full pill width, never past it.
+ */
+const PROGRESS_BY_HREF: Record<string, number> = {
+  '#services': 0.3,
+  '#command-deck': 0.46,
+  '#portfolio': 0.62,
+  '#pricing': 0.8,
+  '#faq': 1,
+}
+
+export const JAKE_FRAME_BY_HREF: Record<string, number> = {
+  '#services': 0,
+  '#command-deck': 1,
+  '#portfolio': 3,
+  '#pricing': 5,
+  '#faq': 6,
+}
+
+export const JAKE_PROGRESS_BY_HREF = PROGRESS_BY_HREF
+
+const JAKE_SRC = JAKE_FRAMES[6]
 
 type JakeStretchRideProps = {
-  stretched: boolean
+  href: string | null
+  playSound?: boolean
   className?: string
 }
 
-const IDLE_W = 22
-const FULL_W = 260
-const BODY_H = 34
-
 /**
- * Finn peeks on Jake while Jake's body grows in realtime (width, not scaleX).
- * Head + feet stay crisp; only the yellow midsection elongates.
+ * Jake inside the nav pill, behind link text.
+ * Scales to the pill width — FAQ stretch fills the bar, never overgrows it.
  */
-export function JakeStretchRide({ stretched, className = '' }: JakeStretchRideProps) {
+export function JakeStretchRide({ href, playSound = true, className = '' }: JakeStretchRideProps) {
   const reduceMotion = useReducedMotion()
-  const active = !reduceMotion && stretched
+  const rootRef = useRef<HTMLDivElement>(null)
+  const [fitW, setFitW] = useState(260)
+
+  useEffect(() => {
+    const root = rootRef.current
+    if (!root) return
+    const pill = root.closest('ul')
+    if (!pill) return
+
+    const measure = () => {
+      // Stay inside the pill: leave a couple px so the head never kisses the border
+      const next = Math.max(180, Math.floor(pill.clientWidth - 14))
+      setFitW(next)
+    }
+
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(pill)
+    return () => ro.disconnect()
+  }, [])
+
+  const show = !reduceMotion && href !== null
+  const progress = show ? (PROGRESS_BY_HREF[href!] ?? 0.46) : 0.3
+  const targetWidth = Math.round(fitW * progress)
+
+  const widthTarget = useMotionValue(targetWidth)
+  const visibleTarget = useMotionValue(show ? 1 : 0)
+
+  const width = useSpring(widthTarget, {
+    stiffness: 80,
+    damping: 17,
+    mass: 0.48,
+  })
+  const visible = useSpring(visibleTarget, {
+    stiffness: 150,
+    damping: 24,
+    mass: 0.35,
+  })
+  const shellOpacity = useTransform(visible, (v) => v * 0.9)
+
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const lastWidth = useRef(targetWidth)
+  const wasShowing = useRef(false)
 
   useEffect(() => {
     if (!audioRef.current) {
       const a = new Audio('/stickers/adventure/jake-stretch.mp3')
       a.preload = 'auto'
-      a.volume = 0.4
+      a.volume = 0.28
       audioRef.current = a
     }
   }, [])
 
   useEffect(() => {
+    const img = new Image()
+    img.src = JAKE_SRC
+  }, [])
+
+  useEffect(() => {
+    widthTarget.set(targetWidth)
+  }, [widthTarget, targetWidth])
+
+  useEffect(() => {
+    visibleTarget.set(show ? 1 : 0)
+  }, [visibleTarget, show])
+
+  useEffect(() => {
     const a = audioRef.current
     if (!a) return
-    if (active) {
-      a.currentTime = 0
-      void a.play().catch(() => {
-        /* autoplay may be blocked until a user gesture elsewhere */
-      })
-    } else {
+    if (!show) {
       a.pause()
       a.currentTime = 0
+      wasShowing.current = false
+      return
     }
-  }, [active])
+    const grew = targetWidth > lastWidth.current + 4
+    if (playSound && (!wasShowing.current || grew)) {
+      a.currentTime = 0
+      void a.play().catch(() => {})
+    }
+    wasShowing.current = true
+    lastWidth.current = targetWidth
+  }, [show, playSound, targetWidth])
 
-  const stretchTransition = active
-    ? { duration: 2.85, ease: [0.22, 1, 0.36, 1] as const }
-    : { duration: 1.1, ease: [0.4, 0, 0.2, 1] as const }
+  if (reduceMotion) return null
 
   return (
     <div
+      ref={rootRef}
       aria-hidden
-      className={`pointer-events-none absolute overflow-visible ${className}`}
+      className={`pointer-events-none absolute overflow-hidden ${className}`}
     >
-      <div className="relative flex h-[72px] items-end">
-        {/* Head cluster + Finn */}
-        <div className="relative z-20 mb-[-2px] shrink-0">
-          <motion.img
-            src="/stickers/adventure/finn-peek.png"
-            alt=""
-            draggable={false}
-            className="absolute left-1/2 top-0 z-30 h-11 w-11 -translate-x-1/2 object-contain drop-shadow-[2px_2px_0_rgba(0,0,0,0.35)]"
-            animate={{
-              y: active ? -22 : 6,
-              opacity: active ? 1 : 0.25,
-              scale: active ? 1 : 0.85,
-            }}
-            transition={
-              active
-                ? { duration: 2.2, delay: 0.25, ease: [0.22, 1, 0.36, 1] }
-                : { duration: 0.85, ease: [0.4, 0, 0.2, 1] }
-            }
-          />
-          <img
-            src="/stickers/adventure/jake-head.png"
-            alt=""
-            draggable={false}
-            className="relative z-20 h-[58px] w-[58px] object-contain drop-shadow-[2px_2px_0_rgba(0,0,0,0.3)]"
-          />
-        </div>
-
-        {/* Stretching mid-body — animate WIDTH in realtime */}
-        <motion.div
-          className="relative z-10 mb-[10px] overflow-hidden"
-          style={{ height: BODY_H }}
-          initial={false}
-          animate={{ width: active ? FULL_W : IDLE_W }}
-          transition={stretchTransition}
-        >
-          {/* Solid tube (crisp at any width) + texture image overlay */}
-          <div
-            className="absolute inset-y-0 left-0 right-0 rounded-[999px] border-[2.5px] border-black"
-            style={{
-              background:
-                'linear-gradient(180deg, #ffe066 0%, #F5C518 45%, #e0a800 100%)',
-              borderLeftWidth: 0,
-              borderRightWidth: 0,
-              boxShadow: 'inset 0 2px 0 rgba(255,255,255,0.25), inset 0 -2px 0 rgba(0,0,0,0.12)',
-            }}
-          />
-          <img
-            src="/stickers/adventure/jake-body.png"
-            alt=""
-            draggable={false}
-            className="absolute inset-0 h-full w-full object-fill opacity-90 mix-blend-multiply"
-          />
-        </motion.div>
-
-        {/* Feet ride the end of the stretch */}
+      <motion.div
+        className="relative overflow-hidden"
+        style={{
+          height: 48,
+          marginRight: 'auto',
+          width,
+          opacity: shellOpacity,
+        }}
+      >
+        {/*
+          Jake is scaled to fitW so at FAQ (progress=1) he fills the pill exactly.
+          Clip grows left→right; head leads toward FAQ and stops at the right edge.
+        */}
         <img
-          src="/stickers/adventure/jake-feet.png"
+          src={JAKE_SRC}
           alt=""
+          height={48}
           draggable={false}
-          className="relative z-20 mb-[4px] ml-[-6px] h-11 w-11 shrink-0 object-contain drop-shadow-[2px_2px_0_rgba(0,0,0,0.3)]"
+          className="absolute bottom-0 right-0 h-12 max-w-none select-none drop-shadow-[1px_2px_0_rgba(0,0,0,0.28)]"
+          style={{ width: fitW }}
         />
-      </div>
+      </motion.div>
+    </div>
+  )
+}
+
+type FinnPricingPopProps = {
+  active: boolean
+  className?: string
+}
+
+/** Small Finn peek on Pricing — sits on the pill’s top edge (never off-screen). */
+export function FinnPricingPop({ active, className = '' }: FinnPricingPopProps) {
+  const reduceMotion = useReducedMotion()
+  if (reduceMotion) return null
+
+  return (
+    <div aria-hidden className={`pointer-events-none absolute z-[40] ${className}`}>
+      <motion.div
+        initial={false}
+        animate={{
+          y: active ? 0 : 5,
+          opacity: active ? 1 : 0,
+          scale: active ? 1 : 0.85,
+        }}
+        transition={
+          active
+            ? { type: 'spring', stiffness: 520, damping: 20, delay: 0.05 }
+            : { duration: 0.12 }
+        }
+        style={{ transformOrigin: 'bottom center' }}
+      >
+        <img
+          src="/stickers/adventure/finn-peek.png"
+          alt=""
+          width={28}
+          height={25}
+          draggable={false}
+          className="h-[26px] w-auto max-w-none select-none drop-shadow-[1px_2px_0_rgba(0,0,0,0.5)]"
+        />
+      </motion.div>
     </div>
   )
 }

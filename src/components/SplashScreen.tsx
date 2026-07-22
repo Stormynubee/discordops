@@ -1,20 +1,9 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { BrandMark } from './BrandMark'
 
 type SplashScreenProps = {
   onComplete: () => void
-}
-
-function BatMark({ className = '' }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 120 56" fill="currentColor" className={className} aria-hidden>
-      <path d="M60 52c-6.5-11.5-15.2-18.8-24.8-22C24.2 26.5 15.2 29.5 6 36c3.2-11.5 9.5-19.8 18-24C34 7.5 45 6 60 0c15 6 26 7.5 36 12 8.5 4.2 14.8 12.5 18 24-9.2-6.5-18.2-9.5-29.2-6C75.2 33.2 66.5 40.5 60 52z" />
-      <path
-        d="M60 20c-2.5 4.5-5.5 7.5-9 9.2C46.5 31.5 42 30.2 38 28c1.8 5.5 5.2 9.5 9.5 11.5 4.8 2.2 9.5 1.8 12.5-1.5 3 3.3 7.7 3.7 12.5 1.5 4.3-2 7.7-6 9.5-11.5-4 2.2-8.5 3.5-13 1.2C65.5 27.5 62.5 24.5 60 20z"
-        opacity="0.35"
-      />
-    </svg>
-  )
 }
 
 export function SplashScreen({ onComplete }: SplashScreenProps) {
@@ -92,9 +81,9 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
           }
         />
 
-        {/* Bat — enters, then flies up into the site */}
+        {/* Cop Peepo mark — enters, then lifts into the site */}
         <motion.div
-          className="relative text-[#E8E8ED]"
+          className="relative"
           initial={{ opacity: 0, scale: 0.85, y: 12 }}
           animate={
             exiting
@@ -113,23 +102,10 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
               : { duration: 0.35, ease: [0.22, 1, 0.36, 1] }
           }
         >
-          <motion.div
-            animate={
-              exiting
-                ? { scaleX: [1, 1.08, 0.92, 1.05, 1] }
-                : { scaleX: 1 }
-            }
-            transition={
-              exiting
-                ? { duration: 0.55, ease: 'easeInOut' }
-                : { duration: 0 }
-            }
-          >
-            <BatMark className="h-14 w-auto md:h-[4.5rem]" />
-          </motion.div>
+          <BrandMark size={112} className="drop-shadow-[4px_4px_0_#000]" />
         </motion.div>
 
-        {/* Wordmark — fades as bat departs */}
+        {/* Wordmark — fades as mark departs */}
         <motion.p
           className="text-brand mt-6 text-xl text-text md:text-2xl"
           initial={{ opacity: 0, y: 8 }}
@@ -144,7 +120,7 @@ export function SplashScreen({ onComplete }: SplashScreenProps) {
               : { duration: 0.35, delay: 1.05, ease: [0.22, 1, 0.36, 1] }
           }
         >
-          Discord<span className="text-accent">Ops</span>
+          Deez<span className="text-accent">Ops</span>
         </motion.p>
       </div>
     </div>

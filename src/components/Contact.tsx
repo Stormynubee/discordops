@@ -54,7 +54,7 @@ export function Contact() {
     setError(null)
     try {
       await sendFormSubmit({
-        _subject: `DiscordOps inquiry: ${type}`,
+        _subject: `DeezOps inquiry: ${type}`,
         form: 'Contact',
         plan: type,
         name,
@@ -71,7 +71,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="relative section-pad section-y">
+    <section id="contact" className="section-cv relative section-pad section-y">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Contact"

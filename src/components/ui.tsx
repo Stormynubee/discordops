@@ -28,12 +28,12 @@ export function Button({
 }: ButtonProps) {
   const styles =
     variant === 'primary'
-      ? 'bg-accent text-white border-[3px] border-black shadow-[4px_4px_0_#000] hover:bg-lime hover:text-bg hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0_#000]'
+      ? 'bg-accent text-white border-[3px] border-black shadow-[4px_4px_0_#000] hover:bg-lime hover:text-bg hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0_#000]'
       : variant === 'secondary'
-        ? 'bg-cobalt text-white border-[3px] border-yellow shadow-[4px_4px_0_#000] hover:bg-yellow hover:text-bg'
+        ? 'bg-cobalt text-white border-[3px] border-yellow shadow-[4px_4px_0_#000] hover:bg-yellow hover:text-bg active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0_#000]'
         : 'bg-transparent text-muted border-[3px] border-transparent hover:text-lime hover:border-lime/40'
 
-  const classNameFull = `inline-flex min-h-[48px] items-center justify-center gap-2 rounded-sm px-7 py-3 text-sm font-bold tracking-wide transition-all duration-150 disabled:pointer-events-none disabled:opacity-60 ${styles} ${className}`
+  const classNameFull = `inline-flex min-h-12 items-center justify-center gap-2 rounded-sm px-7 py-3 text-sm font-bold tracking-wide transition-all duration-150 ease-out disabled:pointer-events-none disabled:opacity-60 ${styles} ${className}`
 
   if (href) {
     return (
@@ -128,7 +128,7 @@ export function SectionShell({
   return (
     <section
       id={id}
-      className={`relative section-pad section-y ${band ? 'section-band' : ''} ${className}`}
+      className={`section-cv relative section-pad section-y ${band ? 'section-band' : ''} ${className}`}
     >
       {children}
     </section>
@@ -181,14 +181,12 @@ export function SectionHeading({
         {eyebrow}
       </p>
       <h2 className="banner-cobalt mt-1">
-        <span className="text-pixel-3d block text-[clamp(1.5rem,calc(1.1rem+2.5vw),2.75rem)] text-balance">
+        <span className="text-pixel-3d block text-[clamp(1.65rem,calc(1.15rem+2.8vw),3.1rem)] text-balance">
           {title}
         </span>
       </h2>
       {description ? (
-        <p className={`mt-4 text-[14px] leading-relaxed text-muted sm:text-[15px] md:text-base ${descClass}`}>
-          {description}
-        </p>
+        <p className={`mt-4 text-body text-muted ${descClass}`}>{description}</p>
       ) : null}
     </Reveal>
   )

@@ -42,27 +42,30 @@ export function Hero() {
   const reduceMotion = useReducedMotion()
 
   return (
-    <section id="top" className="relative min-h-[100svh] overflow-hidden pt-20 sm:pt-24 md:pt-28">
+    <section id="top" className="relative min-h-[100svh] overflow-hidden pt-20 sm:pt-24 md:pt-28 lg:pt-32">
       {/* Checker patch behind collage */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-[-5%] top-24 hidden h-48 w-64 rotate-[-8deg] opacity-40 checker-bg border-[3px] border-black md:block"
       />
 
-      <div className="section-pad relative z-10 mx-auto grid max-w-7xl items-center gap-10 pb-16 sm:gap-12 sm:pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pb-24">
-        <div className="relative max-w-xl">
+      <div className="section-pad relative z-10 mx-auto grid max-w-7xl items-center gap-8 pb-12 sm:gap-10 sm:pb-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8 lg:pb-20 xl:gap-12">
+        <div className="relative max-w-2xl lg:max-w-xl xl:max-w-2xl">
           <Reveal>
-            <div className="mb-5 flex items-center gap-3">
-              <span className="font-display text-[12px] font-bold tracking-[0.18em] text-yellow">01</span>
-              <span aria-hidden className="h-[2px] w-7 bg-yellow shadow-[2px_0_0_#000]" />
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#ffd6ea] sm:text-[12px]">
-                Server ops · live in two weeks
-              </p>
+            <div className="mb-4 flex flex-wrap items-center gap-2.5">
+              <Badge className="!bg-elevated !text-white gap-2 !font-bold tracking-[0.12em]">
+                <span className="font-display text-[11px] tracking-[0.16em] text-yellow">01</span>
+                <span aria-hidden className="h-3 w-px bg-white/25" />
+                <span className="uppercase">Server ops</span>
+              </Badge>
+              <Sticker tone="lime" className="!border-[2.5px] !px-2.5 !py-1 !text-[11px] tracking-[0.08em] sm:!text-[12px]">
+                Live in 3–7 days
+              </Sticker>
             </div>
           </Reveal>
 
           <Reveal>
-            <div className="mb-3 flex flex-wrap items-center gap-2">
+            <div className="mb-2.5 flex flex-wrap items-center gap-2">
               <Sticker tone="orange" className="sticker-rotate">
                 Staff picks
               </Sticker>
@@ -75,26 +78,26 @@ export function Hero() {
                 />
               ) : null}
             </div>
-            <h1 className="banner-cobalt mt-2 max-w-full">
-              <span className="text-pixel-3d block text-[clamp(1.65rem,calc(1rem+3.2vw),3.1rem)]">
+            <h1 className="banner-cobalt mt-1.5 max-w-full">
+              <span className="text-pixel-3d block text-[clamp(1.85rem,calc(1.05rem+3.6vw),3.55rem)]">
                 Your Discord
               </span>
-              <span className="text-pixel-3d mt-1 block text-[clamp(1.65rem,calc(1rem+3.2vw),3.1rem)]">
+              <span className="text-pixel-3d mt-1 block text-[clamp(1.85rem,calc(1.05rem+3.6vw),3.55rem)]">
                 deserves better.
               </span>
             </h1>
-            <p className="text-headline-lg mt-4 text-lime">We build it. You take the credit.</p>
+            <p className="text-headline-lg mt-3 text-lime">We build it. You take the credit.</p>
           </Reveal>
 
           <Reveal delay={0.08}>
-            <p className="mt-5 max-w-md border-l-4 border-accent pl-3.5 text-[15px] leading-relaxed text-muted sm:mt-6 sm:pl-4 sm:text-[16px]">
-              Setup, bots, branding. Live in two weeks. You run the vibes, we run the rest.
+            <p className="text-body mt-4 max-w-md border-l-4 border-accent pl-3.5 text-muted sm:mt-5 sm:pl-4">
+              Setup, bots, branding. Live in 3–7 days. You run the vibes, we run the rest.
             </p>
           </Reveal>
 
           <Reveal
             delay={0.14}
-            className="mt-7 flex w-full flex-col gap-3 sm:mt-8 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center"
+            className="mt-6 flex w-full flex-col gap-3 sm:mt-7 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center"
           >
             <Button href="#order?plan=Full%20Send" variant="primary" className="w-full sm:w-auto">
               Go Full Send
@@ -138,12 +141,6 @@ export function Hero() {
             delay={0.2}
           />
           <FloatingSticker
-            src="/stickers/emotes/peepo-jam.gif"
-            alt=""
-            className="bottom-[-8px] left-[-4px] z-20 hidden h-14 w-14 sm:block sm:h-16 sm:w-16 md:left-[-10px]"
-            delay={0.3}
-          />
-          <FloatingSticker
             src="/stickers/y2k/coin.svg"
             alt=""
             className="right-10 top-10 z-20 hidden h-8 w-8 md:block"
@@ -156,7 +153,7 @@ export function Hero() {
             delay={0.28}
           />
 
-          <div className="hard-card overflow-visible bg-discord p-1.5 sm:p-2">
+          <div className="overflow-visible">
             <DiscordMockup />
           </div>
         </div>

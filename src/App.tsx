@@ -1,28 +1,36 @@
-import { useCallback, useEffect, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
 import { Navbar } from './components/Navbar'
 import { Hero } from './components/Hero'
-import { HowItWorks } from './components/HowItWorks'
-import { Services } from './components/Services'
-import { CommandDeck } from './components/signature/CommandDeck'
-import { Portfolio } from './components/Portfolio'
-import { Testimonials } from './components/Testimonials'
-import { Pricing } from './components/Pricing'
-import { Boosts } from './components/Boosts'
-import { FAQ } from './components/FAQ'
-import { Contact } from './components/Contact'
-import { Footer } from './components/Footer'
 import { SplashScreen } from './components/SplashScreen'
 import { StickyPurchaseBar } from './components/signature/StickyPurchaseBar'
 import { SiteAtmosphere } from './components/SiteAtmosphere'
-import { ProofMarquee } from './components/ProofMarquee'
-import { FinalCta } from './components/FinalCta'
-import { DiscordOrb } from './components/DiscordOrb'
-import { BackgroundMascot } from './components/BackgroundMascot'
-import { OrderPage } from './components/OrderPage'
 import { isOrderHash } from './lib/order'
+
+const HomeBelowFold = lazy(() =>
+  import('./components/HomeBelowFold').then((m) => ({ default: m.HomeBelowFold })),
+)
+const FinalCta = lazy(() =>
+  import('./components/FinalCta').then((m) => ({ default: m.FinalCta })),
+)
+const Footer = lazy(() =>
+  import('./components/Footer').then((m) => ({ default: m.Footer })),
+)
+const OrderPage = lazy(() =>
+  import('./components/OrderPage').then((m) => ({ default: m.OrderPage })),
+)
+const DiscordOrb = lazy(() =>
+  import('./components/DiscordOrb').then((m) => ({ default: m.DiscordOrb })),
+)
+const BackgroundMascot = lazy(() =>
+  import('./components/BackgroundMascot').then((m) => ({ default: m.BackgroundMascot })),
+)
 
 function readIsOrder(): boolean {
   return typeof window !== 'undefined' && isOrderHash(window.location.hash)
+}
+
+function BelowFoldFallback() {
+  return <div className="min-h-[50vh]" aria-hidden />
 }
 
 export default function App() {
@@ -55,10 +63,26 @@ export default function App() {
     }
   }, [showSplash, isOrder])
 
+  // Warm the below-fold chunk after first paint / splash
+  useEffect(() => {
+    if (isOrder || showSplash) return
+    const warm = () => {
+      void import('./components/HomeBelowFold')
+    }
+    if (typeof window.requestIdleCallback === 'function') {
+      const id = window.requestIdleCallback(warm, { timeout: 1800 })
+      return () => window.cancelIdleCallback(id)
+    }
+    const t = window.setTimeout(warm, 400)
+    return () => window.clearTimeout(t)
+  }, [isOrder, showSplash])
+
   if (isOrder) {
     return (
       <div className="relative min-h-screen bg-bg text-text">
-        <OrderPage />
+        <Suspense fallback={<div className="min-h-screen bg-bg" aria-hidden />}>
+          <OrderPage />
+        </Suspense>
       </div>
     )
   }
@@ -66,28 +90,31 @@ export default function App() {
   return (
     <div className="relative min-h-screen bg-bg text-text grain">
       <SiteAtmosphere />
-      {!showSplash ? <BackgroundMascot /> : null}
+      {!showSplash ? (
+        <Suspense fallback={null}>
+          <BackgroundMascot />
+        </Suspense>
+      ) : null}
       {showSplash ? <SplashScreen onComplete={handleSplashComplete} /> : null}
       <Navbar />
       <div className="relative z-10">
         <StickyPurchaseBar />
         <main className="pb-[max(6.5rem,calc(env(safe-area-inset-bottom,0px)+5.5rem))]">
           <Hero />
-          <ProofMarquee />
-          <HowItWorks />
-          <Services />
-          <CommandDeck />
-          <Portfolio />
-          <Testimonials />
-          <Pricing />
-          <Boosts />
-          <FAQ />
-          <Contact />
+          <Suspense fallback={<BelowFoldFallback />}>
+            <HomeBelowFold />
+          </Suspense>
         </main>
-        <FinalCta />
-        <Footer />
+        <Suspense fallback={null}>
+          <FinalCta />
+          <Footer />
+        </Suspense>
       </div>
-      {!showSplash ? <DiscordOrb /> : null}
+      {!showSplash ? (
+        <Suspense fallback={null}>
+          <DiscordOrb />
+        </Suspense>
+      ) : null}
     </div>
   )
 }

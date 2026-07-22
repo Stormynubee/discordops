@@ -22,10 +22,10 @@ export function FinalCta() {
             <Sticker tone="yellow" className="mb-4 inline-flex sticker-rotate">
               Last call
             </Sticker>
-            <h2 className="text-display text-[clamp(1.75rem,calc(1.2rem+3vw),3.25rem)] text-white">
+            <h2 className="text-display text-[clamp(1.9rem,calc(1.25rem+3.2vw),3.5rem)] text-white">
               Ready to stop winging it?
             </h2>
-            <p className="mx-auto mt-3 max-w-md text-[14px] leading-relaxed text-white/85 sm:mt-4 sm:text-base">
+            <p className="text-body mx-auto mt-3 max-w-md text-white/90 sm:mt-4">
               No @everyone abuse. No 2am #general meltdowns. Just a server that works. Full Send is
               $459 and has basically everything, or just say hi.
             </p>
@@ -40,7 +40,7 @@ export function FinalCta() {
               <Button
                 href="#contact"
                 variant="ghost"
-                className="!border-white/40 !text-white hover:!border-lime hover:!text-lime"
+                className="!min-h-12 !border-white/50 !text-white hover:!border-lime hover:!bg-black/15 hover:!text-lime"
               >
                 Just say hi
               </Button>
