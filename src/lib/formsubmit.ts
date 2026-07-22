@@ -11,6 +11,8 @@ export async function sendFormSubmit(payload: FormSubmitPayload): Promise<void> 
   const body: Record<string, string> = {
     _template: 'table',
     _captcha: 'false',
+    // FormSubmit honeypot — must stay empty; bots that fill it get dropped server-side
+    _honey: '',
   }
 
   for (const [key, value] of Object.entries(payload)) {

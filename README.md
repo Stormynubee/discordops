@@ -2,7 +2,7 @@
 
 Premium Discord infrastructure agency landing page — comic neo-brutalist marketing site for Kickoff / Autopilot / Full Send.
 
-**Live:** [deezops.com](https://deezops.com) (Vercel)
+**Live:** [deezops.vercel.app](https://deezops.vercel.app)
 
 ## Stack
 
