@@ -1,14 +1,7 @@
 import { useEffect, useRef } from 'react'
-import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-  useTransform,
-  type MotionValue,
-} from 'framer-motion'
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion'
 
-/** Full-character stretch frames (alpha cleaned) — short → max. */
+/** Kept for preload / export tooling — runtime uses the max frame only. */
 export const JAKE_FRAMES = [
   '/stickers/adventure/frames/01.png',
   '/stickers/adventure/frames/02.png',
@@ -19,22 +12,15 @@ export const JAKE_FRAMES = [
   '/stickers/adventure/frames/07.png',
 ] as const
 
-const WIDTH_MIN = 113
-const WIDTH_MAX = 362
-
-/**
- * Even progress across the 5 nav links (0 → 1).
- * Spring eases through the in-between frames so stretch isn't a hard cut.
- */
-export const JAKE_PROGRESS_BY_HREF: Record<string, number> = {
-  '#services': 0,
-  '#command-deck': 0.25,
-  '#portfolio': 0.5,
-  '#pricing': 0.75,
-  '#faq': 1,
+/** Native widths at 48px height — used as spring targets per link. */
+const WIDTH_BY_HREF: Record<string, number> = {
+  '#services': 113,
+  '#command-deck': 155,
+  '#portfolio': 210,
+  '#pricing': 290,
+  '#faq': 362,
 }
 
-/** @deprecated kept for any old imports — prefer JAKE_PROGRESS_BY_HREF */
 export const JAKE_FRAME_BY_HREF: Record<string, number> = {
   '#services': 0,
   '#command-deck': 1,
@@ -43,7 +29,16 @@ export const JAKE_FRAME_BY_HREF: Record<string, number> = {
   '#faq': 6,
 }
 
-const LAST = JAKE_FRAMES.length - 1
+export const JAKE_PROGRESS_BY_HREF: Record<string, number> = {
+  '#services': 0,
+  '#command-deck': 0.25,
+  '#portfolio': 0.5,
+  '#pricing': 0.75,
+  '#faq': 1,
+}
+
+const JAKE_SRC = JAKE_FRAMES[6]
+const JAKE_FULL_W = 362
 
 type JakeStretchRideProps = {
   href: string | null
@@ -51,63 +46,33 @@ type JakeStretchRideProps = {
   className?: string
 }
 
-function JakeFrame({
-  src,
-  index,
-  frameFloat,
-}: {
-  src: string
-  index: number
-  frameFloat: MotionValue<number>
-}) {
-  // Triangle blend: only the two nearest frames are visible — no ghost stack.
-  const opacity = useTransform(frameFloat, (v) => {
-    const d = Math.abs(v - index)
-    if (d >= 1) return 0
-    return 1 - d
-  })
-
-  return (
-    <motion.img
-      src={src}
-      alt=""
-      draggable={false}
-      style={{ opacity }}
-      className="absolute bottom-0 right-0 h-12 w-auto max-w-none select-none drop-shadow-[1px_2px_0_rgba(0,0,0,0.28)]"
-    />
-  )
-}
-
 /**
  * Jake inside the nav pill, behind link text.
- * Spring-smoothed stretch: continuous width + adjacent-frame crossfade.
+ * Single PNG only — spring clips width from the head (right) so stretch is
+ * smooth with zero overlapping ghosts.
  */
 export function JakeStretchRide({ href, playSound = true, className = '' }: JakeStretchRideProps) {
   const reduceMotion = useReducedMotion()
   const show = !reduceMotion && href !== null
-  const targetProgress = show ? (JAKE_PROGRESS_BY_HREF[href!] ?? 0.25) : 0
+  const targetWidth = show ? (WIDTH_BY_HREF[href!] ?? 155) : 113
 
-  const progressTarget = useMotionValue(targetProgress)
+  const widthTarget = useMotionValue(targetWidth)
   const visibleTarget = useMotionValue(show ? 1 : 0)
 
-  const progress = useSpring(progressTarget, {
-    stiffness: 70,
-    damping: 18,
-    mass: 0.5,
+  const width = useSpring(widthTarget, {
+    stiffness: 80,
+    damping: 17,
+    mass: 0.48,
   })
   const visible = useSpring(visibleTarget, {
-    stiffness: 140,
-    damping: 22,
-    mass: 0.4,
+    stiffness: 150,
+    damping: 24,
+    mass: 0.35,
   })
-
-  // Continuous rubber-band width (smooth — no stepped jumps between frame sizes)
-  const width = useTransform(progress, [0, 1], [WIDTH_MIN, WIDTH_MAX])
-  const frameFloat = useTransform(progress, [0, 1], [0, LAST])
-  const shellOpacity = useTransform(visible, (v) => v * 0.92)
+  const shellOpacity = useTransform(visible, (v) => v * 0.95)
 
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const lastProgress = useRef(targetProgress)
+  const lastWidth = useRef(targetWidth)
   const wasShowing = useRef(false)
 
   useEffect(() => {
@@ -120,15 +85,13 @@ export function JakeStretchRide({ href, playSound = true, className = '' }: Jake
   }, [])
 
   useEffect(() => {
-    for (const src of JAKE_FRAMES) {
-      const img = new Image()
-      img.src = src
-    }
+    const img = new Image()
+    img.src = JAKE_SRC
   }, [])
 
   useEffect(() => {
-    progressTarget.set(targetProgress)
-  }, [progressTarget, targetProgress])
+    widthTarget.set(targetWidth)
+  }, [widthTarget, targetWidth])
 
   useEffect(() => {
     visibleTarget.set(show ? 1 : 0)
@@ -143,14 +106,14 @@ export function JakeStretchRide({ href, playSound = true, className = '' }: Jake
       wasShowing.current = false
       return
     }
-    const grew = targetProgress > lastProgress.current + 0.04
+    const grew = targetWidth > lastWidth.current + 4
     if (playSound && (!wasShowing.current || grew)) {
       a.currentTime = 0
       void a.play().catch(() => {})
     }
     wasShowing.current = true
-    lastProgress.current = targetProgress
-  }, [show, playSound, targetProgress])
+    lastWidth.current = targetWidth
+  }, [show, playSound, targetWidth])
 
   if (reduceMotion) return null
 
@@ -165,9 +128,16 @@ export function JakeStretchRide({ href, playSound = true, className = '' }: Jake
           opacity: shellOpacity,
         }}
       >
-        {JAKE_FRAMES.map((src, i) => (
-          <JakeFrame key={src} src={src} index={i} frameFloat={frameFloat} />
-        ))}
+        {/* One Jake. Parent width springs; image stays full-size and right-aligned. */}
+        <img
+          src={JAKE_SRC}
+          alt=""
+          width={JAKE_FULL_W}
+          height={48}
+          draggable={false}
+          className="absolute bottom-0 right-0 h-12 max-w-none select-none drop-shadow-[1px_2px_0_rgba(0,0,0,0.28)]"
+          style={{ width: JAKE_FULL_W }}
+        />
       </motion.div>
     </div>
   )
