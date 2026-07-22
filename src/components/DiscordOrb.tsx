@@ -8,13 +8,20 @@ import {
   useTransform,
 } from 'framer-motion'
 import { BatFace } from './mascots'
+import { DEFAULT_PLAN, getPlan } from '../data/plans'
+import { orderHref } from '../lib/order'
 
 const ACCENT = '#ff6b1a'
+const FLAGSHIP = getPlan(DEFAULT_PLAN)
 
+/**
+ * Floating bat orb — scroll progress ring + primary CTA to Full Send.
+ */
 export function DiscordOrb() {
   const reduceMotion = useReducedMotion()
-  const ref = useRef<HTMLButtonElement | null>(null)
+  const ref = useRef<HTMLAnchorElement | null>(null)
   const [hovered, setHovered] = useState(false)
+  const [deep, setDeep] = useState(false)
 
   const { scrollYProgress } = useScroll()
   const ringProgress = useSpring(scrollYProgress, { stiffness: 90, damping: 22 })
@@ -25,7 +32,6 @@ export function DiscordOrb() {
   const px = useSpring(rawX, { stiffness: 200, damping: 18 })
   const py = useSpring(rawY, { stiffness: 200, damping: 18 })
 
-  // Pupils track the cursor (face coordinate units) and look down as you scroll.
   const scrollGaze = useTransform(scrollYProgress, [0, 1], [-3, 8])
   const pupilX = useTransform(px, [-1, 1], [-9, 9])
   const pupilYMouse = useTransform(py, [-1, 1], [-8, 8])
@@ -34,10 +40,15 @@ export function DiscordOrb() {
   const centerRef = useRef({ x: 0, y: 0 })
 
   useEffect(() => {
+    const unsub = scrollYProgress.on('change', (v) => {
+      setDeep(v >= 0.55)
+    })
+    return unsub
+  }, [scrollYProgress])
+
+  useEffect(() => {
     if (reduceMotion) return
 
-    // Cache the orb center instead of reading layout on every mouse move.
-    // It is fixed-positioned, so it only shifts on resize.
     const measure = () => {
       const node = ref.current
       if (!node) return
@@ -71,20 +82,34 @@ export function DiscordOrb() {
     }
   }, [reduceMotion, rawX, rawY])
 
-  const scrollTop = () => {
-    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' })
-  }
-
   return (
-    <div className="pointer-events-none fixed bottom-24 right-4 z-40 md:bottom-8 md:right-8">
-      <motion.button
+    <div className="pointer-events-none fixed bottom-24 right-4 z-40 flex flex-col items-end gap-2 md:bottom-8 md:right-8">
+      {/* Hint after you’ve scrolled deep enough */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none rounded-sm border-2 border-black bg-elevated px-2 py-1 shadow-[2px_2px_0_#000]"
+        initial={false}
+        animate={{
+          opacity: hovered || deep ? 1 : 0,
+          y: hovered || deep ? 0 : 6,
+          scale: hovered || deep ? 1 : 0.92,
+        }}
+        transition={{ type: 'spring', stiffness: 420, damping: 24 }}
+      >
+        <p className="text-[10px] font-extrabold uppercase tracking-wide text-lime">
+          {deep ? 'Ready?' : 'Full Send'}
+        </p>
+        <p className="text-[9px] font-bold text-yellow">${FLAGSHIP.price}</p>
+      </motion.div>
+
+      <motion.a
         ref={ref}
-        type="button"
-        onClick={scrollTop}
+        href={orderHref(DEFAULT_PLAN)}
         onHoverStart={() => setHovered(true)}
         onHoverEnd={() => setHovered(false)}
-        aria-label="Back to top"
-        className="pointer-events-auto grid h-16 w-16 place-items-center rounded-full outline-none md:h-[4.5rem] md:w-[4.5rem]"
+        aria-label={`Go Full Send for $${FLAGSHIP.price}`}
+        title={`Go Full Send · $${FLAGSHIP.price}`}
+        className="pointer-events-auto grid h-16 w-16 place-items-center rounded-full outline-none focus-visible:ring-2 focus-visible:ring-lime focus-visible:ring-offset-2 focus-visible:ring-offset-bg md:h-[4.5rem] md:w-[4.5rem]"
         style={reduceMotion ? undefined : { rotate: badgeTilt }}
         initial={reduceMotion ? false : { opacity: 0, scale: 0.6, y: 24 }}
         animate={
@@ -107,7 +132,7 @@ export function DiscordOrb() {
         <svg viewBox="0 0 100 100" className="h-full w-full drop-shadow-[4px_4px_0_#000]">
           <circle cx="50" cy="50" r="47" fill="var(--color-card)" stroke="#ffe600" strokeWidth="3" />
 
-          {/* Scroll progress ring */}
+          {/* Scroll progress = “how far you’ve read” before committing */}
           <motion.circle
             cx="50"
             cy="50"
@@ -124,7 +149,6 @@ export function DiscordOrb() {
             }}
           />
 
-          {/* Hover glow */}
           <motion.circle
             cx="50"
             cy="52"
@@ -134,12 +158,11 @@ export function DiscordOrb() {
             transition={{ duration: 0.3 }}
           />
 
-          {/* Bat character, scaled into the badge */}
           <g transform="translate(4.4 12) scale(0.38)">
             <BatFace pupilX={pupilX} pupilY={pupilY} reduceMotion={!!reduceMotion} />
           </g>
         </svg>
-      </motion.button>
+      </motion.a>
     </div>
   )
 }
