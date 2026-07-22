@@ -248,7 +248,7 @@ function DesktopNavItem({
     >
       {/* Finn peeks just above Pricing — tight to the label */}
       {isPricing ? (
-        <FinnPricingPop active={showPreview} className="bottom-[calc(100%-6px)]" />
+        <FinnPricingPop active={showPreview} className="bottom-[calc(100%+4px)]" />
       ) : null}
 
       <a

@@ -170,7 +170,7 @@ type FinnPricingPopProps = {
   className?: string
 }
 
-/** Small peek just above Pricing — stays close to the word. */
+/** Small Finn peek above Pricing — clear of Jake and label text. */
 export function FinnPricingPop({ active, className = '' }: FinnPricingPopProps) {
   const reduceMotion = useReducedMotion()
   if (reduceMotion) return null
@@ -178,44 +178,28 @@ export function FinnPricingPop({ active, className = '' }: FinnPricingPopProps) 
   return (
     <motion.div
       aria-hidden
-      className={`pointer-events-none absolute left-1/2 z-[25] -translate-x-1/2 ${className}`}
+      className={`pointer-events-none absolute left-1/2 z-[40] -translate-x-1/2 ${className}`}
       initial={false}
       animate={{
-        y: active ? 0 : 8,
+        y: active ? 0 : 10,
         opacity: active ? 1 : 0,
-        scale: active ? 1 : 0.75,
+        scale: active ? 1 : 0.82,
       }}
       transition={
         active
-          ? { type: 'spring', stiffness: 600, damping: 22, delay: 0.04 }
-          : { duration: 0.12 }
+          ? { type: 'spring', stiffness: 520, damping: 20, delay: 0.06 }
+          : { duration: 0.14 }
       }
       style={{ transformOrigin: 'bottom center' }}
     >
-      <svg width="30" height="32" viewBox="0 0 30 32" className="drop-shadow-[1px_2px_0_rgba(0,0,0,0.4)]">
-        <path
-          d="M4 13 C4 4 26 4 26 13 L26 18 L4 18 Z"
-          fill="#fff"
-          stroke="#000"
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-        />
-        <ellipse cx="9" cy="5.5" rx="2.8" ry="3.5" fill="#fff" stroke="#000" strokeWidth="1.3" />
-        <ellipse cx="21" cy="5.5" rx="2.8" ry="3.5" fill="#fff" stroke="#000" strokeWidth="1.3" />
-        <ellipse cx="15" cy="18" rx="8.5" ry="7" fill="#F5C9A8" stroke="#000" strokeWidth="1.5" />
-        <circle cx="12" cy="17" r="1.15" fill="#000" />
-        <circle cx="18" cy="17" r="1.15" fill="#000" />
-        <path d="M11 21 Q15 23.5 19 21" fill="none" stroke="#000" strokeWidth="1.1" strokeLinecap="round" />
-        <path
-          d="M6 23 L24 23 L25 32 L5 32 Z"
-          fill="#4A9FE8"
-          stroke="#000"
-          strokeWidth="1.5"
-          strokeLinejoin="round"
-        />
-        <path d="M9 23 L8 29" stroke="#6BCF4A" strokeWidth="2" strokeLinecap="round" />
-        <path d="M21 23 L22 29" stroke="#6BCF4A" strokeWidth="2" strokeLinecap="round" />
-      </svg>
+      <img
+        src="/stickers/adventure/finn-peek.png"
+        alt=""
+        width={40}
+        height={36}
+        draggable={false}
+        className="h-9 w-auto max-w-none select-none drop-shadow-[1px_2px_0_rgba(0,0,0,0.45)]"
+      />
     </motion.div>
   )
 }
