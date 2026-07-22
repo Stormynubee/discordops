@@ -79,10 +79,10 @@ export function Hero() {
               ) : null}
             </div>
             <h1 className="banner-cobalt mt-1.5 max-w-full">
-              <span className="text-pixel-3d block text-[clamp(1.85rem,calc(1.05rem+3.6vw),3.55rem)]">
+              <span className="text-pixel-3d block text-[clamp(1.15rem,calc(0.75rem+2.4vw),2.15rem)]">
                 Your Discord
               </span>
-              <span className="text-pixel-3d mt-1 block text-[clamp(1.85rem,calc(1.05rem+3.6vw),3.55rem)]">
+              <span className="text-pixel-3d mt-2 block text-[clamp(1.15rem,calc(0.75rem+2.4vw),2.15rem)]">
                 deserves better.
               </span>
             </h1>

@@ -181,7 +181,7 @@ export function SectionHeading({
         {eyebrow}
       </p>
       <h2 className="banner-cobalt mt-1">
-        <span className="text-pixel-3d block text-[clamp(1.65rem,calc(1.15rem+2.8vw),3.1rem)] text-balance">
+        <span className="text-pixel-3d block text-[clamp(1rem,calc(0.7rem+1.8vw),1.75rem)] text-balance">
           {title}
         </span>
       </h2>
