@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Plus } from 'lucide-react'
 import { FOUNDERS_SHORT } from '../data/brand'
-import { Reveal, SectionHeading } from './ui'
+import { Reveal, SectionHeading, SectionShell } from './ui'
 
 const faqs = [
   {
@@ -50,19 +50,19 @@ function FaqItem({
   open: boolean
   onToggle: () => void
 }) {
+  const reduceMotion = useReducedMotion()
+
   return (
-    <div className="border-b-[3px] border-yellow/30 last:border-b-0">
+    <div className="border-b-[3px] border-yellow/25 last:border-b-0">
       <button
         type="button"
         onClick={onToggle}
-        className="flex w-full items-center justify-between gap-4 py-5 text-left transition hover:text-accent"
+        className="flex min-h-[48px] w-full items-center justify-between gap-4 py-5 text-left transition hover:text-accent"
         aria-expanded={open}
       >
-        <span className="text-title text-[15px] text-text md:text-lg">
-          {q}
-        </span>
+        <span className="text-title text-[15px] text-text md:text-lg">{q}</span>
         <span
-          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-sm border-[2.5px] transition ${
+          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-sm border-[2.5px] transition ${
             open ? 'rotate-45 border-lime text-lime' : 'border-black text-muted'
           }`}
         >
@@ -72,13 +72,15 @@ function FaqItem({
       <AnimatePresence initial={false}>
         {open ? (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
+            initial={reduceMotion ? false : { height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            exit={reduceMotion ? undefined : { height: 0, opacity: 0 }}
+            transition={
+              reduceMotion ? { duration: 0 } : { duration: 0.3, ease: [0.22, 1, 0.36, 1] }
+            }
             className="overflow-hidden"
           >
-            <p className="max-w-2xl pb-5 pr-10 text-sm leading-relaxed text-muted">{a}</p>
+            <p className="text-body-sm max-w-2xl pb-5 pr-10 text-muted">{a}</p>
           </motion.div>
         ) : null}
       </AnimatePresence>
@@ -90,11 +92,11 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section id="faq" className="section-cv relative section-pad section-y bg-surface/40">
+    <SectionShell id="faq" band>
       <div className="mx-auto max-w-7xl">
         <SectionHeading eyebrow="FAQ" title="Questions? Yeah, we got you." />
         <Reveal>
-          <div className="max-w-3xl rounded-xl border border-border bg-card px-5 md:px-7">
+          <div className="max-w-3xl rounded-sm border-[3px] border-black bg-card px-5 shadow-hard md:px-7">
             {faqs.map((faq, i) => (
               <FaqItem
                 key={faq.q}
@@ -107,6 +109,6 @@ export function FAQ() {
           </div>
         </Reveal>
       </div>
-    </section>
+    </SectionShell>
   )
 }

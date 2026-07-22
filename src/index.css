@@ -17,6 +17,8 @@
   --color-text: #f5f2ff;
   --color-muted: #9b94b0;
   --color-elevated: #120e22;
+  --color-card-deep: #1a1430;
+  --color-pixel-pink: #ffd6ea;
   --color-footer: #08060f;
   --font-display: "Pixelify Sans", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
@@ -82,7 +84,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-lime);
+    outline: 3px solid var(--color-lime);
     outline-offset: 3px;
   }
 }
@@ -167,8 +169,23 @@
   .text-body {
     font-family: var(--font-sans);
     font-weight: 400;
+    font-size: 0.9375rem;
     letter-spacing: 0;
     line-height: 1.65;
+  }
+
+  @media (min-width: 640px) {
+    .text-body {
+      font-size: 1rem;
+    }
+  }
+
+  .text-body-sm {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 0.875rem;
+    letter-spacing: 0;
+    line-height: 1.6;
   }
 
   .text-label-caps {
@@ -212,7 +229,7 @@
   .text-pixel-3d {
     font-family: var(--font-display);
     font-weight: 700;
-    color: #ffd6ea;
+    color: var(--color-pixel-pink);
     text-shadow:
       1px 1px 0 #000,
       2px 2px 0 #000,

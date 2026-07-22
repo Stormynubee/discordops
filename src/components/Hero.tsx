@@ -52,22 +52,20 @@ export function Hero() {
       <div className="section-pad relative z-10 mx-auto grid max-w-7xl items-center gap-10 pb-16 sm:gap-12 sm:pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pb-24">
         <div className="relative max-w-xl">
           <Reveal>
-            <div className="mb-5 flex flex-wrap items-center gap-2.5">
-              <span className="inline-flex items-center gap-2 rounded-sm border-[2.5px] border-black bg-elevated px-2.5 py-1 shadow-[3px_3px_0_#000]">
-                <span className="font-display text-[11px] font-bold tracking-[0.16em] text-yellow">01</span>
+            <div className="mb-4 flex flex-wrap items-center gap-2.5">
+              <Badge className="!bg-elevated !text-white gap-2 !font-bold tracking-[0.12em]">
+                <span className="font-display text-[11px] tracking-[0.16em] text-yellow">01</span>
                 <span aria-hidden className="h-3 w-px bg-white/25" />
-                <span className="text-[11px] font-bold uppercase tracking-[0.12em] text-white sm:text-[12px]">
-                  Server ops
-                </span>
-              </span>
-              <span className="inline-flex items-center rounded-sm border-[2.5px] border-black bg-lime px-2.5 py-1 text-[11px] font-extrabold uppercase tracking-[0.08em] text-bg shadow-[3px_3px_0_#000] sm:text-[12px]">
+                <span className="uppercase">Server ops</span>
+              </Badge>
+              <Sticker tone="lime" className="!border-[2.5px] !px-2.5 !py-1 !text-[11px] tracking-[0.08em] sm:!text-[12px]">
                 Live in 3–7 days
-              </span>
+              </Sticker>
             </div>
           </Reveal>
 
           <Reveal>
-            <div className="mb-3 flex flex-wrap items-center gap-2">
+            <div className="mb-2.5 flex flex-wrap items-center gap-2">
               <Sticker tone="orange" className="sticker-rotate">
                 Staff picks
               </Sticker>
@@ -80,7 +78,7 @@ export function Hero() {
                 />
               ) : null}
             </div>
-            <h1 className="banner-cobalt mt-2 max-w-full">
+            <h1 className="banner-cobalt mt-1.5 max-w-full">
               <span className="text-pixel-3d block text-[clamp(1.65rem,calc(1rem+3.2vw),3.1rem)]">
                 Your Discord
               </span>
@@ -88,18 +86,18 @@ export function Hero() {
                 deserves better.
               </span>
             </h1>
-            <p className="text-headline-lg mt-4 text-lime">We build it. You take the credit.</p>
+            <p className="text-headline-lg mt-3 text-lime">We build it. You take the credit.</p>
           </Reveal>
 
           <Reveal delay={0.08}>
-            <p className="mt-5 max-w-md border-l-4 border-accent pl-3.5 text-[15px] leading-relaxed text-muted sm:mt-6 sm:pl-4 sm:text-[16px]">
+            <p className="text-body mt-4 max-w-md border-l-4 border-accent pl-3.5 text-muted sm:mt-5 sm:pl-4">
               Setup, bots, branding. Live in 3–7 days. You run the vibes, we run the rest.
             </p>
           </Reveal>
 
           <Reveal
             delay={0.14}
-            className="mt-7 flex w-full flex-col gap-3 sm:mt-8 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center"
+            className="mt-6 flex w-full flex-col gap-3 sm:mt-7 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center"
           >
             <Button href="#order?plan=Full%20Send" variant="primary" className="w-full sm:w-auto">
               Go Full Send

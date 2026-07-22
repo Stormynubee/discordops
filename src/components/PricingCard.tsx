@@ -28,9 +28,9 @@ export function PricingCard({ plan, index }: PricingCardProps) {
         y: { type: 'spring', stiffness: 320, damping: 26 },
       }}
       className={[
-        'relative flex h-full flex-col rounded-md border-[3px] bg-[#1a1430] p-6 sm:p-7 md:p-8',
+        'relative flex h-full flex-col rounded-sm border-[3px] bg-card-deep p-6 sm:p-7 md:p-8',
         featured
-          ? 'z-10 border-accent shadow-[8px_8px_0_#000] lg:scale-[1.04] lg:py-9'
+          ? 'z-10 border-accent shadow-[8px_8px_0_#000] lg:py-9'
           : 'border-black shadow-[6px_6px_0_#000] hover:border-lime',
         hovered && !featured ? 'shadow-[8px_8px_0_#000]' : '',
         hovered && featured ? 'shadow-[10px_10px_0_#000]' : '',
@@ -94,7 +94,7 @@ export function PricingCard({ plan, index }: PricingCardProps) {
         </div>
       </div>
 
-      <p className="mt-4 text-[14px] leading-relaxed text-text/85 sm:text-[15px]">{plan.blurb}</p>
+      <p className="mt-4 text-body text-text/85">{plan.blurb}</p>
 
       <div className="mt-6 flex items-center gap-2 sm:mt-7">
         <p className="font-display text-[13px] font-bold uppercase tracking-[0.14em] text-lime sm:text-sm">
@@ -112,24 +112,16 @@ export function PricingCard({ plan, index }: PricingCardProps) {
       </div>
 
       <ul className="mt-3 flex-1 space-y-2.5 sm:mt-3.5 sm:space-y-3">
-        {plan.features.map((f, fi) => (
-          <motion.li
+        {plan.features.map((f) => (
+          <li
             key={f}
-            initial={reduceMotion ? false : { opacity: 0, x: -8 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-20px' }}
-            transition={{
-              duration: 0.35,
-              delay: reduceMotion ? 0 : 0.12 + index * 0.04 + fi * 0.035,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className="flex items-start gap-2.5 text-[13.5px] leading-[1.45] text-text sm:gap-3 sm:text-[14.5px]"
+            className="flex items-start gap-2.5 text-body-sm text-text sm:gap-3 sm:text-[14.5px]"
           >
             <span className="mt-0.5 flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-[3px] bg-accent/15 sm:h-5 sm:w-5">
               <Check size={12} className="text-accent" strokeWidth={3.5} aria-hidden />
             </span>
             <span>{f}</span>
-          </motion.li>
+          </li>
         ))}
       </ul>
 

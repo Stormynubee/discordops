@@ -177,7 +177,7 @@ function NavPreviewCard({ link }: { link: NavLink }) {
       </div>
       <LiveSectionPeek fallback={link.preview} />
       <div className="border-t-[3px] border-black bg-elevated px-2.5 py-2">
-        <p className="text-[11px] leading-snug text-[#ffd6ea]">{link.blurb}</p>
+        <p className="text-[11px] leading-snug text-pixel-pink">{link.blurb}</p>
         <p className="mt-1.5 inline-flex items-center gap-1 text-[10px] font-bold text-lime">
           Jump in <ArrowUpRight size={11} strokeWidth={3} />
         </p>
@@ -410,7 +410,7 @@ export function Navbar() {
                     <div className="max-h-[100px] overflow-hidden opacity-90">
                       <PreviewArt kind={link.preview} />
                     </div>
-                    <p className="border-t-2 border-black px-3 py-2 text-[12px] leading-snug text-[#ffd6ea]">
+                    <p className="border-t-2 border-black px-3 py-2 text-[12px] leading-snug text-pixel-pink">
                       {link.blurb}
                     </p>
                   </a>
