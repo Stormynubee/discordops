@@ -50,64 +50,13 @@ const links: NavLink[] = [
   },
 ]
 
-function LiveSectionPeek({ sectionId, fallback }: { sectionId: string; fallback: NavLink['preview'] }) {
-  const hostRef = useRef<HTMLDivElement>(null)
-  const [ready, setReady] = useState(false)
-
-  useEffect(() => {
-    const section = document.getElementById(sectionId)
-    const host = hostRef.current
-    if (!host) return
-
-    host.replaceChildren()
-    setReady(false)
-    if (!section) return
-
-    let cancelled = false
-    // Defer heavy clone off the hover frame so the pill stays snappy
-    const run = () => {
-      if (cancelled || !hostRef.current) return
-      const clone = section.cloneNode(true) as HTMLElement
-      clone.removeAttribute('id')
-      clone.setAttribute('aria-hidden', 'true')
-      clone.querySelectorAll('video, audio, iframe, canvas, script').forEach((el) => el.remove())
-      clone.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'))
-      clone.querySelectorAll('img').forEach((img) => {
-        img.setAttribute('loading', 'lazy')
-        img.removeAttribute('srcset')
-      })
-      clone.style.width = `${Math.max(section.offsetWidth, 720)}px`
-      clone.style.pointerEvents = 'none'
-      clone.style.userSelect = 'none'
-      clone.style.contentVisibility = 'auto'
-      hostRef.current.replaceChildren(clone)
-      setReady(true)
-    }
-
-    const id = window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(run)
-    })
-
-    return () => {
-      cancelled = true
-      window.cancelAnimationFrame(id)
-      host.replaceChildren()
-    }
-  }, [sectionId])
-
+function LiveSectionPeek({ fallback }: { fallback: NavLink['preview'] }) {
   return (
-    <div className="relative h-[128px] overflow-hidden bg-bg contain-paint">
+    <div className="relative h-[128px] overflow-hidden bg-bg">
       <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] opacity-15 checker-bg" />
-      {!ready ? (
-        <div className="relative z-[2]">
-          <PreviewArt kind={fallback} />
-        </div>
-      ) : null}
-      <div
-        ref={hostRef}
-        className={`origin-top-left scale-[0.2] ${ready ? 'opacity-100' : 'opacity-0'}`}
-        style={{ width: '500%', minHeight: '640px' }}
-      />
+      <div className="relative z-[2]">
+        <PreviewArt kind={fallback} />
+      </div>
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-10 bg-gradient-to-t from-card to-transparent"
@@ -225,7 +174,7 @@ function NavPreviewCard({ link }: { link: NavLink }) {
           Preview
         </span>
       </div>
-      <LiveSectionPeek sectionId={link.sectionId} fallback={link.preview} />
+      <LiveSectionPeek fallback={link.preview} />
       <div className="border-t-[3px] border-black bg-elevated px-2.5 py-2">
         <p className="text-[11px] leading-snug text-[#ffd6ea]">{link.blurb}</p>
         <p className="mt-1.5 inline-flex items-center gap-1 text-[10px] font-bold text-lime">
