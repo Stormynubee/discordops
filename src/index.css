@@ -208,11 +208,11 @@
     letter-spacing: 0.04em;
   }
 
-  /* Pixel 3D extrude title — pink fill, white rim, black extrude */
+  /* Pixel 3D extrude title — light pink fill, white rim, black extrude */
   .text-pixel-3d {
     font-family: var(--font-display);
     font-weight: 700;
-    color: #ff2d95;
+    color: #ffd6ea;
     text-shadow:
       1px 1px 0 #000,
       2px 2px 0 #000,
