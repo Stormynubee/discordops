@@ -42,13 +42,9 @@ export function Hero() {
 
       <div className="section-pad relative z-10 mx-auto grid max-w-7xl items-center gap-10 pb-16 sm:gap-12 sm:pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pb-24">
         <div className="relative max-w-xl">
-          {/* Notification pills */}
+          {/* Notification pill */}
           <Reveal>
-            <div className="mb-5 flex flex-wrap gap-2">
-              <div className="inline-flex items-center gap-2 rounded-sm border-[2.5px] border-black bg-elevated px-2.5 py-1.5 text-[11px] shadow-[3px_3px_0_#000]">
-                <img src="/stickers/y2k/sparkle.svg" alt="" className="h-4 w-4" />
-                <span className="font-semibold text-lime">Staff online</span>
-              </div>
+            <div className="mb-5">
               <div className="inline-flex items-center gap-2 rounded-sm border-[2.5px] border-black bg-elevated px-2.5 py-1.5 text-[11px] shadow-[3px_3px_0_#000]">
                 <img src="/stickers/y2k/heart.svg" alt="" className="h-4 w-4" />
                 <span className="text-silver">Hansraj + Arya + crew</span>
