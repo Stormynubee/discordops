@@ -371,7 +371,7 @@ export function Navbar() {
         <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 lg:block">
           <JakeStretchRide
             stretched={hovered === '#pricing'}
-            className="left-[52%] top-[calc(100%-2px)] z-0 -translate-x-1/2"
+            className="left-[42%] top-[calc(100%+2px)] z-0 -translate-x-1/2"
           />
           <ul className="relative z-10 flex items-center gap-1 rounded-sm border-[3px] border-black bg-elevated/90 px-3 shadow-[3px_3px_0_#000] backdrop-blur-sm xl:gap-2 xl:px-4">
             {links.map((link) => (

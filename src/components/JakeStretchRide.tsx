@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 
 type JakeStretchRideProps = {
@@ -5,115 +6,112 @@ type JakeStretchRideProps = {
   className?: string
 }
 
-/** Horizontal Finn-on-Jake stretch easter egg. Decorative only. */
+const IDLE_W = 22
+const FULL_W = 260
+const BODY_H = 34
+
+/**
+ * Finn peeks on Jake while Jake's body grows in realtime (width, not scaleX).
+ * Head + feet stay crisp; only the yellow midsection elongates.
+ */
 export function JakeStretchRide({ stretched, className = '' }: JakeStretchRideProps) {
   const reduceMotion = useReducedMotion()
   const active = !reduceMotion && stretched
+  const audioRef = useRef<HTMLAudioElement | null>(null)
 
-  const out = { duration: 2.8, ease: [0.22, 1, 0.36, 1] as const }
-  const back = { duration: 1.15, ease: [0.4, 0, 0.2, 1] as const }
-  const t = active ? out : back
+  useEffect(() => {
+    if (!audioRef.current) {
+      const a = new Audio('/stickers/adventure/jake-stretch.mp3')
+      a.preload = 'auto'
+      a.volume = 0.4
+      audioRef.current = a
+    }
+  }, [])
 
-  // Body grows left→right; compact idle is a short stump
-  const bodyScale = active ? 1 : 0.18
-  const bodyWidth = 220
-  const feetX = active ? bodyWidth - 8 : bodyWidth * 0.18 - 4
-  const finnY = active ? -10 : 14
-  const finnOpacity = active ? 1 : 0.35
+  useEffect(() => {
+    const a = audioRef.current
+    if (!a) return
+    if (active) {
+      a.currentTime = 0
+      void a.play().catch(() => {
+        /* autoplay may be blocked until a user gesture elsewhere */
+      })
+    } else {
+      a.pause()
+      a.currentTime = 0
+    }
+  }, [active])
+
+  const stretchTransition = active
+    ? { duration: 2.85, ease: [0.22, 1, 0.36, 1] as const }
+    : { duration: 1.1, ease: [0.4, 0, 0.2, 1] as const }
 
   return (
     <div
       aria-hidden
-      className={`pointer-events-none absolute h-14 w-[280px] overflow-visible ${className}`}
+      className={`pointer-events-none absolute overflow-visible ${className}`}
     >
-      <div className="relative h-full w-full">
-        {/* Stretch body */}
-        <motion.div
-          className="absolute left-[36px] top-[22px] h-7 origin-left"
-          style={{ width: bodyWidth }}
-          animate={{ scaleX: bodyScale }}
-          transition={t}
-        >
-          <svg viewBox="0 0 220 28" className="h-full w-full" preserveAspectRatio="none">
-            <rect x="0" y="2" width="220" height="24" rx="12" fill="#F5C518" stroke="#1a1a1a" strokeWidth="2.5" />
-          </svg>
-        </motion.div>
-
-        {/* Feet at stretch end */}
-        <motion.div
-          className="absolute top-[26px]"
-          animate={{ x: feetX }}
-          transition={t}
-        >
-          <svg width="36" height="22" viewBox="0 0 36 22" fill="none">
-            <ellipse cx="10" cy="14" rx="8" ry="6" fill="#F5C518" stroke="#1a1a1a" strokeWidth="2" />
-            <ellipse cx="26" cy="14" rx="8" ry="6" fill="#F5C518" stroke="#1a1a1a" strokeWidth="2" />
-            <path d="M6 12 Q10 6 14 12" stroke="#1a1a1a" strokeWidth="1.5" fill="none" />
-            <path d="M22 12 Q26 6 30 12" stroke="#1a1a1a" strokeWidth="1.5" fill="none" />
-          </svg>
-        </motion.div>
-
-        {/* Jake head (fixed left) */}
-        <div className="absolute left-0 top-[10px] z-10">
-          <svg width="52" height="44" viewBox="0 0 52 44" fill="none">
-            <ellipse cx="26" cy="24" rx="20" ry="16" fill="#F5C518" stroke="#1a1a1a" strokeWidth="2.5" />
-            {/* muzzle */}
-            <ellipse cx="26" cy="30" rx="11" ry="8" fill="#F5C518" stroke="#1a1a1a" strokeWidth="2" />
-            <ellipse cx="26" cy="28" rx="3.2" ry="2.4" fill="#1a1a1a" />
-            {/* eyes */}
-            <circle cx="18" cy="20" r="6.5" fill="#fff" stroke="#1a1a1a" strokeWidth="2" />
-            <circle cx="34" cy="20" r="6.5" fill="#fff" stroke="#1a1a1a" strokeWidth="2" />
-            <circle cx="19.5" cy="21" r="2.2" fill="#1a1a1a" />
-            <circle cx="35.5" cy="21" r="2.2" fill="#1a1a1a" />
-            {/* arms */}
-            <path
-              d="M8 28 Q2 34 8 38"
-              stroke="#1a1a1a"
-              strokeWidth="2.5"
-              fill="none"
-              strokeLinecap="round"
-            />
-            <circle cx="8" cy="38" r="3.5" fill="#F5C518" stroke="#1a1a1a" strokeWidth="2" />
-            <path
-              d="M44 28 Q50 34 44 38"
-              stroke="#1a1a1a"
-              strokeWidth="2.5"
-              fill="none"
-              strokeLinecap="round"
-            />
-            <circle cx="44" cy="38" r="3.5" fill="#F5C518" stroke="#1a1a1a" strokeWidth="2" />
-          </svg>
+      <div className="relative flex h-[72px] items-end">
+        {/* Head cluster + Finn */}
+        <div className="relative z-20 mb-[-2px] shrink-0">
+          <motion.img
+            src="/stickers/adventure/finn-peek.png"
+            alt=""
+            draggable={false}
+            className="absolute left-1/2 top-0 z-30 h-11 w-11 -translate-x-1/2 object-contain drop-shadow-[2px_2px_0_rgba(0,0,0,0.35)]"
+            animate={{
+              y: active ? -22 : 6,
+              opacity: active ? 1 : 0.25,
+              scale: active ? 1 : 0.85,
+            }}
+            transition={
+              active
+                ? { duration: 2.2, delay: 0.25, ease: [0.22, 1, 0.36, 1] }
+                : { duration: 0.85, ease: [0.4, 0, 0.2, 1] }
+            }
+          />
+          <img
+            src="/stickers/adventure/jake-head.png"
+            alt=""
+            draggable={false}
+            className="relative z-20 h-[58px] w-[58px] object-contain drop-shadow-[2px_2px_0_rgba(0,0,0,0.3)]"
+          />
         </div>
 
-        {/* Finn peeking on Jake's head */}
+        {/* Stretching mid-body — animate WIDTH in realtime */}
         <motion.div
-          className="absolute left-[10px] top-0 z-20"
-          animate={{ y: finnY, opacity: finnOpacity }}
-          transition={{
-            ...(active
-              ? { duration: 2.4, delay: 0.35, ease: [0.22, 1, 0.36, 1] }
-              : { duration: 0.9, ease: [0.4, 0, 0.2, 1] }),
-          }}
+          className="relative z-10 mb-[10px] overflow-hidden"
+          style={{ height: BODY_H }}
+          initial={false}
+          animate={{ width: active ? FULL_W : IDLE_W }}
+          transition={stretchTransition}
         >
-          <svg width="40" height="36" viewBox="0 0 40 36" fill="none">
-            {/* hood */}
-            <ellipse cx="20" cy="16" rx="14" ry="13" fill="#F4F0E8" stroke="#1a1a1a" strokeWidth="2" />
-            <ellipse cx="11" cy="6" rx="3.5" ry="4" fill="#F4F0E8" stroke="#1a1a1a" strokeWidth="1.75" />
-            <ellipse cx="29" cy="6" rx="3.5" ry="4" fill="#F4F0E8" stroke="#1a1a1a" strokeWidth="1.75" />
-            {/* face hole */}
-            <ellipse cx="20" cy="18" rx="8" ry="7.5" fill="#F5C9A8" stroke="#1a1a1a" strokeWidth="1.75" />
-            <circle cx="17" cy="17" r="1.3" fill="#1a1a1a" />
-            <circle cx="23" cy="17" r="1.3" fill="#1a1a1a" />
-            <path d="M16 21 Q20 24 24 21" stroke="#1a1a1a" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-            {/* shirt peek */}
-            <rect x="12" y="28" width="16" height="7" rx="2" fill="#6EC1E4" stroke="#1a1a1a" strokeWidth="1.75" />
-            {/* arms out when peeking */}
-            <path d="M12 30 L4 26" stroke="#1a1a1a" strokeWidth="2" strokeLinecap="round" />
-            <path d="M28 30 L36 26" stroke="#1a1a1a" strokeWidth="2" strokeLinecap="round" />
-            <circle cx="4" cy="26" r="2.5" fill="#F5C9A8" stroke="#1a1a1a" strokeWidth="1.5" />
-            <circle cx="36" cy="26" r="2.5" fill="#F5C9A8" stroke="#1a1a1a" strokeWidth="1.5" />
-          </svg>
+          {/* Solid tube (crisp at any width) + texture image overlay */}
+          <div
+            className="absolute inset-y-0 left-0 right-0 rounded-[999px] border-[2.5px] border-black"
+            style={{
+              background:
+                'linear-gradient(180deg, #ffe066 0%, #F5C518 45%, #e0a800 100%)',
+              borderLeftWidth: 0,
+              borderRightWidth: 0,
+              boxShadow: 'inset 0 2px 0 rgba(255,255,255,0.25), inset 0 -2px 0 rgba(0,0,0,0.12)',
+            }}
+          />
+          <img
+            src="/stickers/adventure/jake-body.png"
+            alt=""
+            draggable={false}
+            className="absolute inset-0 h-full w-full object-fill opacity-90 mix-blend-multiply"
+          />
         </motion.div>
+
+        {/* Feet ride the end of the stretch */}
+        <img
+          src="/stickers/adventure/jake-feet.png"
+          alt=""
+          draggable={false}
+          className="relative z-20 mb-[4px] ml-[-6px] h-11 w-11 shrink-0 object-contain drop-shadow-[2px_2px_0_rgba(0,0,0,0.3)]"
+        />
       </div>
     </div>
   )
