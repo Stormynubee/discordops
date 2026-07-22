@@ -15,8 +15,8 @@
   --color-muted: #99907e;
   --color-elevated: #1a1c1e;
   --color-footer: #0c0e10;
-  --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cabinet Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
