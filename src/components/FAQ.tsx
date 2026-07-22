@@ -57,7 +57,7 @@ function FaqItem({
       <button
         type="button"
         onClick={onToggle}
-        className="flex min-h-[48px] w-full items-center justify-between gap-4 py-5 text-left transition hover:text-accent"
+        className="flex min-h-12 w-full items-center justify-between gap-4 py-5 text-left transition hover:text-accent"
         aria-expanded={open}
       >
         <span className="text-title text-[15px] text-text md:text-lg">{q}</span>

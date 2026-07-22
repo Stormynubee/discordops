@@ -78,7 +78,7 @@ export function PricingCard({ plan, index }: PricingCardProps) {
       <div className="mt-5 sm:mt-6">
         <div className="flex items-end gap-2.5 pb-3">
           <p
-            className="text-price flex items-baseline gap-0.5 text-[clamp(2.85rem,calc(2.1rem+3.2vw),3.85rem)] text-lime"
+            className="text-price flex items-baseline gap-0.5 text-[clamp(3rem,calc(2.2rem+3.4vw),4.15rem)] text-lime"
             aria-label={`${plan.price} dollars`}
           >
             <span className="text-[0.55em] font-black tracking-normal">$</span>

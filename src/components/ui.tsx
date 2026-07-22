@@ -33,7 +33,7 @@ export function Button({
         ? 'bg-cobalt text-white border-[3px] border-yellow shadow-[4px_4px_0_#000] hover:bg-yellow hover:text-bg active:translate-x-[2px] active:translate-y-[2px] active:shadow-[2px_2px_0_#000]'
         : 'bg-transparent text-muted border-[3px] border-transparent hover:text-lime hover:border-lime/40'
 
-  const classNameFull = `inline-flex min-h-[48px] items-center justify-center gap-2 rounded-sm px-7 py-3 text-sm font-bold tracking-wide transition-all duration-150 ease-out disabled:pointer-events-none disabled:opacity-60 ${styles} ${className}`
+  const classNameFull = `inline-flex min-h-12 items-center justify-center gap-2 rounded-sm px-7 py-3 text-sm font-bold tracking-wide transition-all duration-150 ease-out disabled:pointer-events-none disabled:opacity-60 ${styles} ${className}`
 
   if (href) {
     return (
@@ -181,7 +181,7 @@ export function SectionHeading({
         {eyebrow}
       </p>
       <h2 className="banner-cobalt mt-1">
-        <span className="text-pixel-3d block text-[clamp(1.5rem,calc(1.1rem+2.5vw),2.75rem)] text-balance">
+        <span className="text-pixel-3d block text-[clamp(1.65rem,calc(1.15rem+2.8vw),3.1rem)] text-balance">
           {title}
         </span>
       </h2>

@@ -361,7 +361,7 @@ export function Navbar() {
         </div>
 
         <div className="hidden lg:block">
-          <Button href="#order?plan=Full%20Send" variant="primary" className="!min-h-[40px] !px-5 !py-2 text-[13px]">
+          <Button href="#order?plan=Full%20Send" variant="primary" className="!min-h-10 !px-5 !py-2 text-[13px]">
             Go Full Send
           </Button>
         </div>

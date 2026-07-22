@@ -40,6 +40,8 @@
     scroll-behavior: smooth;
     color-scheme: dark;
     -webkit-text-size-adjust: 100%;
+    /* Default ≈ browser 125% zoom on desktop; stays ~100% on small phones */
+    font-size: clamp(1rem, 0.88rem + 0.5vw, 1.25rem);
   }
 
   body {
@@ -50,7 +52,7 @@
     color: var(--color-text);
     font-family: var(--font-sans);
     font-weight: 400;
-    font-size: clamp(0.9375rem, 0.9rem + 0.2vw, 1rem);
+    font-size: clamp(0.9375rem, 0.9rem + 0.15vw, 1rem);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -113,7 +115,7 @@
   .text-display-sm {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(1.75rem, 1.1rem + 3vw, 3.25rem);
+    font-size: clamp(1.9rem, 1.15rem + 3.2vw, 3.5rem);
     letter-spacing: 0.02em;
     line-height: 1.12 !important;
     padding-bottom: 0.14em;
@@ -144,7 +146,7 @@
   .text-headline-lg {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(1.15rem, 0.95rem + 1.2vw, 1.75rem);
+    font-size: clamp(1.25rem, 1rem + 1.35vw, 1.9rem);
     letter-spacing: 0.02em;
     line-height: 1.2 !important;
     padding-bottom: 0.1em;
@@ -289,16 +291,42 @@
     box-shadow: var(--shadow-hard);
   }
 
+  /* Comic panel frame for Command Center — ink outer, yellow mat, stacked hard shadows */
+  .command-frame {
+    position: relative;
+    border: 3px solid #000;
+    background: var(--color-yellow);
+    border-radius: var(--radius-card);
+    padding: 4px;
+    box-shadow:
+      4px 4px 0 var(--color-lime),
+      7px 7px 0 #000;
+  }
+
+  @media (min-width: 640px) {
+    .command-frame {
+      padding: 5px;
+      box-shadow:
+        5px 5px 0 var(--color-lime),
+        8px 8px 0 #000;
+    }
+  }
+
+  .command-frame > * {
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
   .section-pad {
-    padding-inline: clamp(1rem, 4.5vw, 2.5rem);
+    padding-inline: clamp(1rem, 4vw, 2.75rem);
   }
 
   .section-y {
-    padding-block: clamp(3.5rem, 8vw, 7rem);
+    padding-block: clamp(3.25rem, 7vw, 6.5rem);
   }
 
   .section-y-sm {
-    padding-block: clamp(2.5rem, 5vw, 4.5rem);
+    padding-block: clamp(2.25rem, 4.5vw, 4rem);
   }
 
   .checker-bg {
@@ -434,37 +462,50 @@
       0 0 28px color-mix(in srgb, var(--color-accent) 45%, transparent);
   }
 
-  /* Neon status pill — lime shell, orange core */
-  .neon-pill {
+  /* Hard CTA sticker — matches Button / Sticker language */
+  .hard-cta {
     position: relative;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    border-radius: 9999px;
-    border: 2px solid var(--color-lime);
-    background: color-mix(in srgb, var(--color-accent) 14%, #12081a);
-    padding: 0.45rem 1rem;
-    color: var(--color-accent);
-    box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--color-accent) 35%, transparent) inset,
-      0 0 14px color-mix(in srgb, var(--color-lime) 35%, transparent);
-    animation: neon-pill-glow 2.4s ease-in-out infinite;
-  }
-
-  .neon-pill:hover {
-    background: color-mix(in srgb, var(--color-accent) 22%, #12081a);
-    box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--color-accent) 45%, transparent) inset,
-      0 0 18px color-mix(in srgb, var(--color-lime) 50%, transparent);
-  }
-
-  .neon-pill-dot {
-    width: 0.4rem;
-    height: 0.4rem;
-    border-radius: 9999px;
+    border-radius: 0.125rem;
+    border: 3px solid #000;
     background: var(--color-accent);
-    box-shadow: 0 0 8px var(--color-accent);
-    animation: neon-dot-ping 1.4s ease-in-out infinite;
+    padding: 0.5rem 0.9rem;
+    color: #fff;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    box-shadow: 3px 3px 0 #000;
+    transition:
+      background-color 150ms ease-out,
+      color 150ms ease-out,
+      box-shadow 150ms ease-out,
+      transform 150ms ease-out;
+  }
+
+  .hard-cta:hover {
+    background: var(--color-lime);
+    color: var(--color-bg);
+  }
+
+  .hard-cta:focus-visible {
+    outline: 3px solid var(--color-cobalt);
+    outline-offset: 3px;
+  }
+
+  .hard-cta-mark {
+    width: 0.55rem;
+    height: 0.55rem;
+    flex-shrink: 0;
+    border: 2px solid #000;
+    background: var(--color-lime);
+    box-shadow: 1px 1px 0 #000;
+  }
+
+  .hard-cta:hover .hard-cta-mark {
+    background: var(--color-accent);
   }
 
   /* Hard dual rule under prices / panels */
@@ -512,32 +553,6 @@
   }
 }
 
-@keyframes neon-pill-glow {
-  0%,
-  100% {
-    box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--color-accent) 35%, transparent) inset,
-      0 0 10px color-mix(in srgb, var(--color-lime) 28%, transparent);
-  }
-  50% {
-    box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--color-accent) 45%, transparent) inset,
-      0 0 18px color-mix(in srgb, var(--color-lime) 55%, transparent);
-  }
-}
-
-@keyframes neon-dot-ping {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.45);
-    opacity: 0.7;
-  }
-}
-
 @keyframes rule-scan {
   0% {
     transform: translateX(-120%);
@@ -576,8 +591,6 @@
     transition: none;
   }
 
-  .neon-pill,
-  .neon-pill-dot,
   .rule-y2k::before,
   .rule-y2k-thin::before,
   .step-node-glow {

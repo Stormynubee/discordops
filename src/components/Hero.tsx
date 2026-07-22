@@ -42,15 +42,15 @@ export function Hero() {
   const reduceMotion = useReducedMotion()
 
   return (
-    <section id="top" className="relative min-h-[100svh] overflow-hidden pt-20 sm:pt-24 md:pt-28">
+    <section id="top" className="relative min-h-[100svh] overflow-hidden pt-20 sm:pt-24 md:pt-28 lg:pt-32">
       {/* Checker patch behind collage */}
       <div
         aria-hidden
         className="pointer-events-none absolute left-[-5%] top-24 hidden h-48 w-64 rotate-[-8deg] opacity-40 checker-bg border-[3px] border-black md:block"
       />
 
-      <div className="section-pad relative z-10 mx-auto grid max-w-7xl items-center gap-10 pb-16 sm:gap-12 sm:pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pb-24">
-        <div className="relative max-w-xl">
+      <div className="section-pad relative z-10 mx-auto grid max-w-7xl items-center gap-8 pb-12 sm:gap-10 sm:pb-16 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8 lg:pb-20 xl:gap-12">
+        <div className="relative max-w-2xl lg:max-w-xl xl:max-w-2xl">
           <Reveal>
             <div className="mb-4 flex flex-wrap items-center gap-2.5">
               <Badge className="!bg-elevated !text-white gap-2 !font-bold tracking-[0.12em]">
@@ -79,10 +79,10 @@ export function Hero() {
               ) : null}
             </div>
             <h1 className="banner-cobalt mt-1.5 max-w-full">
-              <span className="text-pixel-3d block text-[clamp(1.65rem,calc(1rem+3.2vw),3.1rem)]">
+              <span className="text-pixel-3d block text-[clamp(1.85rem,calc(1.05rem+3.6vw),3.55rem)]">
                 Your Discord
               </span>
-              <span className="text-pixel-3d mt-1 block text-[clamp(1.65rem,calc(1rem+3.2vw),3.1rem)]">
+              <span className="text-pixel-3d mt-1 block text-[clamp(1.85rem,calc(1.05rem+3.6vw),3.55rem)]">
                 deserves better.
               </span>
             </h1>
@@ -159,7 +159,7 @@ export function Hero() {
             delay={0.28}
           />
 
-          <div className="hard-card overflow-visible bg-discord p-1.5 sm:p-2">
+          <div className="overflow-visible">
             <DiscordMockup />
           </div>
         </div>

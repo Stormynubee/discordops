@@ -22,7 +22,7 @@ export function FinalCta() {
             <Sticker tone="yellow" className="mb-4 inline-flex sticker-rotate">
               Last call
             </Sticker>
-            <h2 className="text-display text-[clamp(1.75rem,calc(1.2rem+3vw),3.25rem)] text-white">
+            <h2 className="text-display text-[clamp(1.9rem,calc(1.25rem+3.2vw),3.5rem)] text-white">
               Ready to stop winging it?
             </h2>
             <p className="text-body mx-auto mt-3 max-w-md text-white/90 sm:mt-4">
@@ -40,7 +40,7 @@ export function FinalCta() {
               <Button
                 href="#contact"
                 variant="ghost"
-                className="!min-h-[48px] !border-white/50 !text-white hover:!border-lime hover:!bg-black/15 hover:!text-lime"
+                className="!min-h-12 !border-white/50 !text-white hover:!border-lime hover:!bg-black/15 hover:!text-lime"
               >
                 Just say hi
               </Button>
