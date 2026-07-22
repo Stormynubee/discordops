@@ -366,6 +366,36 @@
     transform: rotate(4deg);
   }
 
+  /* HowItWorks neon pathway + node glow */
+  .step-node-glow {
+    border-color: var(--color-lime);
+    box-shadow:
+      4px 4px 0 #000,
+      0 0 10px color-mix(in srgb, var(--color-lime) 55%, transparent),
+      0 0 22px color-mix(in srgb, var(--color-accent) 35%, transparent);
+    animation: step-node-pulse 2.2s ease-in-out infinite;
+  }
+
+  .step-pathway-fill {
+    background: linear-gradient(
+      180deg,
+      var(--color-accent) 0%,
+      var(--color-lime) 45%,
+      var(--color-lime) 100%
+    );
+    box-shadow:
+      0 0 8px color-mix(in srgb, var(--color-lime) 70%, transparent),
+      0 0 16px color-mix(in srgb, var(--color-accent) 40%, transparent);
+  }
+
+  .step-pathway-bead {
+    z-index: 5;
+    box-shadow:
+      0 0 10px var(--color-lime),
+      0 0 20px color-mix(in srgb, var(--color-lime) 70%, transparent),
+      0 0 28px color-mix(in srgb, var(--color-accent) 45%, transparent);
+  }
+
   /* Neon status pill — lime shell, pink core */
   .neon-pill {
     position: relative;
@@ -479,6 +509,22 @@
   }
 }
 
+@keyframes step-node-pulse {
+  0%,
+  100% {
+    box-shadow:
+      4px 4px 0 #000,
+      0 0 8px color-mix(in srgb, var(--color-lime) 45%, transparent),
+      0 0 16px color-mix(in srgb, var(--color-accent) 25%, transparent);
+  }
+  50% {
+    box-shadow:
+      4px 4px 0 #000,
+      0 0 14px color-mix(in srgb, var(--color-lime) 75%, transparent),
+      0 0 28px color-mix(in srgb, var(--color-accent) 45%, transparent);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -495,7 +541,8 @@
   .neon-pill,
   .neon-pill-dot,
   .rule-y2k::before,
-  .rule-y2k-thin::before {
+  .rule-y2k-thin::before,
+  .step-node-glow {
     animation: none !important;
   }
 }

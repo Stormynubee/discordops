@@ -51,7 +51,6 @@ function StepPointer({
               borderColor: '#39ff9e',
               color: '#ff2d95',
               backgroundColor: '#16122a',
-              boxShadow: '4px 4px 0 #000',
             }
           : {
               scale: 0.6,
@@ -59,7 +58,6 @@ function StepPointer({
               borderColor: '#3d4dff',
               color: '#c8c4d8',
               backgroundColor: '#0c0a14',
-              boxShadow: '0 0 0 #000',
             }
       }
       transition={
@@ -67,15 +65,17 @@ function StepPointer({
           ? { duration: 0 }
           : { type: 'spring', stiffness: 380, damping: 22, delay: index * 0.05 }
       }
-      className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border-[3px] border-black bg-bg text-step text-[11px] sm:h-10 sm:w-10"
+      className={`relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border-[3px] bg-bg text-step text-[11px] sm:h-11 sm:w-11 sm:text-xs ${
+        inView ? 'step-node-glow' : 'border-black shadow-[4px_4px_0_#000]'
+      }`}
     >
       {inView && !reduceMotion ? (
         <motion.span
           aria-hidden
-          className="absolute inset-0 rounded-sm border-2 border-lime"
-          initial={{ scale: 1, opacity: 0.65 }}
-          animate={{ scale: 1.75, opacity: 0 }}
-          transition={{ duration: 0.85, ease: 'easeOut' }}
+          className="absolute inset-[-3px] rounded-sm border-2 border-lime"
+          initial={{ scale: 1, opacity: 0.7 }}
+          animate={{ scale: 1.85, opacity: 0 }}
+          transition={{ duration: 0.9, ease: 'easeOut' }}
         />
       ) : null}
       {num}
@@ -89,7 +89,7 @@ export function HowItWorks() {
 
   const { scrollYProgress } = useScroll({
     target: listRef,
-    offset: ['start 0.8', 'end 0.4'],
+    offset: ['start 0.75', 'end 0.45'],
   })
 
   const smoothProgress = useSpring(scrollYProgress, {
@@ -99,6 +99,7 @@ export function HowItWorks() {
   })
 
   const lineScale = useTransform(smoothProgress, [0, 1], [0, 1])
+  const beadTop = useTransform(smoothProgress, [0, 1], ['1.25rem', 'calc(100% - 1.25rem)'])
 
   return (
     <section className="relative section-pad section-y-sm">
@@ -110,24 +111,36 @@ export function HowItWorks() {
         />
 
         <div ref={listRef} className="relative mt-2 overflow-visible sm:mt-4">
+          {/* Track — always visible so the pathway reads on mobile too */}
           <div
             aria-hidden
-            className="absolute left-[17px] top-4 hidden h-[calc(100%-2rem)] w-px bg-border sm:left-[19px] md:block"
+            className="pointer-events-none absolute left-[19px] top-5 bottom-5 w-[3px] -translate-x-1/2 rounded-full bg-cobalt/35 sm:left-[21px]"
           />
+
+          {/* Filled pathway that grows with scroll */}
           {!reduceMotion ? (
             <motion.div
               aria-hidden
-              className="absolute left-[17px] top-4 hidden h-[calc(100%-2rem)] w-px origin-top bg-gradient-to-b from-accent via-lime to-cobalt/50 sm:left-[19px] md:block"
+              className="pointer-events-none absolute left-[19px] top-5 bottom-5 w-[3px] origin-top -translate-x-1/2 rounded-full step-pathway-fill sm:left-[21px]"
               style={{ scaleY: lineScale }}
             />
           ) : (
             <div
               aria-hidden
-              className="absolute left-[17px] top-4 hidden h-[calc(100%-2rem)] w-px bg-accent/45 sm:left-[19px] md:block"
+              className="pointer-events-none absolute left-[19px] top-5 bottom-5 w-[3px] -translate-x-1/2 rounded-full bg-gradient-to-b from-accent via-lime to-lime/60 sm:left-[21px]"
             />
           )}
 
-          <ol className="space-y-9 sm:space-y-11 md:space-y-12">
+          {/* Traveling glow bead along the path */}
+          {!reduceMotion ? (
+            <motion.div
+              aria-hidden
+              className="pointer-events-none absolute left-[19px] h-3 w-3 -translate-x-1/2 rounded-full bg-lime step-pathway-bead sm:left-[21px]"
+              style={{ top: beadTop }}
+            />
+          ) : null}
+
+          <ol className="space-y-10 sm:space-y-12 md:space-y-14">
             {steps.map((step, i) => (
               <motion.li
                 key={step.num}
@@ -138,7 +151,7 @@ export function HowItWorks() {
                 className="relative flex gap-4 overflow-visible sm:gap-6 md:gap-8"
               >
                 <StepPointer num={step.num} index={i} reduceMotion={reduceMotion} />
-                <div className="min-w-0 flex-1 overflow-visible pt-1">
+                <div className="min-w-0 flex-1 overflow-visible pt-1.5">
                   <h3 className="text-title text-lg text-text sm:text-xl md:text-2xl">{step.title}</h3>
                   <p className="mt-1.5 max-w-lg text-[14px] leading-relaxed text-muted sm:mt-2 sm:text-[15px]">
                     {step.desc}
