@@ -11,18 +11,25 @@ function FloatingSticker({
   alt,
   className,
   delay = 0,
+  lazy = false,
 }: {
   src: string
   alt: string
   className?: string
   delay?: number
+  lazy?: boolean
 }) {
   const reduceMotion = useReducedMotion()
+
+  // Decorative animated emotes: hide when user prefers reduced motion
+  if (reduceMotion && src.endsWith('.gif')) return null
+
   return (
     <motion.img
       src={src}
       alt={alt}
       draggable={false}
+      loading={lazy ? 'lazy' : 'eager'}
       className={`pointer-events-none absolute select-none drop-shadow-[3px_3px_0_#000] ${className}`}
       initial={reduceMotion ? false : { opacity: 0, scale: 0.7, rotate: -8 }}
       animate={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -32,6 +39,8 @@ function FloatingSticker({
 }
 
 export function Hero() {
+  const reduceMotion = useReducedMotion()
+
   return (
     <section id="top" className="relative min-h-[100svh] overflow-hidden pt-20 sm:pt-24 md:pt-28">
       {/* Checker patch behind collage */}
@@ -53,9 +62,19 @@ export function Hero() {
           </Reveal>
 
           <Reveal>
-            <Sticker tone="pink" className="mb-3 sticker-rotate">
-              Staff picks
-            </Sticker>
+            <div className="mb-3 flex flex-wrap items-center gap-2">
+              <Sticker tone="pink" className="sticker-rotate">
+                Staff picks
+              </Sticker>
+              {!reduceMotion ? (
+                <img
+                  src="/stickers/emotes/staff-badge.gif"
+                  alt=""
+                  aria-hidden
+                  className="h-8 w-8 drop-shadow-[2px_2px_0_#000] sm:h-9 sm:w-9"
+                />
+              ) : null}
+            </div>
             <h1 className="banner-cobalt mt-2 max-w-full">
               <span className="text-pixel-3d block text-[clamp(1.65rem,calc(1rem+3.2vw),3.1rem)]">
                 Your Discord
@@ -111,29 +130,30 @@ export function Hero() {
         </div>
 
         <div className="relative z-10 w-full min-w-0 max-w-full lg:pl-2">
+          {/* Mobile: 1 emote. Desktop: 2 emotes + light SVG accents */}
           <FloatingSticker
-            src="/stickers/y2k/coin.svg"
+            src="/stickers/emotes/peepo-pat.gif"
             alt=""
-            className="right-2 top-[-12px] z-20 h-10 w-10 sm:h-12 sm:w-12"
+            className="right-1 top-[-14px] z-20 h-14 w-14 sm:right-2 sm:top-[-18px] sm:h-16 sm:w-16"
             delay={0.2}
           />
           <FloatingSticker
-            src="/stickers/y2k/heart.svg"
+            src="/stickers/emotes/peepo-jam.gif"
             alt=""
-            className="left-[-8px] bottom-16 z-20 hidden h-9 w-9 sm:block"
+            className="bottom-[-8px] left-[-4px] z-20 hidden h-14 w-14 sm:block sm:h-16 sm:w-16 md:left-[-10px]"
             delay={0.3}
           />
           <FloatingSticker
-            src="/stickers/y2k/vhs.svg"
+            src="/stickers/y2k/coin.svg"
             alt=""
-            className="bottom-[-10px] right-6 z-20 hidden h-12 w-16 md:block"
-            delay={0.35}
+            className="right-10 top-10 z-20 hidden h-8 w-8 md:block"
+            delay={0.25}
           />
           <FloatingSticker
             src="/stickers/y2k/sparkle.svg"
             alt=""
-            className="left-4 top-8 z-20 h-7 w-7"
-            delay={0.25}
+            className="left-6 top-6 z-20 hidden h-6 w-6 lg:block"
+            delay={0.28}
           />
 
           <div className="hard-card overflow-visible bg-discord p-1.5 sm:p-2">

@@ -1,11 +1,23 @@
+import { useReducedMotion } from 'framer-motion'
 import { Button, Sticker } from './ui'
 
 export function FinalCta() {
+  const reduceMotion = useReducedMotion()
+
   return (
     <section className="relative z-10 section-y-sm">
       <div className="section-pad mx-auto max-w-4xl">
         <div className="relative overflow-hidden rounded-sm border-[3px] border-black bg-accent px-6 py-12 text-center shadow-[6px_6px_0_#000] sm:px-10 sm:py-16">
           <div aria-hidden className="pointer-events-none absolute inset-0 opacity-20 checker-bg" />
+          {!reduceMotion ? (
+            <img
+              src="/stickers/emotes/pepe-laugh.gif"
+              alt=""
+              aria-hidden
+              loading="lazy"
+              className="pointer-events-none absolute -right-1 -top-1 z-[1] h-14 w-14 rotate-[8deg] drop-shadow-[3px_3px_0_#000] sm:right-2 sm:top-2 sm:h-16 sm:w-16"
+            />
+          ) : null}
           <div className="relative z-10">
             <Sticker tone="yellow" className="mb-4 inline-flex sticker-rotate">
               Last call

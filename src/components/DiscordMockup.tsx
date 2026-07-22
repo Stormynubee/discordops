@@ -18,6 +18,8 @@ const STICKER = {
   crazy: '/stickers/cat-crazy.png',
   peepocop: '/stickers/peepocop.png',
   coffee: '/stickers/pepe-coffee.png',
+  clap: '/stickers/emotes/pepe-clap.gif',
+  typing: '/stickers/emotes/pepe-typing.gif',
 } as const
 
 const ROLE_ICON: Record<'mod' | 'staff', string> = {
@@ -78,6 +80,7 @@ const channels: Channel[] = [
         clip: '/toothless-dance.mp4',
         time: 'Yesterday',
         reactions: [
+          { src: STICKER.clap, count: 48 },
           { src: STICKER.flowers, count: 21 },
           { src: STICKER.approved, count: 15 },
         ],
@@ -93,7 +96,7 @@ const channels: Channel[] = [
         author: 'OpsBot',
         text: 'Ticket #482: user asked how to download more RAM. Closed with love.',
         time: '2m ago',
-        sticker: STICKER.approved,
+        sticker: STICKER.typing,
       },
       {
         author: 'OpsBot',
