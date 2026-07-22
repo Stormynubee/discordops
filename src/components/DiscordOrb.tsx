@@ -12,7 +12,7 @@ import { DEFAULT_PLAN, getPlan } from '../data/plans'
 import { orderHref } from '../lib/order'
 
 const ACCENT = '#ff6b1a'
-const FLAGSHIP = getPlan(DEFAULT_PLAN)
+const FLAGSHIP = getPlan(DEFAULT_PLAN) ?? { price: '459' }
 
 /**
  * Floating bat orb — scroll progress ring + primary CTA to Full Send.
