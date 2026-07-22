@@ -52,7 +52,7 @@ export function Services() {
             <Reveal key={row.title} delay={i * 0.08}>
               <article className="grid gap-4 py-8 md:grid-cols-[1fr_1.2fr] md:items-start md:gap-12 md:py-10">
                 <div className="flex items-start gap-3">
-                  <row.icon size={20} className="mt-0.5 shrink-0 text-accent" strokeWidth={1.75} />
+                  <row.icon size={20} className="mt-0.5 shrink-0 text-lime" strokeWidth={2} />
                   <h3 className="text-title text-xl text-text md:text-2xl">
                     {row.title}
                   </h3>

@@ -15,17 +15,13 @@ export function ProofMarquee() {
   const doubled = [...items, ...items]
 
   return (
-    <section
-      id="proof"
-      className="relative z-10 border-y border-border bg-elevated/50 py-10"
-      aria-label="Client results"
-    >
-      <div className="marquee-container w-full">
-        <div className="marquee-content items-center gap-12 px-8 text-[13px] font-medium text-muted">
+    <section id="proof" className="relative z-10 py-0" aria-label="Client results">
+      <div className="marquee-container w-full py-4">
+        <div className="marquee-content items-center gap-10 px-8 text-[13px] font-bold uppercase tracking-wide text-white">
           {doubled.map((item, i) => (
-            <span key={`${item}-${i}`} className="inline-flex shrink-0 items-center gap-12">
+            <span key={`${item}-${i}`} className="inline-flex shrink-0 items-center gap-10">
               {item}
-              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent pulse-gold" aria-hidden />
+              <span className="h-2 w-2 shrink-0 rotate-45 bg-yellow" aria-hidden />
             </span>
           ))}
         </div>

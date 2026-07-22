@@ -23,11 +23,11 @@ export function Pricing() {
         <Reveal delay={0.2} className="mt-10 px-1 text-center sm:mt-12">
           <p className="text-[14px] leading-relaxed text-muted sm:text-[15px]">
             Still picking?{' '}
-            <a href="#order?plan=Full%20Send" className="font-medium text-accent underline-offset-4 hover:underline">
+            <a href="#order?plan=Full%20Send" className="font-bold text-accent underline-offset-4 hover:underline">
               Full Send ($459)
             </a>{' '}
             is what {FOUNDERS_SHORT} would pick.{' '}
-            <a href="#contact" className="font-medium text-accent underline-offset-4 hover:underline">
+            <a href="#contact" className="font-bold text-lime underline-offset-4 hover:underline">
               Or just say hi
             </a>
             .

@@ -20,22 +20,22 @@ export function CommandDeck() {
         />
 
         <Reveal>
-          <div className="overflow-hidden rounded-xl border border-border bg-card/50">
-            <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 scrollbar-none md:mx-0 md:flex-wrap md:overflow-visible md:px-0 md:pb-0 border-b border-border p-4 md:p-5">
+          <div className="overflow-hidden rounded-sm border-[3px] border-black bg-card shadow-[4px_4px_0_#000]">
+            <div className="-mx-4 flex gap-2 overflow-x-auto border-b-[3px] border-yellow px-4 pb-1 scrollbar-none md:mx-0 md:flex-wrap md:overflow-visible md:px-0 md:pb-0 p-4 md:p-5">
               {PLAN_IDS.map((key) => (
                 <button
                   key={key}
                   type="button"
                   onClick={() => setActive(key)}
-                  className={`inline-flex shrink-0 min-h-[44px] items-center gap-2 rounded-full px-4 text-[13px] font-semibold transition sm:px-5 ${
+                  className={`inline-flex shrink-0 min-h-[44px] items-center gap-2 rounded-sm border-[3px] px-4 text-[13px] font-bold transition sm:px-5 ${
                     active === key
-                      ? 'bg-accent text-bg'
-                      : 'border border-border text-muted hover:border-silver/30 hover:text-text'
-                  } ${key === 'Full Send' ? 'ring-1 ring-accent/30' : ''}`}
+                      ? 'border-black bg-accent text-white shadow-[3px_3px_0_#000]'
+                      : 'border-black bg-elevated text-muted hover:border-lime hover:text-text'
+                  }`}
                 >
                   <span
-                    className={`flex h-7 w-7 items-center justify-center overflow-hidden rounded-full ${
-                      active === key ? 'bg-bg/90' : 'bg-elevated'
+                    className={`flex h-7 w-7 items-center justify-center overflow-hidden rounded-sm border-2 border-black ${
+                      active === key ? 'bg-bg' : 'bg-card'
                     }`}
                   >
                     <img
@@ -105,8 +105,8 @@ export function CommandDeck() {
                       <p className="text-[11px] text-accent">{tier.preview.status}</p>
                       <p className="mt-1 text-[10px] text-[#949ba4]">{tier.preview.note}</p>
                     </div>
-                    <div className="rounded-lg border border-accent/25 bg-accent/10 px-3 py-2">
-                      <p className="text-[11px] font-medium text-accent">
+                    <div className="rounded-sm border-[3px] border-black bg-accent/20 px-3 py-2 shadow-[3px_3px_0_#000]">
+                      <p className="text-[11px] font-bold text-lime">
                         ${tier.price} one-time · {active}
                       </p>
                     </div>

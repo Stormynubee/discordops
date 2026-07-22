@@ -1,24 +1,30 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #121416;
-  --color-surface: #1e2022;
-  --color-card: #282a2c;
-  --color-border: #4d4637;
-  --color-accent: #e6c364;
-  --color-accent-dim: #c9a84c;
-  --color-blurple: #e6c364;
-  --color-silver: #c3c6cf;
+  --color-bg: #0c0a14;
+  --color-surface: #16122a;
+  --color-card: #1e1836;
+  --color-border: #ffe600;
+  --color-accent: #ff2d95;
+  --color-accent-dim: #d91f7a;
+  --color-lime: #39ff9e;
+  --color-cobalt: #3d4dff;
+  --color-yellow: #ffe600;
+  --color-blurple: #ff2d95;
+  --color-silver: #c8c4d8;
   --color-discord: #1a1d21;
   --color-discord-panel: #23272e;
-  --color-text: #e2e2e5;
-  --color-muted: #99907e;
-  --color-elevated: #1a1c1e;
-  --color-footer: #0c0e10;
-  --font-display: "Cabinet Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --color-text: #f5f2ff;
+  --color-muted: #9b94b0;
+  --color-elevated: #120e22;
+  --color-footer: #08060f;
+  --font-display: "Pixelify Sans", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
-  --radius-panel: 1rem;
-  --radius-card: 1.25rem;
+  --radius-panel: 0.35rem;
+  --radius-card: 0.5rem;
+  --shadow-hard: 4px 4px 0 #000000;
+  --shadow-hard-sm: 3px 3px 0 #000000;
+  --shadow-hard-lg: 6px 6px 0 #000000;
 }
 
 @layer base {
@@ -71,23 +77,21 @@
   }
 
   ::selection {
-    background: color-mix(in srgb, var(--color-accent) 35%, transparent);
+    background: color-mix(in srgb, var(--color-accent) 45%, transparent);
     color: #fff;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-lime);
     outline-offset: 3px;
   }
 }
 
 @layer utilities {
-  /* --- Type roles: Cabinet Grotesk (display) + Satoshi (UI/body) --- */
-
   .font-display {
     font-family: var(--font-display);
-    line-height: 1.35 !important;
-    padding-bottom: 0.16em;
+    line-height: 1.25 !important;
+    padding-bottom: 0.12em;
     overflow: visible !important;
   }
 
@@ -97,27 +101,27 @@
 
   .text-display {
     font-family: var(--font-display);
-    font-weight: 800;
-    letter-spacing: -0.035em;
-    line-height: 1.2 !important;
-    padding-bottom: 0.18em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.15 !important;
+    padding-bottom: 0.14em;
     overflow: visible !important;
   }
 
   .text-display-sm {
     font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(2rem, 1.35rem + 3.2vw, 3.75rem);
-    letter-spacing: -0.035em;
-    line-height: 1.15 !important;
-    padding-bottom: 0.18em;
+    font-weight: 700;
+    font-size: clamp(1.75rem, 1.1rem + 3vw, 3.25rem);
+    letter-spacing: 0.02em;
+    line-height: 1.12 !important;
+    padding-bottom: 0.14em;
     overflow: visible !important;
   }
 
   .text-price {
     font-family: var(--font-display);
-    font-weight: 800;
-    letter-spacing: -0.04em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
     line-height: 1.05 !important;
     padding-bottom: 0.08em;
     overflow: visible !important;
@@ -127,27 +131,27 @@
   .text-headline {
     font-family: var(--font-display);
     font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.25 !important;
-    padding-bottom: 0.14em;
+    letter-spacing: 0.02em;
+    line-height: 1.2 !important;
+    padding-bottom: 0.1em;
     overflow: visible !important;
   }
 
   .text-headline-lg {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(1.25rem, 1rem + 1.4vw, 2rem);
-    letter-spacing: -0.02em;
-    line-height: 1.25 !important;
-    padding-bottom: 0.14em;
+    font-size: clamp(1.15rem, 0.95rem + 1.2vw, 1.75rem);
+    letter-spacing: 0.02em;
+    line-height: 1.2 !important;
+    padding-bottom: 0.1em;
     overflow: visible !important;
   }
 
   .text-title {
     font-family: var(--font-display);
     font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.3 !important;
+    letter-spacing: 0.02em;
+    line-height: 1.25 !important;
     padding-bottom: 0.08em;
     overflow: visible !important;
   }
@@ -155,7 +159,7 @@
   .text-brand {
     font-family: var(--font-display);
     font-weight: 700;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.03em;
   }
 
   .text-body {
@@ -169,7 +173,7 @@
     font-family: var(--font-sans);
     font-size: 0.6875rem;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     line-height: 1.35;
   }
@@ -184,7 +188,7 @@
     font-family: var(--font-sans);
     font-size: 0.6875rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     line-height: 1.35;
   }
@@ -196,10 +200,53 @@
   }
 
   .text-step {
-    font-family: var(--font-sans);
-    font-weight: 600;
+    font-family: var(--font-display);
+    font-weight: 700;
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.04em;
+  }
+
+  /* Pixel 3D extrude title */
+  .text-pixel-3d {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-accent);
+    text-shadow:
+      1px 1px 0 #000,
+      2px 2px 0 #000,
+      3px 3px 0 #000,
+      4px 4px 0 #000,
+      -1px 0 0 var(--color-lime),
+      0 -1px 0 var(--color-lime);
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+  }
+
+  .banner-cobalt {
+    display: inline-block;
+    background: var(--color-cobalt);
+    border: 3px solid var(--color-yellow);
+    box-shadow: var(--shadow-hard);
+    padding: 0.35em 0.65em;
+  }
+
+  .hard-shadow {
+    box-shadow: var(--shadow-hard);
+  }
+
+  .hard-shadow-sm {
+    box-shadow: var(--shadow-hard-sm);
+  }
+
+  .hard-shadow-lg {
+    box-shadow: var(--shadow-hard-lg);
+  }
+
+  .hard-card {
+    border: 3px solid var(--color-yellow);
+    background: var(--color-card);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-hard);
   }
 
   .section-pad {
@@ -214,35 +261,43 @@
     padding-block: clamp(2.5rem, 5vw, 4.5rem);
   }
 
+  .checker-bg {
+    background-color: transparent;
+    background-image:
+      linear-gradient(45deg, #2a2438 25%, transparent 25%),
+      linear-gradient(-45deg, #2a2438 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #2a2438 75%),
+      linear-gradient(-45deg, transparent 75%, #2a2438 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  }
+
   .atmosphere-grid {
     background-image:
-      linear-gradient(color-mix(in srgb, var(--color-accent) 6%, transparent) 1px, transparent 1px),
-      linear-gradient(90deg, color-mix(in srgb, var(--color-accent) 6%, transparent) 1px, transparent 1px);
-    background-size: 64px 64px;
+      linear-gradient(color-mix(in srgb, var(--color-lime) 8%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--color-accent) 8%, transparent) 1px, transparent 1px);
+    background-size: 48px 48px;
   }
 
   .glow-accent {
-    box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--color-accent) 40%, transparent),
-      0 0 28px color-mix(in srgb, var(--color-accent) 14%, transparent),
-      0 16px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: var(--shadow-hard-lg);
   }
 
   .pulse-gold {
-    box-shadow: 0 0 15px -5px color-mix(in srgb, var(--color-accent) 60%, transparent);
+    box-shadow: 4px 4px 0 color-mix(in srgb, var(--color-lime) 80%, #000);
   }
 
   .panel {
-    border: 1px solid var(--color-border);
+    border: 3px solid var(--color-yellow);
     background: var(--color-card);
     border-radius: var(--radius-panel);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 12px 40px rgba(0, 0, 0, 0.35);
+    box-shadow: var(--shadow-hard);
   }
 
   .blueprint-bg {
     background-image:
-      linear-gradient(color-mix(in srgb, var(--color-silver) 6%, transparent) 1px, transparent 1px),
-      linear-gradient(90deg, color-mix(in srgb, var(--color-silver) 6%, transparent) 1px, transparent 1px);
+      linear-gradient(color-mix(in srgb, var(--color-lime) 10%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--color-lime) 10%, transparent) 1px, transparent 1px);
     background-size: 24px 24px;
   }
 
@@ -255,12 +310,13 @@
     pointer-events: none;
     position: absolute;
     inset: 0;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   .hairline-row {
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 3px solid color-mix(in srgb, var(--color-yellow) 35%, transparent);
     padding-block: 1.5rem;
   }
 
@@ -269,33 +325,43 @@
   }
 
   .quote-mark {
-    border-left: 2px solid color-mix(in srgb, var(--color-accent) 50%, transparent);
+    border-left: 4px solid var(--color-lime);
     padding-left: 1.25rem;
   }
 
   .section-band {
-    background: color-mix(in srgb, var(--color-elevated) 40%, transparent);
+    background: color-mix(in srgb, var(--color-elevated) 70%, #1a1040);
   }
 
   .marquee-container {
     overflow: hidden;
     white-space: nowrap;
+    border-block: 3px solid var(--color-yellow);
+    background: var(--color-cobalt);
   }
 
   .marquee-content {
     display: inline-flex;
-    animation: marquee 30s linear infinite;
+    animation: marquee 28s linear infinite;
   }
 
   .card-lift {
     transition:
-      border-color 0.3s ease,
-      box-shadow 0.35s ease,
-      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.2s ease;
   }
 
   .card-lift:hover {
-    border-color: color-mix(in srgb, var(--color-accent) 40%, var(--color-border));
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 #000;
+  }
+
+  .sticker-rotate {
+    transform: rotate(-3deg);
+  }
+
+  .sticker-rotate-r {
+    transform: rotate(4deg);
   }
 }
 

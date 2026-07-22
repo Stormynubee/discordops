@@ -4,7 +4,7 @@ const footerLinks = [{ label: 'Contact', href: '#contact' }]
 
 export function Footer() {
   return (
-    <footer className="relative z-10 border-t border-border bg-footer">
+    <footer className="relative z-10 border-t-[3px] border-yellow bg-footer">
       <div className="section-pad mx-auto max-w-7xl py-10">
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <div className="text-center md:text-left">
@@ -19,7 +19,7 @@ export function Footer() {
               <a
                 key={link.label}
                 href={link.href}
-                className="text-[15px] text-muted transition hover:text-text"
+                className="text-[15px] font-bold text-muted transition hover:text-lime"
               >
                 {link.label}
               </a>

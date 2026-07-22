@@ -9,7 +9,7 @@ import { PlanMascot } from './PlanMascot'
 import { Button } from './ui'
 
 const fieldClass =
-  'w-full rounded-xl border border-border/60 bg-elevated/80 px-4 py-3.5 text-sm text-text placeholder:text-muted/70 outline-none transition focus:border-accent/50 focus:bg-elevated'
+  'w-full rounded-sm border-[3px] border-black bg-elevated px-4 py-3.5 text-sm text-text placeholder:text-muted/70 outline-none transition focus:border-lime focus:bg-card shadow-[3px_3px_0_#000]'
 
 export function OrderPage() {
   const reduceMotion = useReducedMotion()
@@ -78,9 +78,9 @@ export function OrderPage() {
         className="pointer-events-none absolute inset-0"
         style={{
           background: `
-            radial-gradient(ellipse 70% 50% at 12% -10%, rgba(230,195,100,0.14), transparent 55%),
-            radial-gradient(ellipse 50% 40% at 90% 80%, rgba(88,101,242,0.08), transparent 50%),
-            linear-gradient(165deg, #0c0e10 0%, #121416 45%, #1a1c1e 100%)
+            radial-gradient(ellipse 70% 50% at 12% -10%, rgba(255,45,149,0.18), transparent 55%),
+            radial-gradient(ellipse 50% 40% at 90% 80%, rgba(61,77,255,0.2), transparent 50%),
+            linear-gradient(165deg, #08060f 0%, #0c0a14 45%, #16122a 100%)
           `,
         }}
       />
@@ -89,7 +89,7 @@ export function OrderPage() {
         className="pointer-events-none absolute inset-0 opacity-[0.035]"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(230,195,100,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(230,195,100,0.8) 1px, transparent 1px)',
+            'linear-gradient(rgba(255,45,149,0.55) 1px, transparent 1px), linear-gradient(90deg, rgba(57,255,158,0.35) 1px, transparent 1px)',
           backgroundSize: '48px 48px',
           maskImage: 'radial-gradient(ellipse 80% 70% at 50% 40%, black, transparent)',
         }}
@@ -113,10 +113,10 @@ export function OrderPage() {
           initial={reduceMotion ? false : { opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className={`relative overflow-hidden rounded-2xl border p-5 sm:rounded-3xl sm:p-7 md:p-8 ${
+          className={`relative overflow-hidden rounded-sm border-[3px] border-black p-5 shadow-[4px_4px_0_#000] sm:p-7 md:p-8 ${
             plan.featured
-              ? 'border-accent/40 bg-gradient-to-br from-accent/12 via-card/80 to-discord-panel shadow-[0_0_48px_rgba(230,195,100,0.12)]'
-              : 'border-border/70 bg-card/70'
+              ? 'border-accent bg-card'
+              : 'bg-card/90'
           }`}
         >
           <div className="mb-6">
@@ -124,7 +124,7 @@ export function OrderPage() {
             <div
               role="tablist"
               aria-label="Plan"
-              className="grid grid-cols-3 gap-1.5 rounded-2xl border border-border/50 bg-elevated/60 p-1.5"
+              className="grid grid-cols-3 gap-1.5 rounded-sm border-[3px] border-black bg-elevated p-1.5 shadow-[3px_3px_0_#000]"
             >
               {PRICING_ORDER.map((id) => {
                 const option = PLANS[id]
@@ -136,10 +136,10 @@ export function OrderPage() {
                     role="tab"
                     aria-selected={active}
                     onClick={() => selectPlan(id)}
-                    className={`relative flex flex-col items-center gap-1 rounded-xl px-1.5 py-2 text-center transition sm:px-2 sm:py-2.5 ${
+                    className={`relative flex flex-col items-center gap-1 rounded-sm px-1.5 py-2 text-center transition sm:px-2 sm:py-2.5 ${
                       active
-                        ? 'bg-accent text-bg shadow-[0_0_20px_rgba(230,195,100,0.25)]'
-                        : 'text-muted hover:bg-card/80 hover:text-text'
+                        ? 'bg-accent text-white shadow-[3px_3px_0_#000]'
+                        : 'text-muted hover:bg-card hover:text-text'
                     }`}
                   >
                     <span
@@ -167,7 +167,7 @@ export function OrderPage() {
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap items-center gap-2">
               {plan.featured ? (
-                <span className="rounded-full bg-accent px-3 py-1 text-label text-bg">
+                <span className="rounded-sm border-[3px] border-black bg-yellow px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-bg shadow-[3px_3px_0_#000]">
                   Flagship
                 </span>
               ) : null}
@@ -218,7 +218,7 @@ export function OrderPage() {
           initial={reduceMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: reduceMotion ? 0 : 0.08, ease: [0.22, 1, 0.36, 1] }}
-          className="rounded-2xl border border-border/60 bg-surface/90 p-5 sm:rounded-3xl sm:p-7 md:p-9"
+          className="rounded-sm border-[3px] border-black bg-surface p-5 shadow-[4px_4px_0_#000] sm:p-7 md:p-9"
         >
           <div className="mb-2 flex items-center gap-2 text-accent">
             <MessageCircle className="h-5 w-5" aria-hidden />

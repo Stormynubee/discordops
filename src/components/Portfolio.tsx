@@ -60,7 +60,7 @@ export function Portfolio() {
               delay={i * 0.06}
               className="w-[min(85vw,420px)] shrink-0 snap-start md:w-auto"
             >
-              <article className="group h-full overflow-hidden rounded-xl border border-border bg-card/40 transition duration-300 hover:border-accent/30">
+              <article className="group h-full overflow-hidden rounded-sm border-[3px] border-black bg-card shadow-[4px_4px_0_#000] transition duration-200 hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_#000]">
                 <div className={`relative h-40 ${project.tint}`}>
                   <div className="absolute inset-x-5 bottom-0 top-5 overflow-hidden rounded-t-lg border border-b-0 border-white/10 bg-discord shadow-lg">
                     <div className="flex gap-3 border-b border-white/[0.06] px-3 py-2.5">

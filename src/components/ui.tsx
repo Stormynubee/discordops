@@ -28,19 +28,19 @@ export function Button({
 }: ButtonProps) {
   const styles =
     variant === 'primary'
-      ? 'bg-accent text-bg hover:shadow-[0_0_24px_rgba(230,195,100,0.35)] hover:brightness-105'
+      ? 'bg-accent text-white border-[3px] border-black shadow-[4px_4px_0_#000] hover:bg-lime hover:text-bg hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[5px_5px_0_#000]'
       : variant === 'secondary'
-        ? 'bg-transparent text-text border border-silver/25 hover:border-accent/50 hover:bg-accent/5'
-        : 'bg-transparent text-muted hover:text-text'
+        ? 'bg-cobalt text-white border-[3px] border-yellow shadow-[4px_4px_0_#000] hover:bg-yellow hover:text-bg'
+        : 'bg-transparent text-muted border-[3px] border-transparent hover:text-lime hover:border-lime/40'
 
-  const classNameFull = `inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-semibold tracking-[-0.01em] transition-all duration-300 disabled:pointer-events-none disabled:opacity-60 ${styles} ${className}`
+  const classNameFull = `inline-flex min-h-[48px] items-center justify-center gap-2 rounded-sm px-7 py-3 text-sm font-bold tracking-wide transition-all duration-150 disabled:pointer-events-none disabled:opacity-60 ${styles} ${className}`
 
   if (href) {
     return (
       <motion.a
         href={href}
         onClick={onClick as (e: MouseEvent<HTMLAnchorElement>) => void}
-        whileTap={{ scale: 0.98 }}
+        whileTap={{ scale: 0.97 }}
         className={classNameFull}
       >
         {children}
@@ -53,7 +53,7 @@ export function Button({
       type={type}
       disabled={disabled}
       onClick={onClick as (e: MouseEvent<HTMLButtonElement>) => void}
-      whileTap={disabled ? undefined : { scale: 0.98 }}
+      whileTap={disabled ? undefined : { scale: 0.97 }}
       className={classNameFull}
     >
       {children}
@@ -82,7 +82,31 @@ export function Badge({
 }) {
   return (
     <span
-      className={`inline-flex items-center rounded-full border border-border bg-surface px-2.5 py-1 text-[11px] font-medium text-silver ${className}`}
+      className={`inline-flex items-center rounded-sm border-[2.5px] border-black bg-yellow px-2.5 py-1 text-[11px] font-bold text-bg shadow-[3px_3px_0_#000] ${className}`}
+    >
+      {children}
+    </span>
+  )
+}
+
+export function Sticker({
+  children,
+  className = '',
+  tone = 'yellow',
+}: {
+  children: ReactNode
+  className?: string
+  tone?: 'yellow' | 'pink' | 'lime' | 'cobalt'
+}) {
+  const tones = {
+    yellow: 'bg-yellow text-bg border-black',
+    pink: 'bg-accent text-white border-black',
+    lime: 'bg-lime text-bg border-black',
+    cobalt: 'bg-cobalt text-white border-yellow',
+  }
+  return (
+    <span
+      className={`inline-flex items-center rounded-sm border-[3px] px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-wider shadow-[3px_3px_0_#000] ${tones[tone]} ${className}`}
     >
       {children}
     </span>
@@ -103,7 +127,7 @@ export function SectionShell({
   return (
     <section
       id={id}
-      className={`relative section-pad py-20 md:py-28 ${band ? 'bg-surface/50' : ''} ${className}`}
+      className={`relative section-pad section-y ${band ? 'section-band' : ''} ${className}`}
     >
       {children}
     </section>
@@ -129,7 +153,7 @@ export function Reveal({
       initial={reduceMotion ? false : { opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: reduceMotion ? 0 : 0.65, delay: reduceMotion ? 0 : delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: reduceMotion ? 0 : 0.55, delay: reduceMotion ? 0 : delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
@@ -152,14 +176,16 @@ export function SectionHeading({
 
   return (
     <Reveal className={`mb-10 sm:mb-12 md:mb-16 ${alignClass}`}>
-      <p className="text-label-caps mb-2 text-muted">
+      <p className="text-label-caps mb-3 inline-block rounded-sm border-[2.5px] border-black bg-lime px-2.5 py-1 text-bg shadow-[3px_3px_0_#000]">
         {eyebrow}
       </p>
-      <h2 className="text-display overflow-visible text-[clamp(1.65rem,calc(1.2rem+2.8vw),3rem)] text-text text-balance">
-        {title}
+      <h2 className="banner-cobalt mt-1">
+        <span className="text-pixel-3d block text-[clamp(1.5rem,calc(1.1rem+2.5vw),2.75rem)] text-balance">
+          {title}
+        </span>
       </h2>
       {description ? (
-        <p className={`mt-2.5 text-[14px] leading-relaxed text-muted sm:mt-3 sm:text-[15px] md:text-base ${descClass}`}>
+        <p className={`mt-4 text-[14px] leading-relaxed text-muted sm:text-[15px] md:text-base ${descClass}`}>
           {description}
         </p>
       ) : null}

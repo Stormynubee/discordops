@@ -9,7 +9,7 @@ import {
 } from 'framer-motion'
 import { BatFace } from './mascots'
 
-const ACCENT = '#e6c364'
+const ACCENT = '#ff2d95'
 
 export function DiscordOrb() {
   const reduceMotion = useReducedMotion()
@@ -104,8 +104,8 @@ export function DiscordOrb() {
         whileHover={reduceMotion ? undefined : { scale: 1.12 }}
         whileTap={reduceMotion ? undefined : { scale: 0.94 }}
       >
-        <svg viewBox="0 0 100 100" className="h-full w-full drop-shadow-[0_10px_24px_rgba(0,0,0,0.45)]">
-          <circle cx="50" cy="50" r="47" fill="var(--color-card)" stroke="var(--color-border)" strokeWidth="1.5" />
+        <svg viewBox="0 0 100 100" className="h-full w-full drop-shadow-[4px_4px_0_#000]">
+          <circle cx="50" cy="50" r="47" fill="var(--color-card)" stroke="#ffe600" strokeWidth="3" />
 
           {/* Scroll progress ring */}
           <motion.circle
@@ -120,7 +120,7 @@ export function DiscordOrb() {
               pathLength: reduceMotion ? 0.25 : ringProgress,
               rotate: -90,
               transformOrigin: '50% 50%',
-              filter: 'drop-shadow(0 0 4px rgba(230,195,100,0.55))',
+              filter: 'drop-shadow(3px 3px 0 #000)',
             }}
           />
 

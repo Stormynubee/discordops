@@ -51,7 +51,7 @@ function FaqItem({
   onToggle: () => void
 }) {
   return (
-    <div className="border-b border-border last:border-b-0">
+    <div className="border-b-[3px] border-yellow/30 last:border-b-0">
       <button
         type="button"
         onClick={onToggle}
@@ -62,8 +62,8 @@ function FaqItem({
           {q}
         </span>
         <span
-          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border transition ${
-            open ? 'rotate-45 border-accent/40 text-accent' : 'text-muted'
+          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-sm border-[2.5px] transition ${
+            open ? 'rotate-45 border-lime text-lime' : 'border-black text-muted'
           }`}
         >
           <Plus size={14} />

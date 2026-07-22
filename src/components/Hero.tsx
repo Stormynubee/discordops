@@ -1,61 +1,89 @@
-import { useMotionValue, useSpring } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
-import type { MouseEvent } from 'react'
 import { FOUNDERS_SHORT } from '../data/brand'
-import { Badge, Button, Reveal } from './ui'
-import { InteractiveGotham } from './Effects'
+import { Badge, Button, Reveal, Sticker } from './ui'
 import { DiscordMockup } from './DiscordMockup'
 
 const trustTypes = ['SaaS', 'Gaming', 'Web3', 'Creators', 'Brands']
 
-export function Hero() {
-  const rawX = useMotionValue(50)
-  const rawY = useMotionValue(82)
-  const x = useSpring(rawX, { stiffness: 70, damping: 22 })
-  const y = useSpring(rawY, { stiffness: 70, damping: 22 })
-
-  const onMove = (e: MouseEvent<HTMLElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    rawX.set(((e.clientX - rect.left) / rect.width) * 100)
-    const py = ((e.clientY - rect.top) / rect.height) * 100
-    rawY.set(Math.min(95, Math.max(55, 55 + py * 0.45)))
-  }
-
-  const onLeave = () => {
-    rawX.set(50)
-    rawY.set(82)
-  }
-
+function FloatingSticker({
+  src,
+  alt,
+  className,
+  delay = 0,
+}: {
+  src: string
+  alt: string
+  className?: string
+  delay?: number
+}) {
+  const reduceMotion = useReducedMotion()
   return (
-    <section
-      id="top"
-      className="relative min-h-[100svh] pt-20 sm:pt-24 md:pt-28"
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
-    >
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 overflow-visible sm:h-56 md:h-64 lg:h-72">
-        <InteractiveGotham x={x} y={y} />
-      </div>
+    <motion.img
+      src={src}
+      alt={alt}
+      draggable={false}
+      className={`pointer-events-none absolute select-none drop-shadow-[3px_3px_0_#000] ${className}`}
+      initial={reduceMotion ? false : { opacity: 0, scale: 0.7, rotate: -8 }}
+      animate={{ opacity: 1, scale: 1, rotate: 0 }}
+      transition={{ duration: 0.5, delay, type: 'spring', stiffness: 260, damping: 18 }}
+    />
+  )
+}
+
+export function Hero() {
+  return (
+    <section id="top" className="relative min-h-[100svh] overflow-hidden pt-20 sm:pt-24 md:pt-28">
+      {/* Checker patch behind collage */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-[-5%] top-24 hidden h-48 w-64 rotate-[-8deg] opacity-40 checker-bg border-[3px] border-black md:block"
+      />
 
       <div className="section-pad relative z-10 mx-auto grid max-w-7xl items-center gap-10 pb-16 sm:gap-12 sm:pb-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pb-24">
-        <div className="max-w-xl">
+        <div className="relative max-w-xl">
+          {/* Notification pills */}
           <Reveal>
-            <h1 className="text-display-sm overflow-visible text-text">Your Discord deserves better.</h1>
-            <p className="text-headline-lg mt-2 overflow-visible text-accent sm:mt-3">
-              We build it. You take the credit.
-            </p>
+            <div className="mb-5 flex flex-wrap gap-2">
+              <div className="inline-flex items-center gap-2 rounded-sm border-[2.5px] border-black bg-elevated px-2.5 py-1.5 text-[11px] shadow-[3px_3px_0_#000]">
+                <img src="/stickers/y2k/sparkle.svg" alt="" className="h-4 w-4" />
+                <span className="font-semibold text-lime">Staff online</span>
+              </div>
+              <div className="inline-flex items-center gap-2 rounded-sm border-[2.5px] border-black bg-elevated px-2.5 py-1.5 text-[11px] shadow-[3px_3px_0_#000]">
+                <img src="/stickers/y2k/heart.svg" alt="" className="h-4 w-4" />
+                <span className="text-silver">Hansraj + Arya + crew</span>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <Sticker tone="pink" className="mb-3 sticker-rotate">
+              Staff picks
+            </Sticker>
+            <h1 className="banner-cobalt mt-2 max-w-full">
+              <span className="text-pixel-3d block text-[clamp(1.65rem,calc(1rem+3.2vw),3.1rem)]">
+                Your Discord
+              </span>
+              <span className="text-pixel-3d mt-1 block text-[clamp(1.65rem,calc(1rem+3.2vw),3.1rem)]">
+                deserves better.
+              </span>
+            </h1>
+            <p className="text-headline-lg mt-4 text-lime">We build it. You take the credit.</p>
           </Reveal>
 
           <Reveal delay={0.08}>
-            <p className="mt-5 max-w-md border-l-2 border-accent pl-3.5 text-[15px] leading-relaxed text-muted sm:mt-6 sm:pl-4 sm:text-[16px]">
+            <p className="mt-5 max-w-md border-l-4 border-accent pl-3.5 text-[15px] leading-relaxed text-muted sm:mt-6 sm:pl-4 sm:text-[16px]">
               Setup, bots, branding. Live in two weeks. You run the vibes, we run the rest.
             </p>
           </Reveal>
 
-          <Reveal delay={0.14} className="mt-7 flex w-full flex-col gap-3 sm:mt-8 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center">
+          <Reveal
+            delay={0.14}
+            className="mt-7 flex w-full flex-col gap-3 sm:mt-8 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center"
+          >
             <Button href="#order?plan=Full%20Send" variant="primary" className="w-full sm:w-auto">
               Go Full Send
-              <ArrowUpRight size={16} strokeWidth={2} />
+              <ArrowUpRight size={16} strokeWidth={2.5} />
             </Button>
             <Button href="#pricing" variant="secondary" className="w-full sm:w-auto">
               See pricing
@@ -77,10 +105,44 @@ export function Hero() {
               ))}
             </div>
           </Reveal>
+
+          <img
+            src="/stickers/y2k/rewind.svg"
+            alt=""
+            aria-hidden
+            className="mt-6 hidden h-9 w-auto drop-shadow-[3px_3px_0_#000] sm:block sticker-rotate"
+          />
         </div>
 
-        <div className="relative z-10 w-full min-w-0 max-w-full lg:-mr-4 lg:pl-2 xl:-mr-6">
-          <DiscordMockup />
+        <div className="relative z-10 w-full min-w-0 max-w-full lg:pl-2">
+          <FloatingSticker
+            src="/stickers/y2k/coin.svg"
+            alt=""
+            className="right-2 top-[-12px] z-20 h-10 w-10 sm:h-12 sm:w-12"
+            delay={0.2}
+          />
+          <FloatingSticker
+            src="/stickers/y2k/heart.svg"
+            alt=""
+            className="left-[-8px] bottom-16 z-20 hidden h-9 w-9 sm:block"
+            delay={0.3}
+          />
+          <FloatingSticker
+            src="/stickers/y2k/vhs.svg"
+            alt=""
+            className="bottom-[-10px] right-6 z-20 hidden h-12 w-16 md:block"
+            delay={0.35}
+          />
+          <FloatingSticker
+            src="/stickers/y2k/sparkle.svg"
+            alt=""
+            className="left-4 top-8 z-20 h-7 w-7"
+            delay={0.25}
+          />
+
+          <div className="hard-card overflow-hidden bg-discord p-1.5 sm:p-2">
+            <DiscordMockup />
+          </div>
         </div>
       </div>
     </section>

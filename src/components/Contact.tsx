@@ -104,9 +104,9 @@ export function Contact() {
               <div className="space-y-3 border-t border-border pt-6">
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
-                  className="group flex items-center gap-4 rounded-xl border border-border bg-card p-5 transition hover:border-accent/35"
+                  className="group flex items-center gap-4 rounded-sm border-[3px] border-black bg-card p-5 shadow-[3px_3px_0_#000] transition hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[4px_4px_0_#000]"
                 >
-                  <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-sm border-[2.5px] border-black bg-accent text-white">
                     <Mail size={17} />
                   </span>
                   <div>
@@ -114,8 +114,8 @@ export function Contact() {
                     <p className="text-sm font-medium text-text group-hover:text-accent">{CONTACT_EMAIL}</p>
                   </div>
                 </a>
-                <div className="flex items-center gap-4 rounded-xl border border-border bg-card p-5">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10 text-accent">
+                <div className="flex items-center gap-4 rounded-sm border-[3px] border-black bg-card p-5 shadow-[3px_3px_0_#000]">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-sm border-[2.5px] border-black bg-lime text-bg">
                     <MessageCircle size={17} />
                   </span>
                   <div>
@@ -147,7 +147,7 @@ export function Contact() {
                     <input
                       required
                       name="name"
-                      className="w-full rounded-lg border border-border bg-bg px-3.5 py-2.5 text-sm text-text outline-none transition focus:border-accent/50"
+                      className="w-full rounded-sm border-[3px] border-black bg-bg px-3.5 py-2.5 text-sm text-text shadow-[3px_3px_0_#000] outline-none transition focus:border-lime"
                       placeholder="Your name"
                     />
                   </label>
@@ -157,7 +157,7 @@ export function Contact() {
                       required
                       type="email"
                       name="email"
-                      className="w-full rounded-lg border border-border bg-bg px-3.5 py-2.5 text-sm text-text outline-none transition focus:border-accent/50"
+                      className="w-full rounded-sm border-[3px] border-black bg-bg px-3.5 py-2.5 text-sm text-text shadow-[3px_3px_0_#000] outline-none transition focus:border-lime"
                       placeholder="you@company.com"
                     />
                   </label>
@@ -167,7 +167,7 @@ export function Contact() {
                       name="type"
                       value={plan}
                       onChange={(e) => setPlan(e.target.value)}
-                      className="w-full rounded-lg border border-border bg-bg px-3.5 py-2.5 text-sm text-text outline-none transition focus:border-accent/50"
+                      className="w-full rounded-sm border-[3px] border-black bg-bg px-3.5 py-2.5 text-sm text-text shadow-[3px_3px_0_#000] outline-none transition focus:border-lime"
                     >
                       {PLAN_IDS.map((id) => (
                         <option key={id} value={id}>
@@ -183,7 +183,7 @@ export function Contact() {
                       required
                       name="message"
                       rows={4}
-                      className="w-full resize-none rounded-lg border border-border bg-bg px-3.5 py-2.5 text-sm text-text outline-none transition focus:border-accent/50"
+                      className="w-full resize-none rounded-sm border-[3px] border-black bg-bg px-3.5 py-2.5 text-sm text-text shadow-[3px_3px_0_#000] outline-none transition focus:border-lime"
                       placeholder="What's wrong with your server? Be honest."
                     />
                   </label>

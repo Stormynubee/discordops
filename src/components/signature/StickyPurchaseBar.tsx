@@ -44,16 +44,16 @@ export function StickyPurchaseBar() {
           initial={reduceMotion ? false : { y: 80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={reduceMotion ? undefined : { y: 80, opacity: 0 }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-bg/90 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-xl"
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="fixed inset-x-0 bottom-0 z-50 border-t-[3px] border-yellow bg-cobalt px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-4px_0_#000]"
         >
           <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 sm:gap-4">
             <div className="min-w-0">
-              <p className="truncate text-[13px] font-semibold text-text sm:text-sm">
-                Full Send · <span className="text-accent">${flagship.price}</span>
+              <p className="truncate text-[13px] font-bold text-white sm:text-sm">
+                Full Send · <span className="text-yellow">${flagship.price}</span>
                 <span className="hidden sm:inline"> · the one that actually fixes everything</span>
               </p>
-              <p className="hidden text-[12px] text-muted sm:block">
+              <p className="hidden text-[12px] text-white/70 sm:block">
                 Integrations, training, maintenance. We stick around.
               </p>
             </div>
@@ -61,7 +61,7 @@ export function StickyPurchaseBar() {
               <Button
                 href={`#order?plan=${encodeURIComponent(DEFAULT_PLAN)}`}
                 variant="primary"
-                className="!px-4 !py-2.5 text-[13px] sm:!px-5"
+                className="!min-h-[42px] !px-4 !py-2 text-[13px] sm:!px-5"
               >
                 Go Full Send
                 <ArrowUpRight size={14} />
@@ -69,7 +69,7 @@ export function StickyPurchaseBar() {
               <button
                 type="button"
                 onClick={dismiss}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-muted transition hover:text-text"
+                className="flex h-11 w-11 items-center justify-center rounded-sm border-[3px] border-black bg-bg text-muted shadow-[3px_3px_0_#000] transition hover:text-lime"
                 aria-label="Dismiss"
               >
                 <X size={16} />

@@ -48,16 +48,18 @@ function StepPointer({
           ? {
               scale: 1,
               opacity: 1,
-              borderColor: 'rgba(230,195,100,0.85)',
-              color: '#e6c364',
-              boxShadow: '0 0 0 4px rgba(230,195,100,0.1), 0 0 20px rgba(230,195,100,0.2)',
+              borderColor: '#39ff9e',
+              color: '#ff2d95',
+              backgroundColor: '#16122a',
+              boxShadow: '4px 4px 0 #000',
             }
           : {
               scale: 0.6,
-              opacity: 0.4,
-              borderColor: 'rgba(77,70,55,1)',
-              color: '#c3c6cf',
-              boxShadow: '0 0 0 0 rgba(230,195,100,0)',
+              opacity: 0.45,
+              borderColor: '#3d4dff',
+              color: '#c8c4d8',
+              backgroundColor: '#0c0a14',
+              boxShadow: '0 0 0 #000',
             }
       }
       transition={
@@ -65,12 +67,12 @@ function StepPointer({
           ? { duration: 0 }
           : { type: 'spring', stiffness: 380, damping: 22, delay: index * 0.05 }
       }
-      className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border bg-bg text-step text-[11px] sm:h-10 sm:w-10"
+      className="relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-sm border-[3px] border-black bg-bg text-step text-[11px] sm:h-10 sm:w-10"
     >
       {inView && !reduceMotion ? (
         <motion.span
           aria-hidden
-          className="absolute inset-0 rounded-full border border-accent/45"
+          className="absolute inset-0 rounded-sm border-2 border-lime"
           initial={{ scale: 1, opacity: 0.65 }}
           animate={{ scale: 1.75, opacity: 0 }}
           transition={{ duration: 0.85, ease: 'easeOut' }}
@@ -115,7 +117,7 @@ export function HowItWorks() {
           {!reduceMotion ? (
             <motion.div
               aria-hidden
-              className="absolute left-[17px] top-4 hidden h-[calc(100%-2rem)] w-px origin-top bg-gradient-to-b from-accent via-accent to-accent/35 sm:left-[19px] md:block"
+              className="absolute left-[17px] top-4 hidden h-[calc(100%-2rem)] w-px origin-top bg-gradient-to-b from-accent via-lime to-cobalt/50 sm:left-[19px] md:block"
               style={{ scaleY: lineScale }}
             />
           ) : (

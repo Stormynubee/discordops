@@ -4,7 +4,7 @@ export const BLURPLE = '#5865F2'
 export const BLURPLE_DARK = '#3a41b0'
 export const WUMPUS = '#8b9cf0'
 export const WUMPUS_DARK = '#5865F2'
-export const BAT_GOLD = '#e6c364'
+export const BAT_GOLD = '#ff2d95'
 export const BAT_GOLD_DARK = '#b3923f'
 export const PUPIL = '#141618'
 
