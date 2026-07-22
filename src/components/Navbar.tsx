@@ -248,7 +248,7 @@ function DesktopNavItem({
         href={link.href}
         aria-describedby={showPreview ? panelId : undefined}
         className={`group relative inline-flex items-center px-1 py-2 text-[13px] font-bold tracking-wide transition ${
-          active || showPreview ? 'text-lime' : 'text-[#ffd6ea] hover:text-lime'
+          active || showPreview ? 'text-lime' : 'text-[#ffc2de] hover:text-lime'
         }`}
       >
         {link.label}
