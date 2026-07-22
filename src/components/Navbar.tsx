@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Menu, X, ArrowUpRight } from 'lucide-react'
 import { Button } from './ui'
-import { JakeStretchRide } from './JakeStretchRide'
+import { FinnPricingPop, JakeStretchRide } from './JakeStretchRide'
 
 type NavLink = {
   label: string
@@ -236,6 +236,7 @@ function DesktopNavItem({
 }) {
   const reduceMotion = useReducedMotion()
   const panelId = useId()
+  const isPricing = link.href === '#pricing'
 
   return (
     <li
@@ -245,10 +246,15 @@ function DesktopNavItem({
       onFocus={onHover}
       onBlur={onLeave}
     >
+      {/* Finn peeks up from Pricing label — not from Jake */}
+      {isPricing ? (
+        <FinnPricingPop active={showPreview} className="bottom-[calc(100%+2px)]" />
+      ) : null}
+
       <a
         href={link.href}
         aria-describedby={showPreview ? panelId : undefined}
-        className={`group relative inline-flex items-center px-1 py-2 text-[13px] font-bold tracking-wide transition ${
+        className={`group relative z-[86] inline-flex items-center px-1 py-2 text-[13px] font-bold tracking-wide transition ${
           active || showPreview ? 'text-lime' : 'text-[#ffd6ea] hover:text-lime'
         }`}
       >
@@ -270,7 +276,7 @@ function DesktopNavItem({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduceMotion ? undefined : { opacity: 0, y: 6, scale: 0.98 }}
             transition={{ type: 'spring', stiffness: 420, damping: 28 }}
-            className="pointer-events-auto absolute left-1/2 top-[calc(100%+0.65rem)] z-[90] -translate-x-1/2"
+            className="pointer-events-auto absolute left-1/2 top-[calc(100%+4rem)] z-[83] -translate-x-1/2"
           >
             <div
               aria-hidden
@@ -348,13 +354,13 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-[80] pt-[env(safe-area-inset-top,0px)] transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-[80] overflow-visible pt-[env(safe-area-inset-top,0px)] transition-all duration-300 ${
         open || scrolled
           ? 'border-b-[3px] border-yellow bg-bg/95 shadow-[0_4px_0_#000] backdrop-blur-md'
           : 'bg-transparent'
       }`}
     >
-      <nav className="section-pad relative z-[81] mx-auto flex h-14 max-w-7xl items-center justify-between md:h-16">
+      <nav className="section-pad relative z-[81] mx-auto flex h-14 max-w-7xl items-center justify-between overflow-visible md:h-16">
         <a
           href="#top"
           className="group inline-flex items-center"
@@ -368,12 +374,14 @@ export function Navbar() {
           </span>
         </a>
 
-        <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 lg:block">
+        <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 overflow-visible lg:block">
+          {/* Jake hangs just under the nav pill — visible, clears the preview below */}
           <JakeStretchRide
-            stretched={hovered === '#pricing'}
-            className="left-[42%] top-[calc(100%+2px)] z-0 -translate-x-1/2"
+            active={hovered !== null}
+            playSound={hovered !== null}
+            className="right-2 top-[calc(100%+4px)] z-[94]"
           />
-          <ul className="relative z-10 flex items-center gap-1 rounded-sm border-[3px] border-black bg-elevated/90 px-3 shadow-[3px_3px_0_#000] backdrop-blur-sm xl:gap-2 xl:px-4">
+          <ul className="relative z-[82] flex items-center gap-1 overflow-visible rounded-sm border-[3px] border-black bg-elevated/90 px-3 shadow-[3px_3px_0_#000] backdrop-blur-sm xl:gap-2 xl:px-4">
             {links.map((link) => (
               <DesktopNavItem
                 key={link.href}
