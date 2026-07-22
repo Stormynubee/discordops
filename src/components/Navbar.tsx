@@ -61,27 +61,42 @@ function LiveSectionPeek({ sectionId, fallback }: { sectionId: string; fallback:
 
     host.replaceChildren()
     setReady(false)
-
     if (!section) return
 
-    const clone = section.cloneNode(true) as HTMLElement
-    clone.removeAttribute('id')
-    clone.setAttribute('aria-hidden', 'true')
-    clone.querySelectorAll('video, audio, iframe, canvas').forEach((el) => el.remove())
-    clone.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'))
-    clone.style.width = `${Math.max(section.offsetWidth, 720)}px`
-    clone.style.pointerEvents = 'none'
-    clone.style.userSelect = 'none'
-    host.appendChild(clone)
-    setReady(true)
+    let cancelled = false
+    // Defer heavy clone off the hover frame so the pill stays snappy
+    const run = () => {
+      if (cancelled || !hostRef.current) return
+      const clone = section.cloneNode(true) as HTMLElement
+      clone.removeAttribute('id')
+      clone.setAttribute('aria-hidden', 'true')
+      clone.querySelectorAll('video, audio, iframe, canvas, script').forEach((el) => el.remove())
+      clone.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'))
+      clone.querySelectorAll('img').forEach((img) => {
+        img.setAttribute('loading', 'lazy')
+        img.removeAttribute('srcset')
+      })
+      clone.style.width = `${Math.max(section.offsetWidth, 720)}px`
+      clone.style.pointerEvents = 'none'
+      clone.style.userSelect = 'none'
+      clone.style.contentVisibility = 'auto'
+      hostRef.current.replaceChildren(clone)
+      setReady(true)
+    }
+
+    const id = window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(run)
+    })
 
     return () => {
+      cancelled = true
+      window.cancelAnimationFrame(id)
       host.replaceChildren()
     }
   }, [sectionId])
 
   return (
-    <div className="relative h-[128px] overflow-hidden bg-bg">
+    <div className="relative h-[128px] overflow-hidden bg-bg contain-paint">
       <div aria-hidden className="pointer-events-none absolute inset-0 z-[1] opacity-15 checker-bg" />
       {!ready ? (
         <div className="relative z-[2]">

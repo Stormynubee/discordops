@@ -5,7 +5,7 @@ import { PLANS, PRICING_ORDER } from '../data/plans'
 
 export function Pricing() {
   return (
-    <section id="pricing" className="relative section-y">
+    <section id="pricing" className="section-cv relative section-y">
       <div className="section-pad relative z-10 mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Pricing"

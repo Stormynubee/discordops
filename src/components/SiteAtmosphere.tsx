@@ -35,15 +35,26 @@ export function SiteAtmosphere() {
   useEffect(() => {
     if (reduceMotion) return
 
-    const onMove = (e: MouseEvent) => {
-      const nx = (e.clientX / window.innerWidth - 0.5) * 2
-      const ny = (e.clientY / window.innerHeight - 0.5) * 2
+    let raf = 0
+    let last: MouseEvent | null = null
+    const flush = () => {
+      raf = 0
+      if (!last) return
+      const nx = (last.clientX / window.innerWidth - 0.5) * 2
+      const ny = (last.clientY / window.innerHeight - 0.5) * 2
       rawMouseX.set(nx * MOUSE_STRENGTH)
       rawMouseY.set(ny * MOUSE_STRENGTH)
     }
+    const onMove = (e: MouseEvent) => {
+      last = e
+      if (!raf) raf = window.requestAnimationFrame(flush)
+    }
 
     window.addEventListener('mousemove', onMove, { passive: true })
-    return () => window.removeEventListener('mousemove', onMove)
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      if (raf) window.cancelAnimationFrame(raf)
+    }
   }, [reduceMotion, rawMouseX, rawMouseY])
 
   return (

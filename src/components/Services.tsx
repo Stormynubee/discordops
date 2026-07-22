@@ -39,7 +39,7 @@ const rows: ServiceRow[] = [
 
 export function Services() {
   return (
-    <section id="services" className="relative section-band section-y">
+    <section id="services" className="section-cv relative section-band section-y">
       <div className="section-pad relative z-10 mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Services"

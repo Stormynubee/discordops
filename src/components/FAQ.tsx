@@ -90,7 +90,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
 
   return (
-    <section id="faq" className="relative section-pad section-y bg-surface/40">
+    <section id="faq" className="section-cv relative section-pad section-y bg-surface/40">
       <div className="mx-auto max-w-7xl">
         <SectionHeading eyebrow="FAQ" title="Questions? Yeah, we got you." />
         <Reveal>

@@ -128,7 +128,7 @@ export function SectionShell({
   return (
     <section
       id={id}
-      className={`relative section-pad section-y ${band ? 'section-band' : ''} ${className}`}
+      className={`section-cv relative section-pad section-y ${band ? 'section-band' : ''} ${className}`}
     >
       {children}
     </section>

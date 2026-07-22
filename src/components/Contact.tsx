@@ -71,7 +71,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="relative section-pad section-y">
+    <section id="contact" className="section-cv relative section-pad section-y">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Contact"

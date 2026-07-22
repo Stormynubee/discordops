@@ -30,13 +30,27 @@
     <link rel="preconnect" href="https://api.fontshare.com" />
     <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@700&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
     <link
-      href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
+      href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@700&display=swap"
+        rel="stylesheet"
+      />
+      <link
+        href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
     <title>DiscordOps | Your Discord deserves better</title>
     <script type="application/ld+json">
       {
