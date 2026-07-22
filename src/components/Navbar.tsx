@@ -246,15 +246,15 @@ function DesktopNavItem({
       onFocus={onHover}
       onBlur={onLeave}
     >
-      {/* Finn peeks up from Pricing label — not from Jake */}
+      {/* Finn peeks just above Pricing — tight to the label */}
       {isPricing ? (
-        <FinnPricingPop active={showPreview} className="bottom-[calc(100%+2px)]" />
+        <FinnPricingPop active={showPreview} className="bottom-[calc(100%-6px)]" />
       ) : null}
 
       <a
         href={link.href}
         aria-describedby={showPreview ? panelId : undefined}
-        className={`group relative z-[86] inline-flex items-center px-1 py-2 text-[13px] font-bold tracking-wide transition ${
+        className={`group relative z-[20] inline-flex items-center px-1 py-2 text-[13px] font-bold tracking-wide transition ${
           active || showPreview ? 'text-lime' : 'text-[#ffd6ea] hover:text-lime'
         }`}
       >
@@ -276,7 +276,7 @@ function DesktopNavItem({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduceMotion ? undefined : { opacity: 0, y: 6, scale: 0.98 }}
             transition={{ type: 'spring', stiffness: 420, damping: 28 }}
-            className="pointer-events-auto absolute left-1/2 top-[calc(100%+4rem)] z-[83] -translate-x-1/2"
+            className="pointer-events-auto absolute left-1/2 top-[calc(100%+0.75rem)] z-[30] -translate-x-1/2"
           >
             <div
               aria-hidden
@@ -375,13 +375,13 @@ export function Navbar() {
         </a>
 
         <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 overflow-visible lg:block">
-          {/* Jake hangs just under the nav pill — visible, clears the preview below */}
-          <JakeStretchRide
-            active={hovered !== null}
-            playSound={hovered !== null}
-            className="right-2 top-[calc(100%+4px)] z-[94]"
-          />
           <ul className="relative z-[82] flex items-center gap-1 overflow-visible rounded-sm border-[3px] border-black bg-elevated/90 px-3 shadow-[3px_3px_0_#000] backdrop-blur-sm xl:gap-2 xl:px-4">
+            {/* Jake lives INSIDE the nav pill — behind link text, stretches by hovered item */}
+            <JakeStretchRide
+              href={hovered}
+              playSound={hovered !== null}
+              className="right-1 top-1/2 z-[5] -translate-y-1/2"
+            />
             {links.map((link) => (
               <DesktopNavItem
                 key={link.href}
