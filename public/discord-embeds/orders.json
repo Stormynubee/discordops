@@ -1,0 +1,39 @@
+{
+  "content": null,
+  "embeds": [
+    {
+      "title": "🛒 Ready to order?",
+      "description": "Tell us what mess you're walking into. We'll reply within **24h**, then plan + price straight up.\n\nMost builds go live in **3–7 days**.",
+      "url": "https://deezops.vercel.app",
+      "color": 4015359,
+      "thumbnail": {
+        "url": "https://deezops.vercel.app/brand/deezops-logo.png"
+      },
+      "fields": [
+        {
+          "name": "How it works",
+          "value": "1. Pick a package in <#942775701877182474> (or on the site)\n2. Open a ticket here **or** order online\n3. We read your brief within 24h\n4. Quick call if needed — no calendar hell\n5. You go live",
+          "inline": false
+        },
+        {
+          "name": "Order online",
+          "value": "[deezops.vercel.app](https://deezops.vercel.app)",
+          "inline": true
+        },
+        {
+          "name": "Email",
+          "value": "stormylalala2233@gmail.com",
+          "inline": true
+        },
+        {
+          "name": "What to include in your ticket",
+          "value": "• Server invite / niche\n• Package you want (Kickoff / Autopilot / Full Send)\n• What's broken (roles, welcome, bots, branding…)\n• Deadline if you have one",
+          "inline": false
+        }
+      ],
+      "footer": {
+        "text": "DeezOps · Orders"
+      }
+    }
+  ]
+}

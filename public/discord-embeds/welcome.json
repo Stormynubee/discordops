@@ -1,0 +1,34 @@
+{
+  "content": null,
+  "embeds": [
+    {
+      "title": "👋 Your Discord deserves better.",
+      "description": "Welcome to **DeezOps** — we build Discord servers that don't look like they were thrown together at 3am.\n\n**We build it. You take the credit.**\nMost servers go live in **3–7 days**.",
+      "url": "https://deezops.vercel.app",
+      "color": 4015359,
+      "thumbnail": {
+        "url": "https://deezops.vercel.app/brand/deezops-logo.png"
+      },
+      "fields": [
+        {
+          "name": "Start here",
+          "value": "• Verify → <#945331041701331024>\n• Rules → <#1194272844394278952>\n• About us → <#949275476243918879>\n• Services → <#942775701877182474>\n• Order → <#942775730385862656>\n• Notices → <#1088365434383913031>",
+          "inline": false
+        },
+        {
+          "name": "Website",
+          "value": "[deezops.vercel.app](https://deezops.vercel.app)",
+          "inline": true
+        },
+        {
+          "name": "Founders",
+          "value": "Hansraj & Arya",
+          "inline": true
+        }
+      ],
+      "footer": {
+        "text": "DeezOps · Welcome"
+      }
+    }
+  ]
+}

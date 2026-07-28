@@ -1,0 +1,29 @@
+{
+  "content": null,
+  "embeds": [
+    {
+      "title": "📢 Notices",
+      "description": "Official DeezOps updates land here — downtime, new packages, holiday hours, and anything you actually need to know.\n\nIf it isn't posted here, it isn't official.",
+      "url": "https://deezops.vercel.app",
+      "color": 4015359,
+      "thumbnail": {
+        "url": "https://deezops.vercel.app/brand/deezops-logo.png"
+      },
+      "fields": [
+        {
+          "name": "Status",
+          "value": "🟢 All systems normal — taking new builds.",
+          "inline": false
+        },
+        {
+          "name": "Turnaround",
+          "value": "Most servers go live in **3–7 days** after we lock the plan.",
+          "inline": false
+        }
+      ],
+      "footer": {
+        "text": "DeezOps · Notices · Pin this, then post new notices below"
+      }
+    }
+  ]
+}

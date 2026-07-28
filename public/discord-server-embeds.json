@@ -1,0 +1,300 @@
+{
+  "meta": {
+    "brand": "DeezOps",
+    "site": "https://deezops.vercel.app",
+    "logo": "https://deezops.vercel.app/brand/deezops-logo.png",
+    "color_hex": "#3D4DFF",
+    "color": 4015359,
+    "founders": "Hansraj Tiwari & Arya Chakroborty",
+    "email": "stormylalala2233@gmail.com",
+    "usage": "Paste each message object into Discohook / Carl-bot embed builder. Post to the matching channel_id."
+  },
+  "channels": [
+    {
+      "name": "verify",
+      "channel_id": "945331041701331024",
+      "message": {
+        "content": null,
+        "embeds": [
+          {
+            "title": "✅ Verify to unlock the server",
+            "description": "Hit the **reaction / button** below to get access.\n\nBy verifying you confirm you've read <#1194272844394278952> and agree to follow them.\n\nNo verify = no channels. Simple.",
+            "url": "https://deezops.vercel.app",
+            "color": 4015359,
+            "thumbnail": {
+              "url": "https://deezops.vercel.app/brand/deezops-logo.png"
+            },
+            "fields": [
+              {
+                "name": "Next steps",
+                "value": "1. Verify here\n2. Skim <#1194272844394278952>\n3. Say hi in <#1088439915475390464>\n4. When ready → <#942775701877182474> / <#942775730385862656>",
+                "inline": false
+              }
+            ],
+            "footer": {
+              "text": "DeezOps · Verify"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "rules",
+      "channel_id": "1194272844394278952",
+      "message": {
+        "content": null,
+        "embeds": [
+          {
+            "title": "📜 House rules",
+            "description": "Read once. Don't make us repeat ourselves.",
+            "url": "https://deezops.vercel.app",
+            "color": 4015359,
+            "thumbnail": {
+              "url": "https://deezops.vercel.app/brand/deezops-logo.png"
+            },
+            "fields": [
+              {
+                "name": "1. Be decent",
+                "value": "No hate, harassment, slurs, or targeting people. Banter is fine. Being a menace is not.",
+                "inline": false
+              },
+              {
+                "name": "2. No scam junk",
+                "value": "No phishing, fake Nitro, malware, or shady invite spam. Instant ban.",
+                "inline": false
+              },
+              {
+                "name": "3. Stay in lane",
+                "value": "Pitches, orders, and support go in the right channels. Don't mass-DM staff.",
+                "inline": false
+              },
+              {
+                "name": "4. Keep client stuff private",
+                "value": "No leaking tickets, DMs, or other people's server details.",
+                "inline": false
+              },
+              {
+                "name": "5. Staff calls are final",
+                "value": "Argue in a ticket if you must — not by clogging public chat.\n\nBreak the big ones → warn / mute / ban. We're not running a courtroom.",
+                "inline": false
+              }
+            ],
+            "footer": {
+              "text": "DeezOps · Rules"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "welcome",
+      "channel_id": "1088439915475390464",
+      "message": {
+        "content": null,
+        "embeds": [
+          {
+            "title": "👋 Your Discord deserves better.",
+            "description": "Welcome to **DeezOps** — we build Discord servers that don't look like they were thrown together at 3am.\n\n**We build it. You take the credit.**\nMost servers go live in **3–7 days**.",
+            "url": "https://deezops.vercel.app",
+            "color": 4015359,
+            "thumbnail": {
+              "url": "https://deezops.vercel.app/brand/deezops-logo.png"
+            },
+            "fields": [
+              {
+                "name": "Start here",
+                "value": "• Verify → <#945331041701331024>\n• Rules → <#1194272844394278952>\n• About us → <#949275476243918879>\n• Services → <#942775701877182474>\n• Order → <#942775730385862656>\n• Notices → <#1088365434383913031>",
+                "inline": false
+              },
+              {
+                "name": "Website",
+                "value": "[deezops.vercel.app](https://deezops.vercel.app)",
+                "inline": true
+              },
+              {
+                "name": "Founders",
+                "value": "Hansraj & Arya",
+                "inline": true
+              }
+            ],
+            "footer": {
+              "text": "DeezOps · Welcome"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "notices",
+      "channel_id": "1088365434383913031",
+      "message": {
+        "content": null,
+        "embeds": [
+          {
+            "title": "📢 Notices",
+            "description": "Official DeezOps updates land here — downtime, new packages, holiday hours, and anything you actually need to know.\n\nIf it isn't posted here, it isn't official.",
+            "url": "https://deezops.vercel.app",
+            "color": 4015359,
+            "thumbnail": {
+              "url": "https://deezops.vercel.app/brand/deezops-logo.png"
+            },
+            "fields": [
+              {
+                "name": "Status",
+                "value": "🟢 All systems normal — taking new builds.",
+                "inline": false
+              },
+              {
+                "name": "Turnaround",
+                "value": "Most servers go live in **3–7 days** after we lock the plan.",
+                "inline": false
+              }
+            ],
+            "footer": {
+              "text": "DeezOps · Notices · Pin this, then post new notices below"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "about-us",
+      "channel_id": "949275476243918879",
+      "message": {
+        "content": null,
+        "embeds": [
+          {
+            "title": "🧩 About DeezOps",
+            "description": "We're a Discord ops agency. Channels, bots, branding, tickets, automations — the stuff that makes a server feel real.\n\nTired of a Discord that looks unfinished? **That's literally the job.**",
+            "url": "https://deezops.vercel.app",
+            "color": 4015359,
+            "thumbnail": {
+              "url": "https://deezops.vercel.app/brand/deezops-logo.png"
+            },
+            "fields": [
+              {
+                "name": "Founders",
+                "value": "Hansraj Tiwari & Arya Chakroborty",
+                "inline": false
+              },
+              {
+                "name": "Website",
+                "value": "[deezops.vercel.app](https://deezops.vercel.app)",
+                "inline": true
+              },
+              {
+                "name": "Email",
+                "value": "stormylalala2233@gmail.com",
+                "inline": true
+              },
+              {
+                "name": "What we fix",
+                "value": "Messy roles, dead welcome flows, zero branding, bots that don't talk to each other, mods drowning in tickets.",
+                "inline": false
+              }
+            ],
+            "footer": {
+              "text": "DeezOps · About us"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "services",
+      "channel_id": "942775701877182474",
+      "message": {
+        "content": null,
+        "embeds": [
+          {
+            "title": "🛠️ What we actually do",
+            "description": "We build and maintain your Discord so you can talk to humans instead of fixing channels.",
+            "url": "https://deezops.vercel.app",
+            "color": 4015359,
+            "thumbnail": {
+              "url": "https://deezops.vercel.app/brand/deezops-logo.png"
+            },
+            "fields": [
+              {
+                "name": "Server setup & branding",
+                "value": "• Roles, channels, permissions that make sense\n• Welcome flows that don't scare people off\n• Looks like your brand, not a template",
+                "inline": false
+              },
+              {
+                "name": "Bots & automation",
+                "value": "• Custom bots with slash commands & hooks\n• Tickets, moderation, leveling, giveaways\n• Stuff that saves your team hours every week",
+                "inline": false
+              },
+              {
+                "name": "Growth & support",
+                "value": "• Dashboards so you know what's working\n• Mod training & monthly maintenance\n• Website, portal, and payment hooks",
+                "inline": false
+              },
+              {
+                "name": "Kickoff · $129",
+                "value": "Stop the embarrassment — setup, branding, verify/welcome, tickets, basic mod.",
+                "inline": true
+              },
+              {
+                "name": "Autopilot · $249",
+                "value": "Bots do the boring stuff — custom bot, webhooks, analytics, leveling.",
+                "inline": true
+              },
+              {
+                "name": "Full Send · $459",
+                "value": "We become your Discord dept — integrations, training, monthly maintenance.",
+                "inline": true
+              }
+            ],
+            "footer": {
+              "text": "DeezOps · Services · Ready? → #orders"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "orders",
+      "channel_id": "942775730385862656",
+      "message": {
+        "content": null,
+        "embeds": [
+          {
+            "title": "🛒 Ready to order?",
+            "description": "Tell us what mess you're walking into. We'll reply within **24h**, then plan + price straight up.\n\nMost builds go live in **3–7 days**.",
+            "url": "https://deezops.vercel.app",
+            "color": 4015359,
+            "thumbnail": {
+              "url": "https://deezops.vercel.app/brand/deezops-logo.png"
+            },
+            "fields": [
+              {
+                "name": "How it works",
+                "value": "1. Pick a package in <#942775701877182474> (or on the site)\n2. Open a ticket here **or** order online\n3. We read your brief within 24h\n4. Quick call if needed — no calendar hell\n5. You go live",
+                "inline": false
+              },
+              {
+                "name": "Order online",
+                "value": "[deezops.vercel.app](https://deezops.vercel.app)",
+                "inline": true
+              },
+              {
+                "name": "Email",
+                "value": "stormylalala2233@gmail.com",
+                "inline": true
+              },
+              {
+                "name": "What to include in your ticket",
+                "value": "• Server invite / niche\n• Package you want (Kickoff / Autopilot / Full Send)\n• What's broken (roles, welcome, bots, branding…)\n• Deadline if you have one",
+                "inline": false
+              }
+            ],
+            "footer": {
+              "text": "DeezOps · Orders"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

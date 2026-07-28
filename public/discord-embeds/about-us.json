@@ -1,0 +1,39 @@
+{
+  "content": null,
+  "embeds": [
+    {
+      "title": "🧩 About DeezOps",
+      "description": "We're a Discord ops agency. Channels, bots, branding, tickets, automations — the stuff that makes a server feel real.\n\nTired of a Discord that looks unfinished? **That's literally the job.**",
+      "url": "https://deezops.vercel.app",
+      "color": 4015359,
+      "thumbnail": {
+        "url": "https://deezops.vercel.app/brand/deezops-logo.png"
+      },
+      "fields": [
+        {
+          "name": "Founders",
+          "value": "Hansraj Tiwari & Arya Chakroborty",
+          "inline": false
+        },
+        {
+          "name": "Website",
+          "value": "[deezops.vercel.app](https://deezops.vercel.app)",
+          "inline": true
+        },
+        {
+          "name": "Email",
+          "value": "stormylalala2233@gmail.com",
+          "inline": true
+        },
+        {
+          "name": "What we fix",
+          "value": "Messy roles, dead welcome flows, zero branding, bots that don't talk to each other, mods drowning in tickets.",
+          "inline": false
+        }
+      ],
+      "footer": {
+        "text": "DeezOps · About us"
+      }
+    }
+  ]
+}

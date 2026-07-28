@@ -1,0 +1,49 @@
+{
+  "content": null,
+  "embeds": [
+    {
+      "title": "🛠️ What we actually do",
+      "description": "We build and maintain your Discord so you can talk to humans instead of fixing channels.",
+      "url": "https://deezops.vercel.app",
+      "color": 4015359,
+      "thumbnail": {
+        "url": "https://deezops.vercel.app/brand/deezops-logo.png"
+      },
+      "fields": [
+        {
+          "name": "Server setup & branding",
+          "value": "• Roles, channels, permissions that make sense\n• Welcome flows that don't scare people off\n• Looks like your brand, not a template",
+          "inline": false
+        },
+        {
+          "name": "Bots & automation",
+          "value": "• Custom bots with slash commands & hooks\n• Tickets, moderation, leveling, giveaways\n• Stuff that saves your team hours every week",
+          "inline": false
+        },
+        {
+          "name": "Growth & support",
+          "value": "• Dashboards so you know what's working\n• Mod training & monthly maintenance\n• Website, portal, and payment hooks",
+          "inline": false
+        },
+        {
+          "name": "Kickoff · $129",
+          "value": "Stop the embarrassment — setup, branding, verify/welcome, tickets, basic mod.",
+          "inline": true
+        },
+        {
+          "name": "Autopilot · $249",
+          "value": "Bots do the boring stuff — custom bot, webhooks, analytics, leveling.",
+          "inline": true
+        },
+        {
+          "name": "Full Send · $459",
+          "value": "We become your Discord dept — integrations, training, monthly maintenance.",
+          "inline": true
+        }
+      ],
+      "footer": {
+        "text": "DeezOps · Services · Ready? → #orders"
+      }
+    }
+  ]
+}

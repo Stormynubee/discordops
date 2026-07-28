@@ -1,0 +1,24 @@
+{
+  "content": null,
+  "embeds": [
+    {
+      "title": "✅ Verify to unlock the server",
+      "description": "Hit the **reaction / button** below to get access.\n\nBy verifying you confirm you've read <#1194272844394278952> and agree to follow them.\n\nNo verify = no channels. Simple.",
+      "url": "https://deezops.vercel.app",
+      "color": 4015359,
+      "thumbnail": {
+        "url": "https://deezops.vercel.app/brand/deezops-logo.png"
+      },
+      "fields": [
+        {
+          "name": "Next steps",
+          "value": "1. Verify here\n2. Skim <#1194272844394278952>\n3. Say hi in <#1088439915475390464>\n4. When ready → <#942775701877182474> / <#942775730385862656>",
+          "inline": false
+        }
+      ],
+      "footer": {
+        "text": "DeezOps · Verify"
+      }
+    }
+  ]
+}

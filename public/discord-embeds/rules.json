@@ -1,0 +1,44 @@
+{
+  "content": null,
+  "embeds": [
+    {
+      "title": "📜 House rules",
+      "description": "Read once. Don't make us repeat ourselves.",
+      "url": "https://deezops.vercel.app",
+      "color": 4015359,
+      "thumbnail": {
+        "url": "https://deezops.vercel.app/brand/deezops-logo.png"
+      },
+      "fields": [
+        {
+          "name": "1. Be decent",
+          "value": "No hate, harassment, slurs, or targeting people. Banter is fine. Being a menace is not.",
+          "inline": false
+        },
+        {
+          "name": "2. No scam junk",
+          "value": "No phishing, fake Nitro, malware, or shady invite spam. Instant ban.",
+          "inline": false
+        },
+        {
+          "name": "3. Stay in lane",
+          "value": "Pitches, orders, and support go in the right channels. Don't mass-DM staff.",
+          "inline": false
+        },
+        {
+          "name": "4. Keep client stuff private",
+          "value": "No leaking tickets, DMs, or other people's server details.",
+          "inline": false
+        },
+        {
+          "name": "5. Staff calls are final",
+          "value": "Argue in a ticket if you must — not by clogging public chat.\n\nBreak the big ones → warn / mute / ban. We're not running a courtroom.",
+          "inline": false
+        }
+      ],
+      "footer": {
+        "text": "DeezOps · Rules"
+      }
+    }
+  ]
+}
