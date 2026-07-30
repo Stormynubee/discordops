@@ -76,12 +76,19 @@ export function Portfolio() {
           <div className="mb-8 overflow-hidden rounded-sm border-[3px] border-black bg-card shadow-[4px_4px_0_#000]">
             <div className="grid gap-0 md:grid-cols-[1.15fr_0.85fr]">
               <div className="relative min-h-[180px] border-b-[3px] border-black md:min-h-[220px] md:border-b-0 md:border-r-[3px]">
-                <img
-                  src="/portfolio/banner-founders-for-founders.jpg"
-                  alt="Founders for Founders community banner"
-                  className="absolute inset-0 h-full w-full object-cover"
-                  loading="lazy"
-                />
+                <picture>
+                  <source
+                    srcSet="/portfolio/banner-founders-for-founders.webp"
+                    type="image/webp"
+                  />
+                  <img
+                    src="/portfolio/banner-founders-for-founders.jpg"
+                    alt="Founders for Founders animated community banner"
+                    className="absolute inset-0 h-full w-full object-cover"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
               </div>
               <div className="flex flex-col justify-center gap-3 p-5 sm:p-6">
                 <p className="text-label-caps text-lime">Also shipped</p>
