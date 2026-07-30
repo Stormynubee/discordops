@@ -1,28 +1,34 @@
 import { FOUNDERS_SHORT } from '../data/brand'
 import { Reveal, SectionHeading } from './ui'
 
-const featured = {
-  quote:
-    'They rebuilt our whole Discord in 3 to 7 days. Felt like we hired in-house people, not some agency that ghosts you after invoice day.',
-  name: 'Elena Voss',
-  role: 'Head of Community, NovaSaaS',
-  initials: 'EV',
-}
-
-const secondary = [
+const testimonials = [
   {
-    quote:
-      'The bots alone probably save us 30 hours a week. Tickets, onboarding, roles. It just runs now.',
-    name: 'Marcus Chen',
-    role: 'Founder, Apex Gaming',
-    initials: 'MC',
+    src: '/portfolio/testimonial-legends-of-asians.png',
+    alt: 'Discord message from bank.eth saying Very good service, you guys really work hard',
+    quote: 'Very good service, you guys really work hard!',
+    name: 'bank.eth',
+    role: 'Legends of Asians · 0 → 10k',
   },
   {
-    quote:
-      'We wanted a server that looked like we gave a damn. Investors mention it on calls now. Weird, but nice.',
-    name: 'Sofia Ramirez',
-    role: 'COO, LedgerDAO',
-    initials: 'SR',
+    src: '/portfolio/testimonial-derrick.jpg',
+    alt: 'Discord message from Derrick saying 10/10 and happy about the growth',
+    quote: '10/10 you guys, so far pretty happy about the growth!',
+    name: 'Derrick',
+    role: 'Client · growth',
+  },
+  {
+    src: '/portfolio/testimonial-duke.jpg',
+    alt: 'Discord message from Duke saying I love your work and would call again',
+    quote: 'I love your work bruh — I would call you for another work soon',
+    name: 'Duke',
+    role: 'Client',
+  },
+  {
+    src: '/portfolio/testimonial-inferno.png',
+    alt: 'Discord message from InfernoDark saying youve made a cool job',
+    quote: "you've made a cool job",
+    name: 'InfernoDark',
+    role: 'Client',
   },
 ]
 
@@ -33,47 +39,33 @@ export function Testimonials() {
         <SectionHeading
           eyebrow="Proof"
           title="People said nice things."
-          description={`Run by ${FOUNDERS_SHORT}. These are from clients, not us cosplaying as customers.`}
+          description={`Run by ${FOUNDERS_SHORT}. Real Discord DMs — not fake reviews we wrote ourselves.`}
         />
 
-        <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
-          <Reveal>
-            <figure>
-              <blockquote className="text-headline text-[clamp(1.35rem,2.8vw,2rem)] text-text">
-                &ldquo;{featured.quote}&rdquo;
-              </blockquote>
-              <figcaption className="mt-8 flex items-center gap-3 border-t border-border pt-6">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/15 text-[12px] font-semibold text-accent">
-                  {featured.initials}
+        <div className="grid gap-5 sm:grid-cols-2">
+          {testimonials.map((t, i) => (
+            <Reveal key={t.name} delay={i * 0.06}>
+              <figure className="overflow-hidden rounded-sm border-[3px] border-black bg-card shadow-[4px_4px_0_#000]">
+                <div className="border-b-[3px] border-black bg-[#313338]">
+                  <img
+                    src={t.src}
+                    alt={t.alt}
+                    className="block h-auto w-full"
+                    loading="lazy"
+                  />
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-text">{featured.name}</p>
-                  <p className="text-[12px] text-muted">{featured.role}</p>
-                </div>
-              </figcaption>
-            </figure>
-          </Reveal>
-
-          <div className="flex flex-col gap-6">
-            {secondary.map((t, i) => (
-              <Reveal key={t.name} delay={0.08 + i * 0.06}>
-                <figure className="quote-mark">
-                  <blockquote className="text-[15px] leading-relaxed text-text/90">
+                <figcaption className="p-4 sm:p-5">
+                  <blockquote className="text-[15px] leading-relaxed text-text">
                     &ldquo;{t.quote}&rdquo;
                   </blockquote>
-                  <figcaption className="mt-4 flex items-center gap-2.5">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/[0.06] text-[10px] font-semibold text-silver">
-                      {t.initials}
-                    </div>
-                    <div>
-                      <p className="text-[13px] font-medium text-text">{t.name}</p>
-                      <p className="text-[11px] text-muted">{t.role}</p>
-                    </div>
-                  </figcaption>
-                </figure>
-              </Reveal>
-            ))}
-          </div>
+                  <div className="mt-3 flex items-baseline justify-between gap-3 border-t border-border pt-3">
+                    <p className="text-sm font-medium text-text">{t.name}</p>
+                    <p className="text-[11px] text-muted">{t.role}</p>
+                  </div>
+                </figcaption>
+              </figure>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
