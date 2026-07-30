@@ -1,0 +1,59 @@
+{
+  "content": null,
+  "embeds": [
+    {
+      "title": "📊 RESULTS | DEEZOPS",
+      "description": "Real servers. Real growth. From **0 members** to packed communities — setup, branding, ops, and growth help.\n\nWe don't flex mockups. We flex receipts.",
+      "url": "https://deezops.vercel.app",
+      "color": 4015359,
+      "image": {
+        "url": "https://deezops.vercel.app/portfolio/portfolio-results-header.png"
+      },
+      "fields": [
+        {
+          "name": "Nightmare-X (NX)",
+          "value": "0 → **110k**",
+          "inline": true
+        },
+        {
+          "name": "Why Very",
+          "value": "0 → **~50k**",
+          "inline": true
+        },
+        {
+          "name": "Community build",
+          "value": "0 → **40k**",
+          "inline": true
+        },
+        {
+          "name": "Fluffy Frens",
+          "value": "0 → **30k**",
+          "inline": true
+        },
+        {
+          "name": "Rise Angle",
+          "value": "0 → **30k**",
+          "inline": true
+        },
+        {
+          "name": "Legends of Asians",
+          "value": "0 → **10k**",
+          "inline": true
+        },
+        {
+          "name": "Speaking Cat",
+          "value": "0 → **10k**",
+          "inline": true
+        },
+        {
+          "name": "Founders for Founders",
+          "value": "Brand + banner work",
+          "inline": true
+        }
+      ],
+      "footer": {
+        "text": "DeezOps · Hansraj & Arya · Ready to build? → #orders"
+      }
+    }
+  ]
+}

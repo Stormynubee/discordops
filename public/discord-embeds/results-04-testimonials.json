@@ -1,0 +1,45 @@
+{
+  "content": null,
+  "embeds": [
+    {
+      "title": "💬 CLIENT RECEIPTS",
+      "description": "Real DMs. Real feedback. No scripted reviews.",
+      "color": 3800990
+    },
+    {
+      "title": "Legends of Asians — bank.eth",
+      "description": "**\"Very good service, you guys really work hard!\"**\n\nServer grown **0 → 10k**.",
+      "color": 4015359,
+      "image": {
+        "url": "https://deezops.vercel.app/portfolio/testimonial-legends-of-asians.png"
+      }
+    },
+    {
+      "title": "Client — InfernoDark",
+      "description": "**\"you've made a cool job\"**",
+      "color": 10027263,
+      "image": {
+        "url": "https://deezops.vercel.app/portfolio/testimonial-inferno.png"
+      }
+    },
+    {
+      "title": "Client — Duke",
+      "description": "**\"I love your work bruh — I would call you for another work soon\"**",
+      "color": 16739994,
+      "image": {
+        "url": "https://deezops.vercel.app/portfolio/testimonial-duke.png"
+      }
+    },
+    {
+      "title": "Client — Derrick",
+      "description": "**\"10/10 you guys, so far pretty happy about the growth! Thanks legend.\"**",
+      "color": 16773632,
+      "image": {
+        "url": "https://deezops.vercel.app/portfolio/testimonial-derrick.png"
+      },
+      "footer": {
+        "text": "DeezOps · Testimonials · Order → #orders"
+      }
+    }
+  ]
+}

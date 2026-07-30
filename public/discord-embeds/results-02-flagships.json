@@ -1,0 +1,38 @@
+{
+  "content": null,
+  "embeds": [
+    {
+      "title": "⚔️ NIGHTMARE-X (NX)",
+      "description": "🔹 Built from **0 → 110k** members\n🔹 Full community ops energy — branding, structure, scale\n🔹 One of our biggest growth runs",
+      "color": 13369344,
+      "thumbnail": {
+        "url": "https://deezops.vercel.app/portfolio/logo-nightmare-x.jpg"
+      },
+      "footer": {
+        "text": "Flagship growth · Nightmare-X"
+      }
+    },
+    {
+      "title": "🟣 WHY VERY",
+      "description": "🔹 Grown toward **~50k** members\n🔹 Clean esports-style brand identity\n🔹 Server icon / visual direction samples below",
+      "color": 10027263,
+      "thumbnail": {
+        "url": "https://deezops.vercel.app/portfolio/logo-why-very.jpg"
+      },
+      "footer": {
+        "text": "Brand + community · Why Very"
+      }
+    },
+    {
+      "title": "🏛️ FOUNDERS FOR FOUNDERS",
+      "description": "🔹 Founder community branding\n🔹 Animated Discord-ready banner\n🔹 Sleek web3 / networking vibe",
+      "color": 4015359,
+      "image": {
+        "url": "https://deezops.vercel.app/portfolio/banner-founders-for-founders.jpg"
+      },
+      "footer": {
+        "text": "Banner + brand · Founders for Founders"
+      }
+    }
+  ]
+}

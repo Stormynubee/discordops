@@ -1,0 +1,40 @@
+{
+  "content": null,
+  "embeds": [
+    {
+      "title": "🚀 GROWTH RUNS",
+      "description": "More servers we helped take from empty to alive.",
+      "color": 16773632,
+      "fields": [
+        {
+          "name": "🧸 Fluffy Frens",
+          "value": "0 → **30k** members",
+          "inline": true
+        },
+        {
+          "name": "🪽 Rise Angle",
+          "value": "0 → **30k** members",
+          "inline": true
+        },
+        {
+          "name": "🐱 Speaking Cat",
+          "value": "0 → **10k** members",
+          "inline": true
+        },
+        {
+          "name": "🌏 Legends of Asians",
+          "value": "0 → **10k** members\nClient: bank.eth",
+          "inline": true
+        },
+        {
+          "name": "📈 Additional community",
+          "value": "0 → **40k** members",
+          "inline": true
+        }
+      ],
+      "footer": {
+        "text": "DeezOps · Growth + ops"
+      }
+    }
+  ]
+}
