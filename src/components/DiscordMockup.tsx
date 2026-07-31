@@ -212,21 +212,30 @@ function ClipVideo({ src, reduceMotion }: { src: string; reduceMotion: boolean |
   )
 }
 
+const AUTOPLAY_MS = 2800
+const RESUME_AFTER_MS = 9000
+
 export function DiscordMockup() {
   const reduceMotion = useReducedMotion()
   const [enableTilt, setEnableTilt] = useState(false)
   const [activeId, setActiveId] = useState<ChannelId>('announcements')
   const [promptState, setPromptState] = useState<PromptState>('idle')
+  const [visited, setVisited] = useState<ChannelId[]>(['announcements'])
+  const [userPaused, setUserPaused] = useState(false)
   const commandCenterRef = useRef<HTMLDivElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
   const soundPlayedRef = useRef(false)
+  const resumeTimerRef = useRef<number | null>(null)
   const commandCenterInView = useInView(commandCenterRef, {
-    once: true,
-    margin: '-20% 0px -20% 0px',
+    once: false,
+    amount: 0.35,
   })
   const { rotateX, rotateY, onMove, onLeave } = useParallax(6)
 
   const active = channels.find((c) => c.id === activeId) ?? channels[0]
+  const activeIndex = channels.findIndex((c) => c.id === activeId)
+  const nextChannel = channels[(activeIndex + 1) % channels.length]
+  const allVisited = visited.length >= channels.length
 
   useEffect(() => {
     const coarse = window.matchMedia('(pointer: coarse)').matches
@@ -234,11 +243,36 @@ export function DiscordMockup() {
   }, [reduceMotion])
 
   useEffect(() => {
-    if (commandCenterInView) setPromptState('prompted')
+    if (commandCenterInView) setPromptState((s) => (s === 'idle' ? 'prompted' : s))
   }, [commandCenterInView])
 
+  // Auto-tour channels so visitors see every room without hunting.
+  useEffect(() => {
+    if (reduceMotion || !commandCenterInView || userPaused) return
+
+    const id = window.setInterval(() => {
+      setActiveId((current) => {
+        const idx = channels.findIndex((c) => c.id === current)
+        return channels[(idx + 1) % channels.length].id
+      })
+      setPromptState('used')
+    }, AUTOPLAY_MS)
+
+    return () => window.clearInterval(id)
+  }, [commandCenterInView, reduceMotion, userPaused])
+
+  useEffect(() => {
+    setVisited((prev) => (prev.includes(activeId) ? prev : [...prev, activeId]))
+  }, [activeId])
+
+  useEffect(() => {
+    return () => {
+      if (resumeTimerRef.current) window.clearTimeout(resumeTimerRef.current)
+    }
+  }, [])
+
   const playPingOnce = () => {
-    if (soundPlayedRef.current || promptState !== 'prompted') return
+    if (soundPlayedRef.current || promptState === 'idle') return
 
     const audio = audioRef.current
     if (!audio) return
@@ -256,7 +290,13 @@ export function DiscordMockup() {
 
   const selectChannel = (id: ChannelId) => {
     setActiveId(id)
+    setVisited((prev) => (prev.includes(id) ? prev : [...prev, id]))
     setPromptState('used')
+    setUserPaused(true)
+    if (resumeTimerRef.current) window.clearTimeout(resumeTimerRef.current)
+    resumeTimerRef.current = window.setTimeout(() => {
+      setUserPaused(false)
+    }, RESUME_AFTER_MS)
   }
 
   return (
@@ -303,41 +343,59 @@ export function DiscordMockup() {
               </div>
               <p className="mb-1.5 px-1 text-[10px] font-semibold uppercase tracking-wider text-[#949ba4]">
                 Channels
+                <span className="ml-1 font-normal normal-case tracking-normal text-accent">
+                  · tap
+                </span>
               </p>
               <ul className="space-y-0.5" role="listbox" aria-label="Channels">
                 {channels.map((ch) => {
                   const isActive = ch.id === activeId
+                  const isNext = !isActive && ch.id === nextChannel.id && !userPaused
+                  const wasVisited = visited.includes(ch.id)
                   return (
-                    <li key={ch.id}>
+                    <li key={ch.id} className="relative">
                       <motion.button
                         type="button"
                         role="option"
                         aria-selected={isActive}
                         onClick={() => selectChannel(ch.id)}
                         animate={
-                          promptState === 'prompted' &&
-                          ch.id === 'announcements' &&
-                          !reduceMotion
-                            ? { x: [0, -3, 3, 0] }
-                            : { x: 0 }
+                          isNext && !reduceMotion
+                            ? { scale: [1, 1.03, 1] }
+                            : { scale: 1 }
                         }
-                        transition={{ duration: 0.36, delay: 0.5 }}
+                        transition={
+                          isNext && !reduceMotion
+                            ? {
+                                duration: 1.05,
+                                ease: [0.22, 1, 0.36, 1],
+                                repeat: Infinity,
+                                repeatDelay: 0.25,
+                              }
+                            : { duration: 0.18 }
+                        }
                         className={`flex min-h-[36px] w-full items-center justify-between rounded-md px-1.5 py-1.5 text-left text-[11px] transition sm:min-h-[32px] ${
                           isActive
-                            ? 'bg-accent/15 text-white'
-                            : 'text-[#949ba4] hover:bg-white/[0.04] hover:text-[#dbdee1]'
+                            ? 'bg-accent/15 text-white ring-1 ring-accent/40'
+                            : isNext
+                              ? 'bg-yellow/15 text-white ring-1 ring-yellow/50'
+                              : 'text-[#949ba4] hover:bg-white/[0.04] hover:text-[#dbdee1]'
                         }`}
                       >
-                        <span className="flex min-w-0 items-center">
+                        <span className="flex min-w-0 items-center gap-1">
                           <span className="truncate">
-                          <span className="mr-0.5 opacity-60">#</span>
-                          {ch.name}
+                            <span className="mr-0.5 opacity-60">#</span>
+                            {ch.name}
                           </span>
-                          {promptState === 'prompted' && ch.id === 'announcements' ? (
-                            <motion.span
-                              initial={reduceMotion ? false : { opacity: 0, scale: 0.5 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              className="ml-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent"
+                          {isNext ? (
+                            <span className="shrink-0 rounded-[2px] border border-black bg-yellow px-1 text-[8px] font-extrabold uppercase tracking-wide text-black">
+                              next
+                            </span>
+                          ) : null}
+                          {wasVisited && !isActive ? (
+                            <span
+                              className="ml-0.5 h-1.5 w-1.5 shrink-0 rounded-full bg-lime"
+                              title="Visited"
                             />
                           ) : null}
                         </span>
@@ -453,6 +511,32 @@ export function DiscordMockup() {
         </div>
       <div className="mt-3.5 flex min-h-10 flex-col items-center gap-2.5 px-1">
         <div className="rule-y2k rule-y2k-thin w-full max-w-[220px] opacity-90" aria-hidden />
+
+        <div
+          className="flex items-center gap-1.5"
+          aria-label={`Channel ${activeIndex + 1} of ${channels.length}`}
+        >
+          {channels.map((ch) => {
+            const isActive = ch.id === activeId
+            const wasVisited = visited.includes(ch.id)
+            return (
+              <button
+                key={ch.id}
+                type="button"
+                aria-label={`Open #${ch.name}`}
+                onClick={() => selectChannel(ch.id)}
+                className={`h-2 rounded-full border border-black transition-[width,background-color] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  isActive
+                    ? 'w-6 bg-accent'
+                    : wasVisited
+                      ? 'w-2 bg-lime'
+                      : 'w-2 bg-silver/40'
+                }`}
+              />
+            )
+          })}
+        </div>
+
         <AnimatePresence mode="wait">
           {promptState === 'prompted' ? (
             <motion.div
@@ -469,7 +553,7 @@ export function DiscordMockup() {
               />
               <motion.button
                 type="button"
-                onClick={() => selectChannel('announcements')}
+                onClick={() => selectChannel(nextChannel.id)}
                 whileHover={
                   reduceMotion
                     ? undefined
@@ -483,7 +567,7 @@ export function DiscordMockup() {
                 className="hard-cta text-[11px] sm:text-[12px]"
               >
                 <span className="hard-cta-mark" aria-hidden />
-                Open it before the mods do.
+                Tap channels — we&apos;ll tour them live
                 <span aria-hidden className="font-display text-[14px] leading-none">
                   →
                 </span>
@@ -498,9 +582,17 @@ export function DiscordMockup() {
               key="used"
               initial={reduceMotion ? false : { opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              className="rounded-sm border-[3px] border-black bg-lime px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-wider text-bg shadow-[3px_3px_0_#000]"
+              className={`rounded-sm border-[3px] border-black px-3 py-1.5 text-[11px] font-extrabold uppercase tracking-wider shadow-[3px_3px_0_#000] ${
+                allVisited
+                  ? 'bg-lime text-bg'
+                  : 'bg-yellow text-black'
+              }`}
             >
-              Good choice. The buttons work.
+              {allVisited
+                ? 'All channels cleared. You get it.'
+                : userPaused
+                  ? `Your turn · ${visited.length}/${channels.length} rooms`
+                  : `Auto-touring · ${visited.length}/${channels.length} rooms`}
             </motion.p>
           ) : null}
         </AnimatePresence>
