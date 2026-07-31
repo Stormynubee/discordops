@@ -1,6 +1,23 @@
 import { FOUNDERS_SHORT } from '../data/brand'
 import { Reveal, SectionHeading } from './ui'
 
+const brandCreds = [
+  {
+    brand: 'Bode Piyaj Club',
+    aka: 'Bored Ape Yacht Club',
+    line: 'Collaboration manager + Discord moderation. Big brand, bigger chaos — we kept collabs and community moving.',
+    logo: '/portfolio/logo-bayc.svg',
+    logoClass: 'bg-black p-1 object-contain',
+  },
+  {
+    brand: 'Doodles',
+    aka: 'Blue-chip NFT brand',
+    line: 'Discord management + moderation support. Ops for a community that actually runs like a product.',
+    logo: '/portfolio/logo-doodles.jpg',
+    logoClass: '',
+  },
+]
+
 const testimonials = [
   {
     src: '/portfolio/testimonial-legends-of-asians.png',
@@ -39,8 +56,31 @@ export function Testimonials() {
         <SectionHeading
           eyebrow="Proof"
           title="People said nice things."
-          description={`Run by ${FOUNDERS_SHORT}. Real Discord DMs — not fake reviews we wrote ourselves.`}
+          description={`Run by ${FOUNDERS_SHORT}. Real Discord DMs — plus brand work at Bode Piyaj Club and Doodles.`}
         />
+
+        <Reveal>
+          <div className="mb-8 grid gap-3 sm:grid-cols-2">
+            {brandCreds.map((c) => (
+              <div
+                key={c.brand}
+                className="flex gap-3 rounded-sm border-[3px] border-black bg-card p-4 shadow-[3px_3px_0_#000]"
+              >
+                <img
+                  src={c.logo}
+                  alt=""
+                  className={`h-12 w-12 shrink-0 rounded-lg border-2 border-black object-cover ${c.logoClass}`}
+                  loading="lazy"
+                />
+                <div className="min-w-0">
+                  <p className="text-title text-base text-text">{c.brand}</p>
+                  <p className="text-[11px] text-accent">{c.aka}</p>
+                  <p className="mt-1 text-[13px] leading-snug text-muted">{c.line}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
 
         <div className="grid gap-5 sm:grid-cols-2">
           {testimonials.map((t, i) => (
