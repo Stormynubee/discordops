@@ -29,21 +29,21 @@ type BrandGig = {
 
 const brandGigs: BrandGig[] = [
   {
-    name: 'Bode Piyaj Club',
-    aka: 'Bored Ape Yacht Club',
+    name: 'Bored Ape Yacht Club',
+    aka: 'BAYC',
     role: 'Collaboration Manager',
     blurb:
-      'Collab ops + Discord moderation on one of the biggest NFT brands. Partnerships, vibes, and keeping the server from catching fire.',
-    logo: '/portfolio/logo-bayc.svg',
+      'Collab ops and Discord moderation for one of the biggest NFT brands. Partnerships, vibes, and keeping the server from catching fire.',
+    logo: '/portfolio/logo-bayc-light.svg',
     logoAlt: 'Bored Ape Yacht Club official skull logo',
     tags: ['Collabs', 'Moderation', 'Growth'],
-    logoClass: 'bg-black p-1.5 object-contain',
+    logoClass: 'bg-[#1a1208] p-2 object-contain',
   },
   {
     name: 'Doodles',
     role: 'Discord Management',
     blurb:
-      'Day-to-day Discord ops for Doodles — structure, moderation, and community growth support for a blue-chip brand.',
+      'Day-to-day Discord ops for Doodles. Structure, moderation, and growth support for a blue-chip brand that actually runs like a product.',
     logo: '/portfolio/logo-doodles.jpg',
     logoAlt: 'Doodles community mark',
     tags: ['Discord ops', 'Moderation', 'Growth'],
@@ -233,7 +233,7 @@ export function Portfolio() {
                   Founders for Founders
                 </h3>
                 <p className="text-body text-sm text-muted">
-                  Brand + Discord banner for a founder community. Same ops energy —
+                  Brand and Discord banner for a founder community. Same ops energy,
                   visuals that actually look like a real server.
                 </p>
                 <p className="text-title text-accent">Banner · brand pack</p>

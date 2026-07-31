@@ -567,7 +567,7 @@ export function DiscordMockup() {
                 className="hard-cta text-[11px] sm:text-[12px]"
               >
                 <span className="hard-cta-mark" aria-hidden />
-                Tap channels — we&apos;ll tour them live
+                Tap channels. We&apos;ll tour them live
                 <span aria-hidden className="font-display text-[14px] leading-none">
                   →
                 </span>

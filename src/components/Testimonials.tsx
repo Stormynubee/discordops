@@ -3,16 +3,16 @@ import { Reveal, SectionHeading } from './ui'
 
 const brandCreds = [
   {
-    brand: 'Bode Piyaj Club',
-    aka: 'Bored Ape Yacht Club',
-    line: 'Collaboration manager + Discord moderation. Big brand, bigger chaos — we kept collabs and community moving.',
-    logo: '/portfolio/logo-bayc.svg',
-    logoClass: 'bg-black p-1 object-contain',
+    brand: 'Bored Ape Yacht Club',
+    aka: 'BAYC · Collab manager',
+    line: 'Collaboration manager and Discord moderation. Big brand, bigger chaos. We kept collabs and community moving.',
+    logo: '/portfolio/logo-bayc-light.svg',
+    logoClass: 'bg-[#1a1208] p-1.5 object-contain',
   },
   {
     brand: 'Doodles',
-    aka: 'Blue-chip NFT brand',
-    line: 'Discord management + moderation support. Ops for a community that actually runs like a product.',
+    aka: 'Discord management',
+    line: 'Discord ops and moderation support for a blue-chip brand. Structure, growth help, and keeping rooms sane.',
     logo: '/portfolio/logo-doodles.jpg',
     logoClass: '',
   },
@@ -36,7 +36,7 @@ const testimonials = [
   {
     src: '/portfolio/testimonial-duke.jpg',
     alt: 'Discord message from Duke saying I love your work and would call again',
-    quote: 'I love your work bruh — I would call you for another work soon',
+    quote: 'I love your work bruh. I would call you for another work soon',
     name: 'Duke',
     role: 'Client',
   },
@@ -56,7 +56,7 @@ export function Testimonials() {
         <SectionHeading
           eyebrow="Proof"
           title="People said nice things."
-          description={`Run by ${FOUNDERS_SHORT}. Real Discord DMs — plus brand work at Bode Piyaj Club and Doodles.`}
+          description={`Run by ${FOUNDERS_SHORT}. Real Discord DMs, plus brand work at Bored Ape Yacht Club and Doodles.`}
         />
 
         <Reveal>
