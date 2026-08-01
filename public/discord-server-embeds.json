@@ -231,18 +231,18 @@
                 "inline": false
               },
               {
-                "name": "Kickoff · $129",
-                "value": "Stop the embarrassment — setup, branding, verify/welcome, tickets, basic mod.",
+                "name": "Kickoff · $60",
+                "value": "Stop the embarrassment. Setup, branding, verify/welcome, tickets, basic mod.",
                 "inline": true
               },
               {
-                "name": "Autopilot · $249",
-                "value": "Bots do the boring stuff — custom bot, webhooks, analytics, leveling.",
+                "name": "Autopilot · $120",
+                "value": "Bots do the boring stuff. Custom bot, webhooks, analytics, leveling.",
                 "inline": true
               },
               {
-                "name": "Full Send · $459",
-                "value": "We become your Discord dept — integrations, training, monthly maintenance.",
+                "name": "Full Send · $259",
+                "value": "We become your Discord dept. Integrations, training, monthly maintenance.",
                 "inline": true
               }
             ],

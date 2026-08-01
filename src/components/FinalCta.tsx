@@ -27,7 +27,7 @@ export function FinalCta() {
             </h2>
             <p className="text-body mx-auto mt-3 max-w-md text-white/90 sm:mt-4">
               No @everyone abuse. No 2am #general meltdowns. Just a server that works. Full Send is
-              $459 and has basically everything, or just say hi.
+              $259 and has basically everything, or just say hi.
             </p>
             <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center">
               <Button
@@ -35,7 +35,7 @@ export function FinalCta() {
                 variant="secondary"
                 className="!bg-bg !text-text hover:!bg-yellow hover:!text-bg"
               >
-                Go Full Send for $459
+                Go Full Send for $259
               </Button>
               <Button
                 href="#contact"

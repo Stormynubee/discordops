@@ -23,7 +23,7 @@ export type PlanDefinition = {
 export const PLANS: Record<PlanId, PlanDefinition> = {
   Kickoff: {
     id: 'Kickoff',
-    price: '129',
+    price: '60',
     tagline: 'stop the embarrassment',
     blurb: 'Your server looks rough. We fix that.',
     featured: false,
@@ -47,7 +47,7 @@ export const PLANS: Record<PlanId, PlanDefinition> = {
   },
   Autopilot: {
     id: 'Autopilot',
-    price: '249',
+    price: '120',
     tagline: 'bots do the boring stuff',
     blurb: 'Bots, tickets, analytics. Your mods can breathe again.',
     featured: false,
@@ -71,7 +71,7 @@ export const PLANS: Record<PlanId, PlanDefinition> = {
   },
   'Full Send': {
     id: 'Full Send',
-    price: '459',
+    price: '259',
     tagline: 'we become your discord dept',
     blurb: 'Everything. Integrations, training, maintenance. We stick around.',
     featured: true,

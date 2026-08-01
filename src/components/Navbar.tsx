@@ -39,7 +39,7 @@ const links: NavLink[] = [
     label: 'Pricing',
     href: '#pricing',
     sectionId: 'pricing',
-    blurb: '$129 / $249 / $459. Everything listed is included.',
+    blurb: '$60 / $120 / $259. Everything listed is included.',
     preview: 'pricing',
   },
   {
@@ -131,9 +131,9 @@ function PreviewArt({ kind }: { kind: NavLink['preview'] }) {
     return (
       <div className="flex items-end gap-1.5 p-2.5">
         {[
-          { p: '$129', h: 'h-16', featured: false },
-          { p: '$459', h: 'h-20', featured: true },
-          { p: '$249', h: 'h-16', featured: false },
+          { p: '$60', h: 'h-16', featured: false },
+          { p: '$259', h: 'h-20', featured: true },
+          { p: '$120', h: 'h-16', featured: false },
         ].map((c) => (
           <div
             key={c.p}

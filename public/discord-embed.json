@@ -9,9 +9,9 @@
         "url": "https://deezops.vercel.app/brand/deezops-logo.png"
       },
       "fields": [
-        { "name": "Kickoff", "value": "$129", "inline": true },
-        { "name": "Autopilot", "value": "$249", "inline": true },
-        { "name": "Full Send", "value": "$459", "inline": true }
+        { "name": "Kickoff", "value": "$60", "inline": true },
+        { "name": "Autopilot", "value": "$120", "inline": true },
+        { "name": "Full Send", "value": "$259", "inline": true }
       ],
       "footer": {
         "text": "Hansraj & Arya"
