@@ -32,13 +32,13 @@ export function validateOrderFields(input: {
   server: string
   notes: string
 }): string | null {
+  if (input.server.trim().length > 500) return 'Server link is too long.'
+  if (input.notes.trim().length > 4000) return 'Notes are too long.'
   const name = clampText(input.name, 120)
   const email = clampText(input.email, 254)
   const discord = clampText(input.discord, 80)
   if (name.length < 2) return 'Add your name.'
   if (!isValidEmail(email)) return 'Enter a valid email.'
   if (discord.length < 2) return 'Add your Discord username.'
-  if (clampText(input.server, 500).length > 500) return 'Server link is too long.'
-  if (clampText(input.notes, 4000).length > 4000) return 'Notes are too long.'
   return null
 }

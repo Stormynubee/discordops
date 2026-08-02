@@ -1,8 +1,10 @@
 import { useReducedMotion } from 'framer-motion'
 import { Button, Sticker } from './ui'
+import { PLANS } from '../data/plans'
 
 export function FinalCta() {
   const reduceMotion = useReducedMotion()
+  const fullSendPrice = `$${PLANS['Full Send'].price}`
 
   return (
     <section className="relative z-10 section-y-sm">
@@ -26,8 +28,8 @@ export function FinalCta() {
               Ready to stop winging it?
             </h2>
             <p className="text-body mx-auto mt-3 max-w-md text-white/90 sm:mt-4">
-              No @everyone abuse. No 2am #general meltdowns. Just a server that works. Full Send is
-              $259 and has basically everything, or just say hi.
+              No @everyone abuse. No 2am #general meltdowns. Just a server that works. Full Send is{' '}
+              {fullSendPrice} and has basically everything, or just say hi.
             </p>
             <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center">
               <Button
@@ -35,7 +37,7 @@ export function FinalCta() {
                 variant="secondary"
                 className="!bg-bg !text-text hover:!bg-yellow hover:!text-bg"
               >
-                Go Full Send for $259
+                Go Full Send for {fullSendPrice}
               </Button>
               <Button
                 href="#contact"

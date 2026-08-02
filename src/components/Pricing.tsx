@@ -24,7 +24,7 @@ export function Pricing() {
           <p className="text-body text-muted">
             Still picking?{' '}
             <a href="#order?plan=Full%20Send" className="font-bold text-accent underline-offset-4 hover:underline">
-              Full Send ($259)
+              {`Full Send ($${PLANS['Full Send'].price})`}
             </a>{' '}
             is what {FOUNDERS_SHORT} would pick.{' '}
             <a href="#contact" className="font-bold text-lime underline-offset-4 hover:underline">

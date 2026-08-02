@@ -4,6 +4,11 @@ import { Menu, X, ArrowUpRight } from 'lucide-react'
 import { Button } from './ui'
 import { BrandLockup } from './BrandMark'
 import { FinnPricingPop, JakeStretchRide } from './JakeStretchRide'
+import { PLANS } from '../data/plans'
+
+const PRICE_KICKOFF = `$${PLANS.Kickoff.price}`
+const PRICE_AUTOPILOT = `$${PLANS.Autopilot.price}`
+const PRICE_FULL_SEND = `$${PLANS['Full Send'].price}`
 
 type NavLink = {
   label: string
@@ -39,7 +44,7 @@ const links: NavLink[] = [
     label: 'Pricing',
     href: '#pricing',
     sectionId: 'pricing',
-    blurb: '$60 / $120 / $259. Everything listed is included.',
+    blurb: `${PRICE_KICKOFF} / ${PRICE_AUTOPILOT} / ${PRICE_FULL_SEND}. Everything listed is included.`,
     preview: 'pricing',
   },
   {
@@ -131,9 +136,9 @@ function PreviewArt({ kind }: { kind: NavLink['preview'] }) {
     return (
       <div className="flex items-end gap-1.5 p-2.5">
         {[
-          { p: '$60', h: 'h-16', featured: false },
-          { p: '$259', h: 'h-20', featured: true },
-          { p: '$120', h: 'h-16', featured: false },
+          { p: PRICE_KICKOFF, h: 'h-16', featured: false },
+          { p: PRICE_FULL_SEND, h: 'h-20', featured: true },
+          { p: PRICE_AUTOPILOT, h: 'h-16', featured: false },
         ].map((c) => (
           <div
             key={c.p}
@@ -277,6 +282,12 @@ export function Navbar() {
       document.body.style.overflow = ''
     }
   }, [open])
+
+  useEffect(() => {
+    return () => {
+      if (leaveTimer.current) window.clearTimeout(leaveTimer.current)
+    }
+  }, [])
 
   useEffect(() => {
     const ids = links.map((l) => l.sectionId)

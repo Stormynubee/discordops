@@ -247,8 +247,9 @@ export function DiscordMockup() {
   }, [commandCenterInView])
 
   // Auto-tour channels so visitors see every room without hunting.
+  // Wait until prefer-reduced-motion is known (false) so we don't flash-start then cancel.
   useEffect(() => {
-    if (reduceMotion || !commandCenterInView || userPaused) return
+    if (reduceMotion !== false || !commandCenterInView || userPaused) return
 
     const id = window.setInterval(() => {
       setActiveId((current) => {
@@ -288,10 +289,11 @@ export function DiscordMockup() {
       })
   }
 
-  const selectChannel = (id: ChannelId) => {
+  const selectChannel = (id: ChannelId, options?: { pause?: boolean }) => {
     setActiveId(id)
     setVisited((prev) => (prev.includes(id) ? prev : [...prev, id]))
     setPromptState('used')
+    if (options?.pause === false) return
     setUserPaused(true)
     if (resumeTimerRef.current) window.clearTimeout(resumeTimerRef.current)
     resumeTimerRef.current = window.setTimeout(() => {
@@ -553,7 +555,7 @@ export function DiscordMockup() {
               />
               <motion.button
                 type="button"
-                onClick={() => selectChannel(nextChannel.id)}
+                onClick={() => selectChannel(nextChannel.id, { pause: false })}
                 whileHover={
                   reduceMotion
                     ? undefined
@@ -567,7 +569,7 @@ export function DiscordMockup() {
                 className="hard-cta text-[11px] sm:text-[12px]"
               >
                 <span className="hard-cta-mark" aria-hidden />
-                Tap channels. We&apos;ll tour them live
+                Next room
                 <span aria-hidden className="font-display text-[14px] leading-none">
                   →
                 </span>
@@ -589,7 +591,7 @@ export function DiscordMockup() {
               }`}
             >
               {allVisited
-                ? 'All channels cleared. You get it.'
+                ? 'Full channel tour done.'
                 : userPaused
                   ? `Your turn · ${visited.length}/${channels.length} rooms`
                   : `Auto-touring · ${visited.length}/${channels.length} rooms`}
