@@ -158,7 +158,7 @@ function PreviewArt({ kind }: { kind: NavLink['preview'] }) {
 
   return (
     <div className="space-y-1.5 p-2.5">
-      {['How long does it take?', 'Who owns the server?', 'Can we add boosts?'].map((q, i) => (
+      {['How long does it take?', 'Who owns the server?', 'Are boosts included?'].map((q, i) => (
         <div
           key={q}
           className="flex items-center justify-between rounded-sm border-2 border-black bg-elevated px-2 py-1.5 shadow-[2px_2px_0_#000]"

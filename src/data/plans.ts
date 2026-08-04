@@ -2,6 +2,13 @@ import { FOUNDERS_SHORT } from './brand'
 
 export type PlanId = 'Kickoff' | 'Autopilot' | 'Full Send'
 
+export type PlanBoosts = {
+  /** Discord server boost count included with the plan */
+  amount: number
+  /** How many months those boosts are covered */
+  months: number
+}
+
 export type PlanDefinition = {
   id: PlanId
   price: string
@@ -12,12 +19,20 @@ export type PlanDefinition = {
   /** Plan mascot art under /public/plans */
   mascot: string
   mascotAlt: string
+  /** Included Discord boosts (not an add-on) */
+  boosts: PlanBoosts
   features: string[]
   preview: {
     channels: string[]
     status: string
     note: string
   }
+}
+
+export function formatPlanBoosts(boosts: PlanBoosts): string {
+  const boostLabel = `${boosts.amount}× boost${boosts.amount === 1 ? '' : 's'}`
+  const monthLabel = boosts.months === 1 ? '1 month' : `${boosts.months} months`
+  return `${boostLabel} for ${monthLabel}`
 }
 
 export const PLANS: Record<PlanId, PlanDefinition> = {
@@ -30,6 +45,7 @@ export const PLANS: Record<PlanId, PlanDefinition> = {
     cta: 'Get Kickoff',
     mascot: '/plans/kickoff-wumpus.png',
     mascotAlt: 'Pixel Wumpus wearing a gold crown',
+    boosts: { amount: 2, months: 1 },
     features: [
       'Server setup & branding',
       'Roles, channels & permissions',
@@ -37,7 +53,7 @@ export const PLANS: Record<PlanId, PlanDefinition> = {
       'Basic moderation',
       'Ticket system',
       'Basic automations',
-      'Optional server boosts (add-on)',
+      '2× boosts for 1 month',
     ],
     preview: {
       channels: ['# welcome', '# rules', '# support'],
@@ -54,6 +70,7 @@ export const PLANS: Record<PlanId, PlanDefinition> = {
     cta: 'Get Autopilot',
     mascot: '/plans/autopilot-mod.png',
     mascotAlt: 'Community manager shield badge',
+    boosts: { amount: 8, months: 2 },
     features: [
       'Everything in Kickoff',
       'Custom bot (slash commands & APIs)',
@@ -61,7 +78,7 @@ export const PLANS: Record<PlanId, PlanDefinition> = {
       'Analytics dashboard',
       'Leveling, events & suggestion board',
       'AI assistant',
-      'Optional server boosts (add-on)',
+      '8× boosts for 2 months',
     ],
     preview: {
       channels: ['# welcome', '# support', '# announcements'],
@@ -78,6 +95,7 @@ export const PLANS: Record<PlanId, PlanDefinition> = {
     cta: 'Go Full Send',
     mascot: '/plans/full-send-king.png',
     mascotAlt: 'King Pepe in royal robes with a scepter',
+    boosts: { amount: 14, months: 3 },
     features: [
       'Everything in Autopilot',
       'Advanced bots & deep integrations',
@@ -88,7 +106,7 @@ export const PLANS: Record<PlanId, PlanDefinition> = {
       'Community management',
       'Monthly maintenance & priority support',
       'Unlimited consultation',
-      'Optional server boosts (add-on)',
+      '14× boosts for 3 months',
     ],
     preview: {
       channels: ['# vip-lounge', '# support', '# governance'],

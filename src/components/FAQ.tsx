@@ -19,7 +19,7 @@ const faqs = [
   },
   {
     q: 'Are Server Boosts included?',
-    a: 'Nope. Those are Discord\'s thing, priced separate. We can add them to any package if you want the shiny perks.',
+    a: 'Yes. Kickoff includes 2× boosts for 1 month, Autopilot includes 8× for 2 months, and Full Send includes 14× for 3 months.',
   },
   {
     q: 'What is the difference between Autopilot and Full Send?',
